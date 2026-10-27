@@ -8,9 +8,9 @@
 > 2026-09-15. Binding evidence: `docs/work/evidence/PIANO-UI-001-ACCEPTANCE.md`.
 > **Supersedes:** nothing. Existing accepted behavior and frozen evidence remain intact.
 
-This is the single Premium UI architecture source. [PLAN](../work/PLAN.md)
-owns roadmap sequencing; [TASKS](../work/TASKS.yaml) owns authorization;
-[STATUS](../work/STATUS.md) owns current lifecycle. “Proposed” below means a
+This is the single Premium UI architecture source. PLAN
+owns roadmap sequencing; TASKS owns authorization;
+STATUS owns current lifecycle. “Proposed” below means a
 future contract requiring its own authorized implementation and verification.
 No UI-002 feature is implemented or authorized by this document.
 
@@ -30,7 +30,7 @@ No UI-002 feature is implemented or authorized by this document.
 | LibraryService resolves opaque `song_id` to a validated read-only source; SQLite catalog enrichment is separate from playback interpretation | [service.py](../../src/piano_core/library/service.py), [metadata.py](../../src/piano_core/library/metadata.py); song ID is path-derived, not a source-content revision |
 | HTTP `/api/v1`, bounded handlers, deterministic errors; native ES-module UI with visibility-aware 1 s polling, timeouts and stale-search tokens | [handlers.py](../../src/piano_core/api/handlers.py), [serialization.py](../../src/piano_core/api/serialization.py), [app.js](../../src/piano_core/web/static/app.js), [Web UI ADR](ADR-WEB-UI-V1.md); no React, bundler or public WebSocket stream |
 | LED policy and hardware mapping remain Core-owned; Device Identity is persistent, explicitly initialized and read-only at runtime | [LED ADR](ADR-LED-KEYBOARD-V1.md), [Identity ADR](ADR-DEVICE-IDENTITY-V1.md); no renderer may access internal device transport or initialize identity |
-| P001–P015, hotfixes and PROD-001 have recorded acceptance/commit history | Existing [ledger](../work/TASKS.yaml) and [PROD-001 evidence](../work/evidence/PIANO-PROD-001-DEVICE-IDENTITY.md); these are inspected historical evidence, not fresh hardware tests |
+| P001–P015, hotfixes and PROD-001 have recorded acceptance/commit history | Existing ledger and PROD-001 evidence; these are inspected historical evidence, not fresh hardware tests |
 
 ### 1.2 Resolve assumptions without rewriting history
 
@@ -423,9 +423,9 @@ optional visual choice to musical behavior, or bypass existing boundaries.
 7. **Progress and AI:** persistence/retention, scoring policies, model licensing,
    hand assets and optional external teaching data need their own scoped decisions.
 
-The separate [Premium UI roadmap](../work/PLAN.md#premium-ui-v2-lineage)
+The separate Premium UI roadmap
 registers UI-001…UI-011. Independent review returned `PASS`, and Owner Redion
 Cekrezi accepted this architecture on 2026-09-15 against the revision-bound
-[acceptance record](../work/evidence/PIANO-UI-001-ACCEPTANCE.md). This acceptance
+acceptance record. This acceptance
 does not accept a renderer, a performance claim, a new Core behavior or UI-002
 implementation. Existing acceptance records remain unchanged.
