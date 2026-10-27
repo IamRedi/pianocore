@@ -64,6 +64,7 @@ UI_ASSETS = {
     "vendor/utils/BufferGeometryUtils.js": "text/javascript; charset=utf-8",
     "vendor/utils/SkeletonUtils.js": "text/javascript; charset=utf-8",
     "vendor/three.LICENSE.txt": "text/plain; charset=utf-8",
+    "assets/piano-hand-tier-a.glb": "model/gltf-binary",
     "favicon.svg": "image/svg+xml",
     "manifest.webmanifest": "application/manifest+json",
 }
