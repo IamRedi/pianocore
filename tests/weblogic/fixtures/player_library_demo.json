@@ -1,0 +1,1616 @@
+[
+  {
+    "fingering": {
+      "capabilities": {
+        "alternatives": true,
+        "authored_metadata": false,
+        "finger_sensitive_grading": false,
+        "hand_pose_or_ik": false,
+        "manual_override_persistence": "deferred",
+        "manual_overrides": false
+      },
+      "config": {
+        "alternative_count": 3,
+        "max_hand_span_semitones": 12,
+        "strategy": "balanced_v1"
+      },
+      "engine_version": "balanced-engine-v1",
+      "excluded_note_count": 0,
+      "generation": 1,
+      "plan_id": "fingering-sha256:35bc84f55f0939f0bb3829b74e88db93d8b66458e51202bad095c2323309ff79",
+      "provenance": "DETERMINISTIC_INFERENCE",
+      "schema_version": 1,
+      "song_id": "demo-prelude",
+      "source_version": "score-sha256:c271eb504edcc432abcf5ac6d878e79dbba6aa462fe269e205acdd19cead30d3",
+      "strategy": "balanced_v1",
+      "targets": [
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 2.0,
+          "score_index": 0,
+          "target_id": "score:0"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 3.25,
+          "score_index": 1,
+          "target_id": "score:1"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 4.5,
+          "score_index": 2,
+          "target_id": "score:2"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 72,
+          "onset_seconds": 5.75,
+          "score_index": 3,
+          "target_id": "score:3"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 7.0,
+          "score_index": 4,
+          "target_id": "score:4"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 8.25,
+          "score_index": 5,
+          "target_id": "score:5"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 9.5,
+          "score_index": 6,
+          "target_id": "score:6"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 10.75,
+          "score_index": 7,
+          "target_id": "score:7"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 12.0,
+          "score_index": 8,
+          "target_id": "score:8"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 13.25,
+          "score_index": 9,
+          "target_id": "score:9"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 14.5,
+          "score_index": 10,
+          "target_id": "score:10"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 72,
+          "onset_seconds": 15.75,
+          "score_index": 11,
+          "target_id": "score:11"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 17.0,
+          "score_index": 12,
+          "target_id": "score:12"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 18.25,
+          "score_index": 13,
+          "target_id": "score:13"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 19.5,
+          "score_index": 14,
+          "target_id": "score:14"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 20.75,
+          "score_index": 15,
+          "target_id": "score:15"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 22.0,
+          "score_index": 16,
+          "target_id": "score:16"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 23.25,
+          "score_index": 17,
+          "target_id": "score:17"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 24.5,
+          "score_index": 18,
+          "target_id": "score:18"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 72,
+          "onset_seconds": 25.75,
+          "score_index": 19,
+          "target_id": "score:19"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 27.0,
+          "score_index": 20,
+          "target_id": "score:20"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 28.25,
+          "score_index": 21,
+          "target_id": "score:21"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 29.5,
+          "score_index": 22,
+          "target_id": "score:22"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 30.75,
+          "score_index": 23,
+          "target_id": "score:23"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 32.0,
+          "score_index": 24,
+          "target_id": "score:24"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 33.25,
+          "score_index": 25,
+          "target_id": "score:25"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 34.5,
+          "score_index": 26,
+          "target_id": "score:26"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 72,
+          "onset_seconds": 35.75,
+          "score_index": 27,
+          "target_id": "score:27"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 37.0,
+          "score_index": 28,
+          "target_id": "score:28"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 38.25,
+          "score_index": 29,
+          "target_id": "score:29"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 39.5,
+          "score_index": 30,
+          "target_id": "score:30"
+        },
+        {
+          "alternatives": [
+            2,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 1,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 40.75,
+          "score_index": 31,
+          "target_id": "score:31"
+        }
+      ],
+      "version": 1,
+      "warnings": [
+        "source_contains_no_authored_hand_or_fingering_metadata"
+      ]
+    },
+    "score": {
+      "diagnostics": {
+        "outside_keyboard_note_ons": 0,
+        "percussion_note_ons": 0,
+        "retriggered_note_ons": 0,
+        "unpaired_note_offs": 0,
+        "unterminated_note_ons": 0
+      },
+      "duration_seconds": 44.0,
+      "notation": {
+        "supported": [
+          "pitch",
+          "onset",
+          "duration",
+          "channel",
+          "velocity"
+        ],
+        "unsupported": [
+          "track",
+          "tempo_map",
+          "time_signature",
+          "measure",
+          "beat",
+          "hand",
+          "fingering",
+          "voice",
+          "phrasing",
+          "enharmonic_spelling"
+        ]
+      },
+      "note_count": 32,
+      "notes": [
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 0,
+          "midi": 60,
+          "onset_seconds": 2.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 1,
+          "midi": 67,
+          "onset_seconds": 3.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 2,
+          "midi": 64,
+          "onset_seconds": 4.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 3,
+          "midi": 72,
+          "onset_seconds": 5.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 4,
+          "midi": 67,
+          "onset_seconds": 7.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 5,
+          "midi": 64,
+          "onset_seconds": 8.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 6,
+          "midi": 62,
+          "onset_seconds": 9.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 7,
+          "midi": 65,
+          "onset_seconds": 10.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 8,
+          "midi": 60,
+          "onset_seconds": 12.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 9,
+          "midi": 67,
+          "onset_seconds": 13.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 10,
+          "midi": 64,
+          "onset_seconds": 14.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 11,
+          "midi": 72,
+          "onset_seconds": 15.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 12,
+          "midi": 67,
+          "onset_seconds": 17.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 13,
+          "midi": 64,
+          "onset_seconds": 18.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 14,
+          "midi": 62,
+          "onset_seconds": 19.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 15,
+          "midi": 65,
+          "onset_seconds": 20.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 16,
+          "midi": 60,
+          "onset_seconds": 22.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 17,
+          "midi": 67,
+          "onset_seconds": 23.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 18,
+          "midi": 64,
+          "onset_seconds": 24.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 19,
+          "midi": 72,
+          "onset_seconds": 25.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 20,
+          "midi": 67,
+          "onset_seconds": 27.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 21,
+          "midi": 64,
+          "onset_seconds": 28.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 22,
+          "midi": 62,
+          "onset_seconds": 29.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 23,
+          "midi": 65,
+          "onset_seconds": 30.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 24,
+          "midi": 60,
+          "onset_seconds": 32.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 25,
+          "midi": 67,
+          "onset_seconds": 33.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 26,
+          "midi": 64,
+          "onset_seconds": 34.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 27,
+          "midi": 72,
+          "onset_seconds": 35.75,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 28,
+          "midi": 67,
+          "onset_seconds": 37.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 29,
+          "midi": 64,
+          "onset_seconds": 38.25,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 30,
+          "midi": 62,
+          "onset_seconds": 39.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 31,
+          "midi": 65,
+          "onset_seconds": 40.75,
+          "velocity": 78
+        }
+      ],
+      "schema_version": 1,
+      "song_id": "demo-prelude",
+      "source_version": "score-sha256:c271eb504edcc432abcf5ac6d878e79dbba6aa462fe269e205acdd19cead30d3",
+      "time_basis": "song_seconds",
+      "title": "Quiet Prelude"
+    }
+  },
+  {
+    "fingering": {
+      "capabilities": {
+        "alternatives": true,
+        "authored_metadata": false,
+        "finger_sensitive_grading": false,
+        "hand_pose_or_ik": false,
+        "manual_override_persistence": "deferred",
+        "manual_overrides": false
+      },
+      "config": {
+        "alternative_count": 3,
+        "max_hand_span_semitones": 12,
+        "strategy": "balanced_v1"
+      },
+      "engine_version": "balanced-engine-v1",
+      "excluded_note_count": 0,
+      "generation": 1,
+      "plan_id": "fingering-sha256:3687235a6ae524a1f575ea133330082b6f29ac294c4e420d8628b36e89a89455",
+      "provenance": "DETERMINISTIC_INFERENCE",
+      "schema_version": 1,
+      "song_id": "demo-waltz",
+      "source_version": "score-sha256:01858f73ce6f7a92461c30ac2759dd4c22344f5d6ccfecd590878d91efbf31c5",
+      "strategy": "balanced_v1",
+      "targets": [
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 2.0,
+          "score_index": 0,
+          "target_id": "score:0"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 3.5,
+          "score_index": 1,
+          "target_id": "score:1"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 5.0,
+          "score_index": 2,
+          "target_id": "score:2"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 6.5,
+          "score_index": 3,
+          "target_id": "score:3"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 8.0,
+          "score_index": 4,
+          "target_id": "score:4"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 69,
+          "onset_seconds": 9.5,
+          "score_index": 5,
+          "target_id": "score:5"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 11.0,
+          "score_index": 6,
+          "target_id": "score:6"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 12.5,
+          "score_index": 7,
+          "target_id": "score:7"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 14.0,
+          "score_index": 8,
+          "target_id": "score:8"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 15.5,
+          "score_index": 9,
+          "target_id": "score:9"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 17.0,
+          "score_index": 10,
+          "target_id": "score:10"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 69,
+          "onset_seconds": 18.5,
+          "score_index": 11,
+          "target_id": "score:11"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 20.0,
+          "score_index": 12,
+          "target_id": "score:12"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 21.5,
+          "score_index": 13,
+          "target_id": "score:13"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 23.0,
+          "score_index": 14,
+          "target_id": "score:14"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 24.5,
+          "score_index": 15,
+          "target_id": "score:15"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 26.0,
+          "score_index": 16,
+          "target_id": "score:16"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 69,
+          "onset_seconds": 27.5,
+          "score_index": 17,
+          "target_id": "score:17"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 29.0,
+          "score_index": 18,
+          "target_id": "score:18"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 30.5,
+          "score_index": 19,
+          "target_id": "score:19"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 32.0,
+          "score_index": 20,
+          "target_id": "score:20"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 33.5,
+          "score_index": 21,
+          "target_id": "score:21"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 35.0,
+          "score_index": 22,
+          "target_id": "score:22"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 69,
+          "onset_seconds": 36.5,
+          "score_index": 23,
+          "target_id": "score:23"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 38.0,
+          "score_index": 24,
+          "target_id": "score:24"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 39.5,
+          "score_index": 25,
+          "target_id": "score:25"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 67,
+          "onset_seconds": 41.0,
+          "score_index": 26,
+          "target_id": "score:26"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 62,
+          "onset_seconds": 42.5,
+          "score_index": 27,
+          "target_id": "score:27"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 65,
+          "onset_seconds": 44.0,
+          "score_index": 28,
+          "target_id": "score:28"
+        },
+        {
+          "alternatives": [
+            3,
+            5,
+            2
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 4,
+          "hand": "RIGHT",
+          "midi": 69,
+          "onset_seconds": 45.5,
+          "score_index": 29,
+          "target_id": "score:29"
+        },
+        {
+          "alternatives": [
+            1,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 2,
+          "hand": "RIGHT",
+          "midi": 60,
+          "onset_seconds": 47.0,
+          "score_index": 30,
+          "target_id": "score:30"
+        },
+        {
+          "alternatives": [
+            2,
+            3,
+            4
+          ],
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "finger": 1,
+          "hand": "RIGHT",
+          "midi": 64,
+          "onset_seconds": 48.5,
+          "score_index": 31,
+          "target_id": "score:31"
+        }
+      ],
+      "version": 1,
+      "warnings": [
+        "source_contains_no_authored_hand_or_fingering_metadata"
+      ]
+    },
+    "score": {
+      "diagnostics": {
+        "outside_keyboard_note_ons": 0,
+        "percussion_note_ons": 0,
+        "retriggered_note_ons": 0,
+        "unpaired_note_offs": 0,
+        "unterminated_note_ons": 0
+      },
+      "duration_seconds": 52.0,
+      "notation": {
+        "supported": [
+          "pitch",
+          "onset",
+          "duration",
+          "channel",
+          "velocity"
+        ],
+        "unsupported": [
+          "track",
+          "tempo_map",
+          "time_signature",
+          "measure",
+          "beat",
+          "hand",
+          "fingering",
+          "voice",
+          "phrasing",
+          "enharmonic_spelling"
+        ]
+      },
+      "note_count": 32,
+      "notes": [
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 0,
+          "midi": 60,
+          "onset_seconds": 2.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 1,
+          "midi": 64,
+          "onset_seconds": 3.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 2,
+          "midi": 67,
+          "onset_seconds": 5.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999998,
+          "index": 3,
+          "midi": 62,
+          "onset_seconds": 6.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 4,
+          "midi": 65,
+          "onset_seconds": 8.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 5,
+          "midi": 69,
+          "onset_seconds": 9.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 6,
+          "midi": 60,
+          "onset_seconds": 11.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 7,
+          "midi": 64,
+          "onset_seconds": 12.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 8,
+          "midi": 67,
+          "onset_seconds": 14.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 9,
+          "midi": 62,
+          "onset_seconds": 15.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 10,
+          "midi": 65,
+          "onset_seconds": 17.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 11,
+          "midi": 69,
+          "onset_seconds": 18.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 12,
+          "midi": 60,
+          "onset_seconds": 20.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 13,
+          "midi": 64,
+          "onset_seconds": 21.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 14,
+          "midi": 67,
+          "onset_seconds": 23.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 15,
+          "midi": 62,
+          "onset_seconds": 24.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 16,
+          "midi": 65,
+          "onset_seconds": 26.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 17,
+          "midi": 69,
+          "onset_seconds": 27.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 18,
+          "midi": 60,
+          "onset_seconds": 29.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.8000000000000007,
+          "index": 19,
+          "midi": 64,
+          "onset_seconds": 30.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 20,
+          "midi": 67,
+          "onset_seconds": 32.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 21,
+          "midi": 62,
+          "onset_seconds": 33.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 22,
+          "midi": 65,
+          "onset_seconds": 35.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 23,
+          "midi": 69,
+          "onset_seconds": 36.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 24,
+          "midi": 60,
+          "onset_seconds": 38.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 25,
+          "midi": 64,
+          "onset_seconds": 39.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 26,
+          "midi": 67,
+          "onset_seconds": 41.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 27,
+          "midi": 62,
+          "onset_seconds": 42.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 28,
+          "midi": 65,
+          "onset_seconds": 44.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 29,
+          "midi": 69,
+          "onset_seconds": 45.5,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 30,
+          "midi": 60,
+          "onset_seconds": 47.0,
+          "velocity": 78
+        },
+        {
+          "channel": 1,
+          "duration_seconds": 0.7999999999999972,
+          "index": 31,
+          "midi": 64,
+          "onset_seconds": 48.5,
+          "velocity": 78
+        }
+      ],
+      "schema_version": 1,
+      "song_id": "demo-waltz",
+      "source_version": "score-sha256:01858f73ce6f7a92461c30ac2759dd4c22344f5d6ccfecd590878d91efbf31c5",
+      "time_basis": "song_seconds",
+      "title": "Window Waltz"
+    }
+  }
+]

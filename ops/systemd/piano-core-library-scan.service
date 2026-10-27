@@ -1,0 +1,25 @@
+# PIANO-P011: production library inventory/scan unit (Piano-Core-owned).
+#
+# Oneshot, runs as the piano-core service user against the host-level
+# read-only service-facing view of the MIDI source library.
+#
+# INVENTORY-ONLY BY DEFAULT: full deep enrichment of ~169k files would take
+# ~19 hours and is a separate bounded/resumable maintenance operation
+# (P010 semantics; run `piano-core-library scan --limit N` manually as the
+# service user if/when authorized). Unchanged files are never reparsed.
+#
+# Invoked by `piano-core-deploy library-scan`; result in the journal.
+# Idempotent; safe to re-run.
+
+[Unit]
+Description=Piano Core library production inventory scan (no enrichment)
+After=srv-piano\x2dcore-midi.mount
+Requires=srv-piano\x2dcore-midi.mount
+
+[Service]
+Type=oneshot
+User=piano-core
+Group=piano-core
+EnvironmentFile=/etc/piano-core/piano-core.env
+ExecStart=/opt/piano-core/venv/bin/piano-core-library scan --no-enrich --library-root /srv/piano-core/midi --index-path /var/lib/piano-core/library/library.sqlite3
+TimeoutStartSec=30min

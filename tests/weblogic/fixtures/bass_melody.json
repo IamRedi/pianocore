@@ -1,0 +1,439 @@
+{
+ "fingering": {
+  "capabilities": {
+   "alternatives": true,
+   "authored_metadata": false,
+   "finger_sensitive_grading": false,
+   "hand_pose_or_ik": false,
+   "manual_override_persistence": "deferred",
+   "manual_overrides": false
+  },
+  "config": {
+   "alternative_count": 3,
+   "max_hand_span_semitones": 12,
+   "strategy": "balanced_v1"
+  },
+  "engine_version": "balanced-engine-v1",
+  "excluded_note_count": 0,
+  "generation": 1,
+  "plan_id": "fingering-sha256:fdab45c6500c82d0e1f8c12e9b0c075d71e91b5c192b1e7c01ead5190cb03286",
+  "provenance": "DETERMINISTIC_INFERENCE",
+  "schema_version": 1,
+  "song_id": "fixture-bass-melody",
+  "source_version": "score-sha256:b0917cef0e24dad827127c717eaf7d390b46d716d1cc887b3dda17843e4cc9ea",
+  "strategy": "balanced_v1",
+  "targets": [
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.6,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 36,
+    "onset_seconds": 0.0,
+    "score_index": 0,
+    "target_id": "score:0"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 2,
+    "duration_seconds": 1.6,
+    "finger": 2,
+    "hand": "LEFT",
+    "midi": 43,
+    "onset_seconds": 2.0,
+    "score_index": 1,
+    "target_id": "score:1"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.5999999999999996,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 36,
+    "onset_seconds": 4.0,
+    "score_index": 2,
+    "target_id": "score:2"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.5999999999999996,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 45,
+    "onset_seconds": 6.0,
+    "score_index": 3,
+    "target_id": "score:3"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 72,
+    "onset_seconds": 8.0,
+    "score_index": 4,
+    "target_id": "score:4"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 8.5,
+    "score_index": 5,
+    "target_id": "score:5"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 79,
+    "onset_seconds": 9.0,
+    "score_index": 6,
+    "target_id": "score:6"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 72,
+    "onset_seconds": 9.5,
+    "score_index": 7,
+    "target_id": "score:7"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 84,
+    "onset_seconds": 10.0,
+    "score_index": 8,
+    "target_id": "score:8"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 79,
+    "onset_seconds": 10.5,
+    "score_index": 9,
+    "target_id": "score:9"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 11.0,
+    "score_index": 10,
+    "target_id": "score:10"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 11.2,
+    "score_index": 11,
+    "target_id": "score:11"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 11.4,
+    "score_index": 12,
+    "target_id": "score:12"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 11.6,
+    "score_index": 13,
+    "target_id": "score:13"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 11.8,
+    "score_index": 14,
+    "target_id": "score:14"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 12.0,
+    "score_index": 15,
+    "target_id": "score:15"
+   }
+  ],
+  "version": 1,
+  "warnings": [
+   "source_contains_no_authored_hand_or_fingering_metadata"
+  ]
+ },
+ "score": {
+  "diagnostics": {
+   "outside_keyboard_note_ons": 0,
+   "percussion_note_ons": 0,
+   "retriggered_note_ons": 0,
+   "unpaired_note_offs": 0,
+   "unterminated_note_ons": 0
+  },
+  "duration_seconds": 13.0,
+  "notation": {
+   "supported": [
+    "pitch",
+    "onset",
+    "duration",
+    "channel",
+    "velocity"
+   ],
+   "unsupported": [
+    "track",
+    "tempo_map",
+    "time_signature",
+    "measure",
+    "beat",
+    "hand",
+    "fingering",
+    "voice",
+    "phrasing",
+    "enharmonic_spelling"
+   ]
+  },
+  "note_count": 16,
+  "notes": [
+   {
+    "channel": 2,
+    "duration_seconds": 1.6,
+    "index": 0,
+    "midi": 36,
+    "onset_seconds": 0.0,
+    "velocity": 76
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.6,
+    "index": 1,
+    "midi": 43,
+    "onset_seconds": 2.0,
+    "velocity": 76
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.5999999999999996,
+    "index": 2,
+    "midi": 36,
+    "onset_seconds": 4.0,
+    "velocity": 76
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.5999999999999996,
+    "index": 3,
+    "midi": 45,
+    "onset_seconds": 6.0,
+    "velocity": 76
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 4,
+    "midi": 72,
+    "onset_seconds": 8.0,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 5,
+    "midi": 76,
+    "onset_seconds": 8.5,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 6,
+    "midi": 79,
+    "onset_seconds": 9.0,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 7,
+    "midi": 72,
+    "onset_seconds": 9.5,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 8,
+    "midi": 84,
+    "onset_seconds": 10.0,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.40000000000000036,
+    "index": 9,
+    "midi": 79,
+    "onset_seconds": 10.5,
+    "velocity": 88
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 10,
+    "midi": 76,
+    "onset_seconds": 11.0,
+    "velocity": 80
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 11,
+    "midi": 76,
+    "onset_seconds": 11.2,
+    "velocity": 80
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 12,
+    "midi": 76,
+    "onset_seconds": 11.4,
+    "velocity": 80
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 13,
+    "midi": 76,
+    "onset_seconds": 11.6,
+    "velocity": 80
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 14,
+    "midi": 76,
+    "onset_seconds": 11.8,
+    "velocity": 80
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.15000000000000036,
+    "index": 15,
+    "midi": 76,
+    "onset_seconds": 12.0,
+    "velocity": 80
+   }
+  ],
+  "schema_version": 1,
+  "song_id": "fixture-bass-melody",
+  "source_version": "score-sha256:b0917cef0e24dad827127c717eaf7d390b46d716d1cc887b3dda17843e4cc9ea",
+  "time_basis": "song_seconds",
+  "title": "Bass Melody Jump Repeat"
+ }
+}

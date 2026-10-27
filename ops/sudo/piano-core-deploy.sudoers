@@ -1,0 +1,7 @@
+# Piano Core deployment helper (one-time bootstrap, Owner-authorized 2026-09-12).
+# Grants user pianopi passwordless execution of EXACTLY one root-owned,
+# non-user-writable helper dedicated to controlled Piano Core deployment
+# (ops/sudo/piano-core-deploy.sh -> /usr/local/sbin/piano-core-deploy).
+# No wildcards, no argument patterns, no other commands, no shell, no ALL.
+# Argument/path validation happens inside the helper (fail closed).
+pianopi ALL=(root) NOPASSWD: /usr/local/sbin/piano-core-deploy

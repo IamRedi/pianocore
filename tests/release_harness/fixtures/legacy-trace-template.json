@@ -1,0 +1,21 @@
+{
+  "source": "R5 unfiltered structured journal; two identical known oldPID trace blocks",
+  "old_pid": 461627,
+  "trace_messages": [
+    "ERROR piano_core.api unhandled API failure on GET /api/v1/live-notes/stream",
+    "Traceback (most recent call last):",
+    "  File \"/opt/piano-core/venv/lib/python3.13/site-packages/piano_core/api/server.py\", line 140, in _dispatch",
+    "    # Register before start: shutdown must also own accepted/not-yet-run work.",
+    "                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "    thread = threading.Thread(",
+    "    ^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "        target=self.process_request_thread, args=(request, client_address),",
+    "        ^",
+    "  File \"/opt/piano-core/venv/lib/python3.13/site-packages/piano_core/api/handlers.py\", line 241, in live_note_stream",
+    "    subscription = channel.subscribe()",
+    "  File \"/opt/piano-core/venv/lib/python3.13/site-packages/piano_core/live_notes.py\", line 202, in subscribe",
+    "    )",
+    "    ",
+    "RuntimeError: live-note publication is closed"
+  ]
+}

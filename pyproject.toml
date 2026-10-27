@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piano-core"
+description = "Piano Core appliance runtime: one logical piano device hosted on a Raspberry Pi."
+requires-python = ">=3.11"
+authors = [
+  { name = "Redion Cekrezi" },
+]
+# Runtime dependencies declared by PIANO-P005 (canonical production MIDI
+# runtime): mido==1.3.3 is the proven MIDI binding; python-rtmidi==1.5.8 is
+# its required ALSA backend (aarch64/py3.13 build). Offline appliance
+# installation uses the controlled artifact set recorded in
+# docs/work/evidence/PIANO-P005-PRODUCTION-MIDI.md (see also
+# docs/operations/MIDI_INPUT.md).
+dependencies = [
+  "mido==1.3.3",
+  "python-rtmidi==1.5.8",
+]
+dynamic = ["version"]
+
+[project.scripts]
+piano-core = "piano_core.app:main"
+piano-core-midi-capture = "piano_core.midi.capture:main"
+piano-core-play = "piano_core.playback.cli:main"
+piano-core-library = "piano_core.library.cli:main"
+# M5 (ADR-PACKAGE-PRACTICE-V1): offline Practice Package import is the
+# primary Studio -> Piano Core delivery path (explicit, operator-run).
+piano-core-packages = "piano_core.packages.cli:main"
+piano-core-learn = "piano_core.learn.cli:main"
+# PIANO-PROD-001: the ONLY identity creation path (explicit, operator-run;
+# the application itself never generates an identity).
+piano-core-identity = "piano_core.identity_cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# PIANO-P013: static UI assets ship inside the wheel (no build step,
+# no external asset pipeline; served via importlib.resources).
+# PIANO-UI-007: the vendored, pinned Three.js build ships with them
+# (subdirectory allowlist entries; provenance in ADR-018).
+[tool.setuptools.package-data]
+"piano_core.web" = ["static/*", "static/assets/*", "static/ui008/*", "static/vendor/*", "static/vendor/loaders/*", "static/vendor/utils/*"]
+
+# Single canonical version source: src/piano_core/__init__.py (__version__).
+[tool.setuptools.dynamic]
+version = { attr = "piano_core.__version__" }

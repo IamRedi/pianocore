@@ -1,0 +1,22 @@
+# PIANO-P011: service-context library verification unit (Piano-Core-owned).
+#
+# Oneshot proof suite run as the piano-core service user against the
+# host-level read-only view: index access, catalog query, exact lookup,
+# resolve, source readability, P009 load_timeline boundary, kernel
+# read-only proof, index writability probe.
+#
+# Invoked by `piano-core-deploy library-verify`; per-step PASS/FAIL in the
+# journal. Idempotent; performs no source mutations (the deliberate
+# creation probe inside the read-only view is expected to FAIL).
+
+[Unit]
+Description=Piano Core library service-context verification
+After=srv-piano\x2dcore-midi.mount
+Requires=srv-piano\x2dcore-midi.mount
+
+[Service]
+Type=oneshot
+User=piano-core
+Group=piano-core
+EnvironmentFile=/etc/piano-core/piano-core.env
+ExecStart=/opt/piano-core/venv/bin/python3 -m piano_core.library.verify
