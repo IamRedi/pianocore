@@ -1,5 +1,7 @@
 # Piano Core
 
+[![CI](https://github.com/IamRedi/pianocore/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/IamRedi/pianocore/actions/workflows/ci.yml)
+
 **A Raspberry Pi that turns a digital piano into an instrument that teaches.** Piano Core runs next to the piano, talks to it over USB-MIDI, plays pieces on it, listens while you practise and shows on a tablet which key and which finger come next. No cloud, no account, no internet needed.
 
 [Deutsche Version](README.md) · [Project status (DE)](docs/PROJEKTSTAND.md) · [Verification record](EVIDENCE.md) · [Security](SECURITY.md)

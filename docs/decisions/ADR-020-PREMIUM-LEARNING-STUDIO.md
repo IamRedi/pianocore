@@ -109,7 +109,7 @@ latency and 60 FPS are never inferred from headless synthetic results.
 
 ## R1 release reliability note — 2026-10-10
 
-ADR status and Owner acceptance remain unchanged. The R1 catalog correction owns complete SQLite operations with a reentrant lock; progress callbacks stay outside it. Native catalog-only controls and full local tests passed, but the corrected real Pi release failed with process descriptor exhaustion and was rolled back. Transaction context ownership is insufficient for PackageStore connection lifetime; explicit closure and full progress-fanout resource tests are a proposed separate bounded remedy. Do not infer appliance readiness from catalog-only concurrency PASS. See [R1 evidence](../work/evidence/PIANO-UI-008-U8-P7-R1-RECOVERY.md).
+ADR status and Owner acceptance remain unchanged. The R1 catalog correction owns complete SQLite operations with a reentrant lock; progress callbacks stay outside it. Native catalog-only controls and full local tests passed, but the corrected real Pi release failed with process descriptor exhaustion and was rolled back. Transaction context ownership is insufficient for PackageStore connection lifetime; explicit closure and full progress-fanout resource tests are a proposed separate bounded remedy. Do not infer appliance readiness from catalog-only concurrency PASS. See R1 evidence.
 
 
 ## R7 source ownership correction — 2026-10-13
@@ -154,6 +154,6 @@ visibility through all ancestors, rather than only the element's hidden flag.
 
 ## R7 release evidence update — 2026-10-14
 
-The implementation/source isolation, exact artifact/procedure, real Pi engineering release and final publication/recovery audits PASS. Premium is installed according to the final read-only checkpoint2026-10-14T09:48:39.998730Z; product5e46288/wheelee394f14. Release checkpointb6c4edb and later documentation-sync publication remain distinct from installed product identity. See [live handoff](../work/evidence/piano-ui008-u8p7-r7/LIVE-RELEASE-HANDOFF.md) and [independent publication/recovery closure](../work/evidence/piano-ui008-u8p7-r7/publication-closure/README.md).
+The implementation/source isolation, exact artifact/procedure, real Pi engineering release and final publication/recovery audits PASS. Premium is installed according to the final read-only checkpoint2026-10-14T09:48:39.998730Z; product5e46288/wheelee394f14. Release checkpointb6c4edb and later documentation-sync publication remain distinct from installed product identity. See live handoff and independent publication/recovery closure.
 
 This evidence update does not accept or amend architectural decisions. Owner acceptance remains pending; physical playing/listening/tablet NOT_RUN, CI NOT_VERIFIED; Core authority and existing Hands behavior unchanged, paused3DHands work not reopened. No successor or main merge.
