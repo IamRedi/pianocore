@@ -40,12 +40,12 @@ Das private Repository führt zu jeder Aufgabe Übergabe, Nachweise und eine una
 - `docs/work/` (Aufgabenliste, Status, Übergaben, rund 2.000 Nachweisdateien mit Logs und Gerätedaten), interne Agenten-Anleitung `AGENTS.md`, der interne Arbeitsstandard, Freigabe-Runbooks für das konkrete Gerät, Audit-Notizen mit lokalen Pfaden.
 - Heimnetz-Adresse, Benutzername und Home-Pfade in Doku, Skripten und Tests durch Beispielwerte ersetzt (`192.168.1.50`, `pianopi`, `/home/dev`).
 - Ein Test, der nur prüfte, dass zwei interne Nachweisdateien übereinstimmen, entfällt mit diesen Dateien.
-- **Realistische 3D-Hand (`piano-hand-tier-a.glb`) nicht enthalten.** Das Modell wurde mit fal.ai erzeugt; die Nutzungsrechte für eine Weitergabe sind nicht geklärt. Ohne die Datei nutzt die Oberfläche automatisch die prozedurale Hand, die als dauerhafter Ersatz vorgesehen und getestet ist. Das Werkzeug, mit dem die Hand gebaut wurde, liegt in `tools/`.
 - Neu: `tools/demo_local.py`, README auf Deutsch und Englisch, diese Datei, `docs/PROJEKTSTAND.md`, `SECURITY.md`, `LICENSE`, CI-Workflow.
 
 ## Daten und Rechte
 
 - Keine persönlichen Daten, keine Zugangsdaten. Die Demo-Melodien (Beethoven, Petzold, Volkslied) sind gemeinfrei und im Code Note für Note ausgeschrieben.
 - Der Pianio-Lehrplan ist nicht im Repository; die Demo lädt ihn auf Wunsch aus dem öffentlichen Repository (Inhalte CC0-1.0, Code MIT).
+- Realistische 3D-Hand (`src/piano_core/web/static/assets/piano-hand-tier-a.glb`, SHA-256 `e9e6b598…6970d3`): das Ausgangsmodell hat der Autor mit fal.ai erzeugt; Skelett, Gewichtung und rechte Hand baut `tools/ui007_build_hand_asset.py`. Die Veröffentlichung hier hat der Autor freigegeben; eine Prüfung der fal.ai-Bedingungen für kommerzielle Nutzung oder Werbung steht aus. Fehlt die Datei, nutzt die Oberfläche automatisch die prozedurale Hand.
 - Three.js liegt unverändert in `src/piano_core/web/static/vendor/` mit seiner MIT-Lizenz.
 - Code, Texte und Bilder: Redion Cekrezi. Nutzung nur im Rahmen der [LICENSE](LICENSE).
