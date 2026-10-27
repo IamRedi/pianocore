@@ -1,0 +1,30 @@
+# PIANO-P011: host-level read-only bind mount exposing the authoritative MIDI
+# source collection to Piano Core at /srv/piano-core/midi.
+#
+# Source (authoritative, physically unchanged): /home/pianopi/Music/MIDI
+# Destination (service-facing):                 /srv/piano-core/midi
+#
+# The mount is kernel-enforced READ-ONLY ("bind,ro"): no user — including
+# the piano-core service user — can create/modify/delete anything under
+# /srv/piano-core/midi. The source tree itself is never chmod/chown-ed,
+# never written, and never migrated.
+#
+# Installed/managed by `piano-core-deploy provision` (PIANO-P011); idempotent.
+# Unit name derived with systemd-escape -p --suffix=mount /srv/piano-core/midi
+# (verified on the real appliance, systemd 257).
+
+[Unit]
+Description=Piano Core MIDI source library (read-only bind mount)
+# Refuse start when the source is missing (fail closed). Mount units are
+# implicitly ordered before local-fs.target; an explicit After= here would
+# create an ordering cycle (caught by systemd-analyze on the appliance).
+ConditionPathIsDirectory=/home/pianopi/Music/MIDI
+
+[Mount]
+What=/home/pianopi/Music/MIDI
+Where=/srv/piano-core/midi
+Type=none
+Options=bind,ro
+
+[Install]
+WantedBy=multi-user.target

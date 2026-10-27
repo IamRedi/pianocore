@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Piano Core Player</title>
+  <link rel="icon" href="/ui/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/ui/manifest.webmanifest">
+  <link rel="stylesheet" href="/ui/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a class="nav-brand" href="#/home" data-ui008-route="home" aria-label="Piano Core home">
+        <span class="nav-brand-mark" aria-hidden="true">P</span>
+      </a>
+      <div class="primary-nav-items">
+        <a class="nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+        <a class="nav-item" href="#/library" data-ui008-route="library"><span class="nav-icon" aria-hidden="true">▤</span><span>Library</span></a>
+        <a class="nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true">▶</span><span>Player</span></a>
+        <a class="nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true">◇</span><span>Learn</span></a>
+        <a class="nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true">♩</span><span>Piano</span></a>
+        <a class="nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span></a>
+      </div>
+    </nav>
+
+    <div class="app-frame">
+      <header class="topbar">
+        <div class="topbar-row">
+          <div class="brand-lockup">
+            <span class="mobile-brand-mark" aria-hidden="true">P</span>
+            <div>
+              <p class="brand-kicker">Piano Core</p>
+              <h1 id="ui008-route-title" class="brand">Home</h1>
+            </div>
+          </div>
+          <p id="connection-note" class="connection-note" role="status" aria-live="polite">Connecting…</p>
+        </div>
+        <details class="shell-connection-details">
+          <summary>Connection &amp; diagnostics</summary>
+          <p class="scene-metaline">
+            <span id="visual-status" class="visual-status" data-state="no-song">Waiting</span>
+            <span id="hands-status" class="visual-status" data-state="idle">Idle</span>
+            <span id="live-keyboard-status" class="live-keyboard-status" data-state="synchronizing">Syncing</span>
+          </p>
+          <p>Connection status stays visible here. Additional status is available in Settings.</p>
+        </details>
+      </header>
+
+      <main id="main" class="layout" tabindex="-1">
+
+    <section id="ui008-home" class="home-surface route-surface" data-ui008-surface="home" aria-labelledby="ui008-home-heading">
+      <h2 id="ui008-home-heading" class="visually-hidden">Home</h2>
+      <div class="home-quick" role="group" aria-label="Quick actions">
+        <a id="ui008-home-search" class="home-quick-card home-quick-card--wide" href="#/library" data-ui008-route="library" data-ui008-search-cta>
+          <span class="home-quick-icon" aria-hidden="true">⌕</span>
+          <span class="home-quick-copy"><strong>Search Library</strong><small>Songs, A–Z</small></span>
+        </a>
+        <a class="home-quick-card" href="#/player" data-ui008-route="player">
+          <span class="home-quick-icon" aria-hidden="true">▶</span>
+          <span class="home-quick-copy"><strong>Play</strong><small>Player</small></span>
+        </a>
+        <a class="home-quick-card" href="#/learn" data-ui008-route="learn">
+          <span class="home-quick-icon" aria-hidden="true">◇</span>
+          <span class="home-quick-copy"><strong>Learn</strong><small>Practice</small></span>
+        </a>
+      </div>
+
+      <section id="ui008-home-continue" class="card home-continue" hidden>
+        <div class="home-continue-copy">
+          <p class="section-kicker">Pick up where you left off</p>
+          <p id="ui008-home-continue-title" class="home-continue-title"></p>
+          <p id="ui008-home-continue-meta" class="home-continue-meta"></p>
+        </div>
+        <button id="ui008-home-continue-action" type="button" class="btn btn-primary home-continue-action">Continue</button>
+      </section>
+
+      <section id="ui008-home-recent" class="home-recent" aria-labelledby="ui008-home-recent-heading" hidden>
+        <div class="home-section-head">
+          <h3 id="ui008-home-recent-heading">Recent</h3>
+          <p class="home-section-note">Viewed on this device</p>
+        </div>
+        <ul id="ui008-home-recent-list" class="home-recent-list"></ul>
+      </section>
+
+      <section id="ui008-home-welcome" class="card foundation-state home-welcome" hidden>
+        <p class="section-kicker">Welcome</p>
+        <h3>Choose your first song</h3>
+        <p>Browse the library to find something to play or learn.</p>
+        <a class="btn foundation-state-action" href="#/library" data-ui008-route="library">Open Library</a>
+      </section>
+
+      <p id="ui008-home-readiness" class="home-readiness" data-tone="wait" role="status">
+        <span class="home-readiness-dot" aria-hidden="true"></span>
+        <span id="ui008-home-readiness-label">Looking for your piano</span>
+        <a href="#/piano" data-ui008-route="piano">Piano &amp; device</a>
+      </p>
+    </section>
+
+    <section id="player" class="stage-surface route-surface" data-ui008-surface="player" aria-labelledby="player-heading">
+      <div class="stage-head">
+        <div class="stage-head-copy">
+          <h2 id="player-heading" class="player-surface-title">Player</h2>
+        </div>
+        <div class="stage-head-actions">
+          <a class="btn player-library-link" href="#/library" data-ui008-route="library">Library <span aria-hidden="true">↗</span></a>
+          <button id="ui008-player-options" aria-label="More player options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>More</span></button>
+        </div>
+      </div>
+
+      <div class="now-playing">
+        <div class="piano-artwork" aria-hidden="true"><div class="piano-artwork-mark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>PIANO CORE</span></div>
+        <div class="now-playing-copy">
+          <p class="section-kicker">On your piano</p>
+          <h3 id="player-title" class="now-playing-title">No song selected</h3>
+          <p id="player-meta" class="now-playing-meta">Choose a song from your library.</p>
+          <span id="player-state" class="player-state" data-state="unavailable" role="status">Connecting</span>
+        </div>
+      </div>
+
+      <div class="stage-strip player-strip">
+        <div class="timeline" aria-label="Playback timeline">
+          <div class="time-row">
+            <span id="player-position" class="time-value" aria-label="Elapsed time">0:00</span>
+            <span id="player-duration" class="time-value" aria-label="Duration">0:00</span>
+            <span id="player-remaining" hidden class="time-value" aria-label="Remaining time">−0:00</span>
+          </div>
+          <div id="player-progress" class="progress-track" role="progressbar"
+               aria-label="Song progress, read only" aria-readonly="true"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="player-progress-fill" class="progress-fill"></div>
+          </div>
+          <div class="timeline-caption">
+
+            <span id="player-freshness" role="status" aria-live="polite">Waiting for Core</span>
+          </div>
+        </div>
+
+        <div class="controls transport-controls" role="group" aria-label="Playback controls">
+          <button id="btn-play" type="button" class="btn transport-btn transport-btn--primary" aria-keyshortcuts="Space" aria-label="Play" disabled><span aria-hidden="true">▶</span><span class="transport-label">Play</span></button>
+          <button id="btn-pause" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Pause" disabled><span aria-hidden="true">Ⅱ</span><span class="transport-label">Pause</span></button>
+          <button id="btn-resume" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Resume" disabled><span aria-hidden="true">▶</span><span class="transport-label">Resume</span></button>
+          <button id="btn-stop" type="button" class="btn transport-btn btn-danger" aria-keyshortcuts="Escape" aria-label="Stop" disabled><span aria-hidden="true">■</span><span class="transport-label">Stop</span></button>
+          <button id="ui008-performance-btn" type="button" class="btn transport-btn transport-btn--aux" aria-pressed="false" aria-label="Performance mode"><span aria-hidden="true">⛶</span><span class="transport-label">Performance</span></button>
+        </div>
+      </div>
+
+      <p id="player-error" class="feedback feedback-error" role="alert" hidden></p>
+      <p class="keyboard-hint">Keyboard: Space plays or toggles pause/resume · Escape stops.</p>
+    </section>
+
+    <!-- PIANO-LEARN-001: Learn Library catalog (educational namespace).
+         Courses, level filters, search and lesson detail; guided practice
+         itself stays in the #practice workspace below. -->
+    <section id="ui008-learn-library" class="stage-surface route-surface learn-library" data-ui008-surface="learn" aria-labelledby="ui008-learn-library-heading">
+      <div class="stage-head">
+        <div class="stage-head-copy">
+          <p class="section-kicker">Learn</p>
+          <h2 id="ui008-learn-library-heading">Your piano journey</h2>
+          <p id="ui008-learn-library-stats" class="learn-library-stats" role="status"></p>
+        </div>
+        <button id="academy-refresh" class="btn" type="button" aria-label="Refresh learning catalog and progress">Refresh</button>
+      </div>
+      <p id="academy-selection-error" class="feedback feedback-error" role="alert" hidden></p>
+      <div class="academy-welcome"><div><p class="section-kicker">PIANO CORE ACADEMY</p><h3>A little practice.<br>A new possibility.</h3><p>Find your next lesson. Make it your own.</p></div><button id="academy-begin" class="btn transport-btn--primary" type="button">Start with first notes <span aria-hidden="true">↗</span></button></div>
+      <section id="academy-continue" class="academy-continue" hidden aria-labelledby="academy-continue-heading"><div><p class="section-kicker">CONTINUE LEARNING</p><h3 id="academy-continue-heading"></h3><p id="academy-continue-meta"></p></div><button id="academy-resume" class="btn" type="button">Resume lesson →</button></section>
+      <section aria-labelledby="academy-journey-heading"><div class="academy-section-head"><h3 id="academy-journey-heading">My learning journey</h3><span id="academy-progress-total"></span></div><div id="academy-journey" class="academy-journey"></div></section>
+      <section aria-labelledby="academy-courses-heading"><div class="academy-section-head"><h3 id="academy-courses-heading">Courses</h3><label for="academy-course-level" class="visually-hidden">Course level</label><select id="academy-course-level" class="view-select"><option value="-1">All levels</option><option value="0">First notes</option><option value="1">Beginner</option><option value="2">Elementary</option><option value="3">Intermediate</option><option value="4">Advanced</option></select></div><div id="academy-courses" class="academy-courses"></div></section>
+      <div class="academy-section-head"><h3>Discover lessons</h3><span id="academy-page" aria-live="polite"></span></div>
+      <div id="ui008-learn-library-head" class="learn-library-head" data-state="loading">
+        <div id="ui008-learn-levels" class="learn-level-row" role="group" aria-label="Level filter"></div>
+        <div class="learn-library-controls">
+          <select id="ui008-learn-course" class="view-select" aria-label="Course filter">
+            <option value="">All courses</option>
+          </select>
+          <input id="ui008-learn-search" class="learn-search" type="search"
+                 placeholder="Search lessons or composers" aria-label="Search lessons" />
+        </div>
+      </div>
+      <ul id="ui008-learn-lessons" class="learn-lesson-list"></ul>
+      <p id="ui008-learn-list-empty" class="hint" hidden>No lessons match these filters.</p>
+      <div class="learn-library-foot">
+        <button id="academy-prev-page" type="button" class="btn" disabled>Previous page</button><button id="ui008-learn-more" type="button" class="btn" hidden>Next page →</button>
+      </div>
+      <div id="ui008-lesson-detail" class="lesson-detail" hidden>
+        <div class="lesson-detail-head">
+          <div>
+            <h3 id="ui008-lesson-detail-title" class="lesson-detail-title"></h3>
+            <p id="ui008-lesson-detail-sub" class="lesson-detail-sub"></p>
+          </div>
+          <button id="ui008-lesson-close" type="button" class="btn btn-small" aria-label="Close lesson detail">Close</button>
+        </div>
+        <p id="ui008-lesson-detail-summary" class="lesson-detail-summary"></p>
+        <p id="ui008-lesson-detail-metrics" class="lesson-detail-metrics"></p>
+        <p id="ui008-lesson-detail-hands" class="lesson-detail-hands"></p>
+        <p id="ui008-lesson-detail-progress" class="lesson-detail-progress"></p>
+        <p id="ui008-lesson-detail-license" class="lesson-detail-license"></p>
+        <div class="lesson-setup"><label for="studio-lesson-mode">How would you like to learn?</label><select id="studio-lesson-mode" class="view-select"><option value="WAIT_FOR_NOTE">Wait for me · at your pace</option><option value="FLOW">Flow · play along</option></select><label for="studio-hand">Practice targets</label><select id="studio-hand" class="view-select"><option value="">Both hands</option><option value="RH">Right hand</option><option value="LH">Left hand</option></select><label for="studio-speed">Flow speed</label><select id="studio-speed" class="view-select"><option value="0.25">25%</option><option value="0.5">50%</option><option value="0.75">75%</option><option value="1" selected>Original tempo</option></select></div><p class="hint">Hand selection limits practice targets. The score remains complete.</p>
+        <div class="lesson-detail-actions">
+          <button id="ui008-lesson-start" type="button" class="btn transport-btn transport-btn--primary">Enter Studio →</button>
+          <button id="ui008-lesson-prev" type="button" class="btn">Previous</button>
+          <button id="ui008-lesson-next" type="button" class="btn">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice" class="stage-surface route-surface" data-ui008-surface="learn" aria-labelledby="practice-heading" hidden>
+      <div class="stage-head">
+        <div class="stage-head-copy">
+          <h2 id="practice-heading" class="visually-hidden">Guided learning</h2>
+          <p id="practice-song" class="stage-title"></p>
+        </div>
+        <div class="stage-head-actions">
+          <select id="ui008-view-learn" class="view-select" data-ui008-workspace-view aria-label="Scene view">
+            <option value="falling">Falling</option>
+            <option value="piano">Piano</option>
+            <option value="hands">Hands</option>
+            <option value="sheet">Sheet</option>
+          </select>
+          <button id="studio-fullscreen" class="btn studio-only" type="button" aria-label="Enter browser fullscreen">⛶</button><button id="studio-exit" class="btn studio-only" type="button">Exit Studio</button>
+          <button id="ui008-learn-options" aria-label="Lesson options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>More</span></button>
+        </div>
+      </div>
+
+      <div class="studio-toolbar studio-only"><span id="studio-mode-label" class="visually-hidden">Wait for me</span><label for="studio-session-mode" class="visually-hidden">Learning mode</label><select id="studio-session-mode" class="view-select"><option value="WAIT_FOR_NOTE">Wait for me</option><option value="FLOW">Flow · play along</option><option value="SECTION_PRACTICE">Section practice</option><option value="REPEAT_UNTIL_CORRECT">Repeat until correct</option></select><span id="studio-feedback" role="status" aria-live="polite"></span><label class="visually-hidden" for="studio-range">Keyboard range</label><select id="studio-range" class="view-select"><option value="focus">Focus</option><option value="full">Full 88</option></select><label class="visually-hidden" for="studio-visual">Visual mode</label><select id="studio-visual" class="view-select"><option value="falling">Falling notes</option><option value="sheet">Sheet</option><option value="hybrid">Hybrid</option><option value="piano">Piano</option><option value="hands">Hands</option></select></div>
+      <p id="studio-notation-note" class="hint studio-only" hidden>Sheet shows pitch and time. Authored beats and measures are unavailable for this score.</p>
+      <div id="ui008-scene-slot-learn" class="stage-scene"></div>
+
+      <div class="stage-strip learn-strip">
+        <p id="ui008-learn-guidance" class="learn-guidance stage-guidance" role="status"></p>
+
+        <div id="ui008-learn-target" class="learn-target learn-target--strip">
+          <p class="learn-target-kicker">Play now</p>
+          <div id="ui008-learn-target-notes" class="learn-target-notes" aria-hidden="true"></div>
+          <p id="practice-target" class="visually-hidden" aria-live="polite"></p>
+        </div>
+        <div class="learn-progress-row">
+          <p id="ui008-learn-progress" class="learn-progress"></p>
+          <p id="practice-step" class="visually-hidden" aria-live="polite"></p>
+        </div>
+        <div id="practice-bar" class="practice-bar" role="progressbar"
+             aria-label="Practice progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="practice-bar-fill" class="practice-bar-fill"></div>
+        </div>
+        <div class="learn-session-actions">
+          <button id="btn-practice" type="button" class="btn transport-btn transport-btn--primary" disabled>Start practice</button>
+          <button id="studio-save-retry" class="btn" type="button" hidden>Retry saving progress</button>
+          <button id="studio-previous" class="btn studio-only" type="button" aria-label="Previous lesson">← Previous</button><button id="studio-forward" class="btn studio-only" type="button">Next →</button>
+          <button id="studio-pause" class="btn studio-only" type="button" hidden>Pause</button><button id="studio-restart" class="btn studio-only" type="button">Restart</button>
+          <button id="btn-practice-stop" type="button" class="btn transport-btn transport-btn--primary btn-danger" disabled>Stop</button>
+        </div>
+        <section id="studio-results" class="studio-results studio-only" hidden aria-labelledby="studio-results-title"><div><p class="section-kicker">SESSION COMPLETE</p><h3 id="studio-results-title">Your practice results</h3><p id="studio-results-detail"></p></div><div class="lesson-detail-actions"><button id="studio-retry" class="btn" type="button">Try again</button><button id="studio-next" class="btn transport-btn--primary" type="button">Next lesson →</button><button id="studio-back" class="btn" type="button">Back to course</button></div></section>
+        <p id="practice-completion" class="feedback feedback-ok" hidden></p>
+        <p id="practice-note" class="hint" hidden></p>
+        <p id="practice-error" class="feedback feedback-error" role="alert" hidden></p>
+      </div>
+    </section>
+
+    <section id="ui008-learn-empty" class="card foundation-state route-surface" data-ui008-surface="learn" aria-labelledby="ui008-learn-empty-heading">
+      <p class="section-kicker">Learn</p>
+      <h2 id="ui008-learn-empty-heading">Choose a song to begin</h2>
+      <p id="ui008-learn-empty-note">Pick a song and Piano Core will guide you,
+      one note or chord at a time — you play, Core guides.</p>
+      <a class="btn foundation-state-action" href="#/library" data-ui008-route="library">Open Library</a>
+    </section>
+
+    <!-- ONE shared scene: single renderer instances (visual stage, 88-key
+         keyboard, 3D hands). The container is moved between the per-route
+         stage slots by ui008/workspace.js — never cloned. Exactly one view
+         is presented at a time; inactive views stop painting. -->
+    <div id="ui008-workspace-scene" class="workspace-scene route-surface" data-ui008-surface="piano learn" aria-label="Music scene">
+
+      <div id="visual" class="scene-view scene-view--notes">
+        <div id="visual-stage" class="visual-stage" data-mode="falling" data-status="no-song">
+          <div id="sheet-pane" class="visual-pane visual-pane--sheet" hidden>
+            <canvas id="sheet-canvas" class="visual-canvas" role="img" aria-label="Sheet view loading"></canvas>
+          </div>
+          <div id="falling-pane" class="visual-pane visual-pane--falling">
+            <canvas id="falling-canvas" class="visual-canvas" role="img" aria-label="Falling notes view loading"></canvas>
+          </div>
+        </div>
+        <p id="visual-summary" class="visual-summary" role="status" aria-live="polite">No song loaded.</p>
+      </div>
+
+      <div id="piano-view" class="scene-view scene-view--piano" hidden>
+        <div class="piano-legend" aria-label="Key state legend">
+          <span class="piano-legend-item" data-source="physical"><b>P</b> Physical</span>
+          <span class="piano-legend-item" data-source="playback"><b>▶</b> Playback</span>
+          <span class="piano-legend-item" data-source="both"><b>P+▶</b> Both</span>
+        </div>
+        <div class="piano-stage">
+          <div id="live-keyboard" class="live-keyboard" role="img"
+               aria-label="88-key piano, keeping in sync with your piano"></div>
+        </div>
+        <p id="live-keyboard-summary" class="live-keyboard-summary" role="status" aria-live="polite">Watching your piano…</p>
+      </div>
+
+      <div id="hands" class="scene-view scene-view--hands" hidden>
+        <div id="hands-stage" class="hands-stage" data-status="idle" data-enabled="on">
+          <canvas id="hands-canvas" class="hands-canvas" role="img"
+                  aria-label="3D hands showing how the song is meant to be played"></canvas>
+        </div>
+        <div class="hands-view-controls" role="group" aria-label="Hand view controls">
+          <button id="hands-camera-full" type="button" class="btn btn-small visual-mode-btn" aria-pressed="true">Full</button>
+          <button id="hands-camera-follow" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Follow</button>
+          <label class="hands-quality-label" for="hands-quality">Quality</label>
+          <select id="hands-quality">
+            <option value="AUTO">Auto</option>
+            <option value="PREMIUM">Premium</option>
+            <option value="BALANCED">Balanced</option>
+            <option value="BATTERY">Battery</option>
+            <option value="COMPATIBILITY">Compatibility</option>
+          </select>
+        </div>
+        <p id="hands-summary" class="visual-summary" role="status" aria-live="polite">3D hands idle.</p>
+      </div>
+    </div>
+
+
+    <section id="library" class="card library-card route-surface" data-ui008-surface="library" aria-labelledby="library-heading">
+      <div class="library-head">
+        <div>
+          <p class="section-kicker">Your music</p>
+          <h2 id="library-heading">Library</h2>
+          <p class="library-intro">Find a piece. Let your piano play.</p>
+          <p id="library-summary" class="library-summary">Loading library…</p>
+        </div>
+      </div>
+      <form id="search-form" role="search" class="search-form">
+        <label class="visually-hidden" for="search">Search songs</label>
+        <input id="search" name="q" type="search" placeholder="Search songs…"
+               autocomplete="off" enterkeyhint="search">
+        <button id="btn-clear" type="button" class="btn btn-small" hidden>Clear</button>
+      </form>
+      <div class="library-toolbar">
+        <button id="library-filter-ready" type="button" class="library-chip" aria-pressed="false">Ready to play</button>
+        <p class="library-sort-note">Sorted A–Z</p>
+      </div>
+      <div id="library-skeleton" class="library-skeleton" hidden aria-hidden="true">
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+      </div>
+      <p id="library-empty" class="library-empty" hidden>
+        The catalog is empty right now. Songs appear here once the library has
+        been scanned on the appliance.
+      </p>
+      <ul id="results" class="song-list" aria-label="Song results"></ul>
+      <p id="library-feedback" class="feedback" role="status" aria-live="polite" hidden></p>
+      <button id="library-retry" type="button" class="btn" hidden>Retry</button>
+      <button id="btn-more" type="button" class="btn btn-more" hidden>Load more</button>
+    </section>
+
+    <section id="selected" class="card selected-card route-surface" data-ui008-surface="library" aria-labelledby="selected-heading" hidden>
+      <details class="selected-details"><summary id="selected-heading">Selected song details</summary>
+      <dl class="song-detail">
+        <dt>Title</dt><dd id="sel-title"></dd>
+        <dt>File</dt><dd id="sel-file"></dd>
+        <dt>Duration</dt><dd id="sel-duration"></dd>
+        <dt>Format</dt><dd id="sel-format"></dd>
+        <dt>Tracks</dt><dd id="sel-tracks"></dd>
+        <dt>State</dt><dd id="sel-status"></dd>
+      </dl>
+      <div class="selected-actions">
+        <p class="hint">Open the Learn surface to start a guided session —
+        Piano Core checks your playing and decides when a target is
+        complete.</p>
+      </div>
+      </details>
+    </section>
+
+    <section id="piano-status" class="stage-surface route-surface" data-ui008-surface="piano" aria-labelledby="piano-heading">
+      <div class="stage-head">
+        <div class="stage-head-copy">
+          <p class="section-kicker">Piano</p>
+          <h2 id="piano-heading" class="visually-hidden">Your piano</h2>
+          <p id="piano-identity" class="learn-title"><span id="piano-identity-name">Piano Core</span><span id="piano-identity-code" class="piano-identity-code"></span></p>
+          <p id="piano-guidance" class="stage-meta">Checking the piano connection…</p>
+        </div>
+        <div class="stage-head-actions">
+          <span id="piano-state" class="learn-state" data-state="idle">Checking…</span>
+          <button id="ui008-piano-options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>Lights &amp; details</span></button>
+        </div>
+      </div>
+
+      <div id="ui008-scene-slot-piano" class="stage-scene"></div>
+
+      <div class="stage-strip piano-strip">
+        <dl class="song-detail piano-detail piano-detail--strip">
+          <dt>Keys held</dt><dd id="piano-notes">…</dd>
+          <dt>Sustain pedal</dt><dd id="piano-sustain">…</dd>
+          <dt>Last played</dt><dd id="piano-last">…</dd>
+        </dl>
+        <p id="piano-led-note" class="learn-led-note" role="status"></p>
+      </div>
+    </section>
+
+    <section id="ui008-settings" class="card settings-card route-surface" data-ui008-surface="settings" aria-labelledby="ui008-settings-heading">
+      <div class="learn-heading-row">
+        <div class="learn-heading-copy">
+          <p class="section-kicker">Settings</p>
+          <h2 id="ui008-settings-heading" class="visually-hidden">Settings</h2>
+          <p class="learn-statusline">Make Piano Core feel right on this device.</p>
+        </div>
+      </div>
+
+      <div class="settings-group" aria-labelledby="settings-visuals-heading">
+        <h3 id="settings-visuals-heading">Visuals</h3>
+        <p class="settings-group-note">How songs look on this device — saved in this browser only.</p>
+        <div class="settings-row">
+          <span class="settings-label" id="settings-visual-mode-label">Preferred song view</span>
+          <div id="settings-visual-mode" class="visual-mode-switch" role="group" aria-labelledby="settings-visual-mode-label">
+            <button id="settings-visual-sheet" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Sheet</button>
+            <button id="settings-visual-falling" type="button" class="btn btn-small visual-mode-btn" aria-pressed="true">Falling notes</button>
+            <button id="settings-visual-hybrid" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Both</button>
+          </div>
+        </div>
+        <div class="settings-row settings-row--switch">
+          <label class="led-switch" for="settings-hands-enabled">
+            <input id="settings-hands-enabled" type="checkbox">
+            <span class="led-switch-track" aria-hidden="true"></span>
+            <span class="led-switch-label">Show 3D hands</span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label" id="settings-hands-camera-label">Hands camera</span>
+          <div id="settings-hands-camera" class="visual-mode-switch" role="group" aria-labelledby="settings-hands-camera-label">
+            <button id="settings-hands-camera-full" type="button" class="btn btn-small visual-mode-btn" aria-pressed="true">Full keyboard</button>
+            <button id="settings-hands-camera-follow" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Follow hands</button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <label class="settings-label" for="settings-hands-quality">Hands detail</label>
+          <select id="settings-hands-quality">
+            <option value="AUTO">Automatic</option>
+            <option value="PREMIUM">Premium</option>
+            <option value="BALANCED">Balanced</option>
+            <option value="BATTERY">Battery saver</option>
+            <option value="COMPATIBILITY">Compatibility</option>
+          </select>
+        </div>
+        <p class="hint">Lower detail keeps everything smooth on busy screens.</p>
+      </div>
+
+      <div class="settings-group" aria-labelledby="settings-guidance-heading">
+        <h3 id="settings-guidance-heading">Guidance</h3>
+        <div class="settings-status-row">
+          <span id="settings-led-chip" class="learn-state" data-state="idle">…</span>
+          <p id="settings-led-guidance" class="learn-statusline">…</p>
+        </div>
+        <a class="btn btn-small settings-link" href="#/piano" data-ui008-route="piano">Keyboard light controls on the Piano screen</a>
+      </div>
+
+      <div class="settings-group" aria-labelledby="settings-about-heading">
+        <h3 id="settings-about-heading">About</h3>
+        <dl id="settings-about-rows" class="song-detail settings-about">
+        </dl>
+        <p id="settings-persistence-note" class="hint">Preferences marked “saved in this
+        browser” live only on this device. Piano Core keeps no other
+        preferences yet.</p>
+      </div>
+    </section>
+
+    <section class="card settings-foundation route-surface" data-ui008-surface="settings" aria-labelledby="settings-foundation-heading">
+      <p class="section-kicker">Advanced</p>
+      <h2 id="settings-foundation-heading">Technical status</h2>
+      <p class="hint">Only for troubleshooting — everything above works without it.</p>
+      <details class="system-status">
+        <summary>Show technical status</summary>
+        <ul id="status-pills" class="status-pills" aria-label="Technical system status">
+          <li id="pill-app" class="pill" data-tone="unknown"><span class="pill-label">System</span><span class="pill-value">…</span></li>
+          <li id="pill-midi" class="pill" data-tone="unknown"><span class="pill-label">MIDI in</span><span class="pill-value">…</span></li>
+          <li id="pill-library" class="pill" data-tone="unknown"><span class="pill-label">Library</span><span class="pill-value">…</span></li>
+          <li id="pill-playback" class="pill" data-tone="unknown"><span class="pill-label">Playback</span><span class="pill-value">…</span></li>
+          <li id="pill-practice" class="pill" data-tone="unknown"><span class="pill-label">Practice</span><span class="pill-value">…</span></li>
+          <li id="pill-led" class="pill" data-tone="unknown"><span class="pill-label">LED</span><span class="pill-value">…</span></li>
+          <li id="pill-device" class="pill" data-tone="unknown"><span class="pill-label">Device ID</span><span class="pill-value">…</span></li>
+          <li id="pill-led-transport" class="pill" data-tone="unknown"><span class="pill-label">LED transport</span><span class="pill-value">…</span></li>
+        </ul>
+      </details>
+    </section>
+
+      </main>
+
+      <footer class="footer">
+        <p>Piano Core — local instrument.</p>
+      </footer>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Primary navigation">
+      <a class="bottom-nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
+      <a class="bottom-nav-item" href="#/library" data-ui008-route="library"><span class="nav-icon" aria-hidden="true">▤</span><span>Library</span></a>
+      <a class="bottom-nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true">▶</span><span>Player</span></a>
+      <a class="bottom-nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true">◇</span><span>Learn</span></a>
+      <button class="bottom-nav-item" type="button" data-ui008-open-more aria-haspopup="dialog"><span class="nav-icon" aria-hidden="true">•••</span><span>More</span></button>
+    </nav>
+  </div>
+
+  <div id="ui008-more-sheet" class="layer-backdrop" hidden>
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="ui008-more-title" tabindex="-1">
+      <div class="sheet-heading">
+        <div>
+          <p class="section-kicker">Piano Core</p>
+          <h2 id="ui008-more-title">More</h2>
+        </div>
+        <button id="ui008-more-close" class="icon-button" type="button" aria-label="Close menu">×</button>
+      </div>
+      <nav class="sheet-nav" aria-label="More destinations">
+        <a class="sheet-nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true">♩</span><span><strong>Piano</strong><small>Keys, connection and lights</small></span></a>
+        <a class="sheet-nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true">⚙</span><span><strong>Settings</strong><small>Preferences and system status</small></span></a>
+      </nav>
+    </section>
+  </div>
+
+  <div id="ui008-song-sheet" class="layer-backdrop" hidden>
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="ui008-song-sheet-title" tabindex="-1">
+      <div class="sheet-heading">
+        <div>
+          <p class="section-kicker">Song</p>
+          <h2 id="ui008-song-sheet-title"></h2>
+          <p id="ui008-song-sheet-meta" class="home-continue-meta"></p>
+        </div>
+        <button id="ui008-song-sheet-close" class="icon-button" type="button" aria-label="Close song actions">×</button>
+      </div>
+      <div class="sheet-nav" role="group" aria-label="Song actions">
+        <button id="ui008-song-sheet-play" type="button" class="btn sheet-action"><span aria-hidden="true">▶</span><span>Play</span></button>
+        <button id="ui008-song-sheet-learn" type="button" class="btn sheet-action"><span aria-hidden="true">◇</span><span>Learn</span></button>
+        <button id="ui008-song-sheet-details" type="button" class="btn sheet-action"><span aria-hidden="true">▤</span><span>View details</span></button>
+      </div>
+    </section>
+  </div>
+
+  <div id="ui008-player-sheet" class="layer-backdrop" hidden>
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="ui008-player-sheet-title" tabindex="-1">
+      <div class="sheet-heading">
+        <div>
+          <p class="section-kicker">Player</p>
+          <h2 id="ui008-player-sheet-title">More</h2>
+        </div>
+        <button id="ui008-player-sheet-close" class="icon-button" type="button" aria-label="Close player options">×</button>
+      </div>
+      <div id="ui008-player-secondary-sheet" class="player-secondary-sheet">
+        <div id="ui008-player-secondary" class="player-secondary">
+          <fieldset class="tempo player-option">
+            <legend>Start tempo</legend>
+            <div class="tempo-row">
+              <input id="tempo" type="range" min="0.25" max="4" step="0.05" value="1"
+                     aria-describedby="tempo-hint">
+              <output id="tempo-value" for="tempo" class="tempo-value">1.00×</output>
+            </div>
+            <div class="tempo-presets" role="group" aria-label="Tempo presets">
+              <button type="button" class="btn btn-small tempo-preset" data-tempo="0.5">0.5×</button>
+              <button type="button" class="btn btn-small tempo-preset" data-tempo="0.75">0.75×</button>
+              <button type="button" class="btn btn-small tempo-preset" data-tempo="1">1×</button>
+              <button type="button" class="btn btn-small tempo-preset" data-tempo="1.5">1.5×</button>
+              <button type="button" class="btn btn-small tempo-preset" data-tempo="2">2×</button>
+            </div>
+            <p id="tempo-hint" class="hint">Applied only when Play starts. Live tempo changes are not supported.</p>
+          </fieldset>
+          <div class="player-led-quick" role="group" aria-label="Keyboard lights">
+            <button id="ui008-led-quick" type="button" class="btn btn-small" aria-pressed="false">Lights on</button>
+            <p class="hint">Keyboard LEDs use the existing device controls.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="ui008-learn-sheet" class="layer-backdrop" hidden>
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="ui008-learn-sheet-title" tabindex="-1">
+      <div class="sheet-heading">
+        <div>
+          <p class="section-kicker">Learn</p>
+          <h2 id="ui008-learn-sheet-title">Lesson options</h2>
+        </div>
+        <button id="ui008-learn-sheet-close" class="icon-button" type="button" aria-label="Close lesson options">×</button>
+      </div>
+      <div id="ui008-learn-sheet-content" class="player-secondary-sheet">
+          <div class="player-option">
+            <div class="visual-mode-switch" role="group" aria-label="Visual mode">
+              <button id="visual-mode-sheet" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Sheet</button>
+              <button id="visual-mode-falling" type="button" class="btn btn-small visual-mode-btn" aria-pressed="true">Falling notes</button>
+              <button id="visual-mode-hybrid" type="button" class="btn btn-small visual-mode-btn" aria-pressed="false">Hybrid</button>
+            </div>
+            <p class="hint">How the Falling/Sheet scene draws notes — the song keeps
+            playing and any practice session continues unchanged.</p>
+          </div>
+
+        <p id="ui008-learn-led" class="learn-led-note" hidden></p>
+        <span id="ui008-learn-state" class="learn-state" data-state="idle">Ready</span>
+        <p id="practice-status" class="stage-meta"></p>
+        <div class="learn-session-actions">
+          <button id="btn-learning-restart-target" type="button" class="btn btn-small" aria-label="Restart target" disabled><span aria-hidden="true">↺</span><span class="transport-label">Restart target</span></button>
+          <button id="btn-learning-restart-section" type="button" class="btn btn-small" aria-label="Restart section" disabled><span aria-hidden="true">⟲</span><span class="transport-label">Restart section</span></button>
+        </div>
+        <div id="ui008-learn-start-region" class="learn-start-region" hidden>
+          <div class="learning-config">
+            <label for="learning-mode">Learning mode</label>
+            <select id="learning-mode">
+              <option value="WAIT_FOR_NOTE">Wait for me</option>
+              <option value="SECTION_PRACTICE">Section practice</option>
+              <option value="REPEAT_UNTIL_CORRECT">Repeat until correct</option><option value="FLOW">Flow / play along</option>
+            </select>
+            <div id="learning-section-config" class="learning-config-row" hidden>
+              <label for="learning-section-start">Start seconds</label>
+              <input id="learning-section-start" type="number" min="0" step="0.1" value="0">
+              <label for="learning-section-end">End seconds</label>
+              <input id="learning-section-end" type="number" min="0.1" step="0.1" value="30">
+            </div>
+            <div id="learning-repetition-config" class="learning-config-row" hidden>
+              <label for="learning-repetitions">Clean repetitions in a row</label>
+              <input id="learning-repetitions" type="number" min="1" max="16" step="1" value="3">
+            </div>
+          </div>
+          <p class="hint">Piano Core checks your playing and decides when each
+          target is complete. This view only shows what Core reports.</p>
+        </div>
+        <dl class="song-detail learning-detail">
+          <dt>Mode</dt><dd id="learning-mode-active"></dd>
+          <dt>Range</dt><dd id="learning-section-active"></dd>
+          <dt>Repetition</dt><dd id="learning-repetition-active"></dd>
+          <dt>Feedback</dt><dd id="learning-feedback" aria-live="polite"></dd>
+        </dl>
+      </div>
+    </section>
+  </div>
+
+  <div id="ui008-piano-sheet" class="layer-backdrop" hidden>
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="ui008-piano-sheet-title" tabindex="-1">
+      <div class="sheet-heading">
+        <div>
+          <p class="section-kicker">Piano</p>
+          <h2 id="ui008-piano-sheet-title">Lights &amp; details</h2>
+        </div>
+        <button id="ui008-piano-sheet-close" class="icon-button" type="button" aria-label="Close lights and details">×</button>
+      </div>
+      <div id="ui008-piano-sheet-content" class="player-secondary-sheet">
+        <div class="led-card">
+          <div class="learn-heading-row">
+            <div class="learn-heading-copy">
+              <p class="section-kicker">Guidance</p>
+              <h2 id="led-heading">Keyboard lights</h2>
+            </div>
+            <span id="led-chip" class="learn-state" data-state="idle">…</span>
+          </div>
+          <p id="led-status" class="learn-statusline">…</p>
+          <div id="led-controls" class="led-controls" role="group" aria-label="Keyboard light controls">
+            <div class="led-row led-row--switch">
+              <label class="led-switch" for="led-enabled">
+                <input id="led-enabled" type="checkbox">
+                <span class="led-switch-track" aria-hidden="true"></span>
+                <span class="led-switch-label">Lights on</span>
+              </label>
+            </div>
+            <div class="led-row">
+              <label for="led-mode">Show me</label>
+              <select id="led-mode">
+                <option value="off">Nothing</option>
+                <option value="playback">Songs as they play</option>
+                <option value="physical">The keys I press</option>
+                <option value="all">Both songs and my keys</option>
+              </select>
+            </div>
+            <div class="led-row">
+              <label for="led-brightness">Brightness</label>
+              <input id="led-brightness" type="range" min="0" max="100" step="1" value="100"
+                     aria-describedby="led-hint">
+              <output id="led-brightness-value" for="led-brightness" class="tempo-value">100%</output>
+            </div>
+            <div class="led-row">
+              <button id="btn-led-clear" type="button" class="btn btn-small">Clear lights</button>
+            </div>
+          </div>
+          <p id="led-hint" class="hint">Lights guide your playing — they never decide
+          whether a practice answer is correct.</p>
+          <p id="led-error" class="feedback feedback-error" role="alert" hidden></p>
+        </div>
+        <p class="hint">This is your piano as Piano Core sees it. What you play is
+        never mistaken for a lesson answer here.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/ui/vendor/three.webgpu.js",
+        "three/webgpu": "/ui/vendor/three.webgpu.js"
+      }
+    }
+  </script>
+  <script type="module" src="/ui/app.js"></script>
+</body>
+</html>

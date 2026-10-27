@@ -1,0 +1,16 @@
+{
+  "name": "Piano Core",
+  "short_name": "Piano Core",
+  "description": "Local appliance UI for Piano Core (trusted LAN only).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f4f5",
+  "theme_color": "#1d4ed8",
+  "icons": [
+    {
+      "src": "/ui/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

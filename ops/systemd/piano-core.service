@@ -1,0 +1,43 @@
+# Piano Core appliance service unit.
+#
+# Installation contract (see docs/operations/APPLIANCE_BASELINE.md):
+#   - a dedicated system user/group `piano-core` is created by the
+#     installation procedure; this unit never relies on a pre-existing
+#     login user;
+#   - the application is installed into /opt/piano-core/venv;
+#   - configuration is read from /etc/piano-core/piano-core.env
+#     (see ops/systemd/piano-core.env.example).
+#
+# MIDI/USB/GPIO device permissions and hardware-specific ordering are
+# intentionally absent; they belong to the hardware/deployment tasks.
+
+[Unit]
+Description=Piano Core appliance runtime
+Documentation=file:///opt/piano-core/share/APPLIANCE_BASELINE.md
+After=local-fs.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=piano-core
+Group=piano-core
+EnvironmentFile=/etc/piano-core/piano-core.env
+ExecStart=/opt/piano-core/venv/bin/piano-core
+WorkingDirectory=/opt/piano-core
+
+# Graceful shutdown: piano-core handles SIGTERM by finishing the lifecycle
+# (STOPPING -> STOPPED) within milliseconds; 15s is a generous bound.
+KillSignal=SIGTERM
+TimeoutStopSec=15s
+
+Restart=on-failure
+RestartSec=5s
+
+# Minimal hardening; relaxed further hardening (device access, more
+# namespaces) belongs to hardware/deployment tasks.
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

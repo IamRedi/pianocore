@@ -1,0 +1,485 @@
+{
+ "fingering": {
+  "capabilities": {
+   "alternatives": true,
+   "authored_metadata": false,
+   "finger_sensitive_grading": false,
+   "hand_pose_or_ik": false,
+   "manual_override_persistence": "deferred",
+   "manual_overrides": false
+  },
+  "config": {
+   "alternative_count": 3,
+   "max_hand_span_semitones": 12,
+   "strategy": "balanced_v1"
+  },
+  "engine_version": "balanced-engine-v1",
+  "excluded_note_count": 0,
+  "generation": 1,
+  "plan_id": "fingering-sha256:8f7a0e22bb820200ce688875892b9949742a68448fe63a82718147d3700ae554",
+  "provenance": "DETERMINISTIC_INFERENCE",
+  "schema_version": 1,
+  "song_id": "fixture-thumb-under",
+  "source_version": "score-sha256:52ebade234b82bf3203d2819082f8ebe7ad696165a7b3ce0e9de0ff33f58c284",
+  "strategy": "balanced_v1",
+  "targets": [
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.45,
+    "finger": 1,
+    "hand": "LEFT",
+    "midi": 60,
+    "onset_seconds": 0.0,
+    "score_index": 0,
+    "target_id": "score:0"
+   },
+   {
+    "alternatives": [
+     4,
+     3,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.4,
+    "finger": 5,
+    "hand": "LEFT",
+    "midi": 48,
+    "onset_seconds": 0.0,
+    "score_index": 1,
+    "target_id": "score:1"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 62,
+    "onset_seconds": 0.5,
+    "score_index": 2,
+    "target_id": "score:2"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 64,
+    "onset_seconds": 1.0,
+    "score_index": 3,
+    "target_id": "score:3"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 65,
+    "onset_seconds": 1.5,
+    "score_index": 4,
+    "target_id": "score:4"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 67,
+    "onset_seconds": 2.0,
+    "score_index": 5,
+    "target_id": "score:5"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.4,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 43,
+    "onset_seconds": 2.0,
+    "score_index": 6,
+    "target_id": "score:6"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 69,
+    "onset_seconds": 2.5,
+    "score_index": 7,
+    "target_id": "score:7"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 71,
+    "onset_seconds": 3.0,
+    "score_index": 8,
+    "target_id": "score:8"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 72,
+    "onset_seconds": 3.5,
+    "score_index": 9,
+    "target_id": "score:9"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 74,
+    "onset_seconds": 4.0,
+    "score_index": 10,
+    "target_id": "score:10"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.4000000000000004,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 40,
+    "onset_seconds": 4.0,
+    "score_index": 11,
+    "target_id": "score:11"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 76,
+    "onset_seconds": 4.5,
+    "score_index": 12,
+    "target_id": "score:12"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 77,
+    "onset_seconds": 5.0,
+    "score_index": 13,
+    "target_id": "score:13"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 4,
+    "hand": "RIGHT",
+    "midi": 79,
+    "onset_seconds": 5.5,
+    "score_index": 14,
+    "target_id": "score:14"
+   },
+   {
+    "alternatives": [
+     1,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 2,
+    "hand": "RIGHT",
+    "midi": 81,
+    "onset_seconds": 6.0,
+    "score_index": 15,
+    "target_id": "score:15"
+   },
+   {
+    "alternatives": [
+     3,
+     5,
+     2
+    ],
+    "channel": 2,
+    "duration_seconds": 1.4000000000000004,
+    "finger": 4,
+    "hand": "LEFT",
+    "midi": 36,
+    "onset_seconds": 6.0,
+    "score_index": 16,
+    "target_id": "score:16"
+   },
+   {
+    "alternatives": [
+     2,
+     3,
+     4
+    ],
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "finger": 1,
+    "hand": "RIGHT",
+    "midi": 84,
+    "onset_seconds": 6.5,
+    "score_index": 17,
+    "target_id": "score:17"
+   }
+  ],
+  "version": 1,
+  "warnings": [
+   "source_contains_no_authored_hand_or_fingering_metadata"
+  ]
+ },
+ "score": {
+  "diagnostics": {
+   "outside_keyboard_note_ons": 0,
+   "percussion_note_ons": 0,
+   "retriggered_note_ons": 0,
+   "unpaired_note_offs": 0,
+   "unterminated_note_ons": 0
+  },
+  "duration_seconds": 7.5,
+  "notation": {
+   "supported": [
+    "pitch",
+    "onset",
+    "duration",
+    "channel",
+    "velocity"
+   ],
+   "unsupported": [
+    "track",
+    "tempo_map",
+    "time_signature",
+    "measure",
+    "beat",
+    "hand",
+    "fingering",
+    "voice",
+    "phrasing",
+    "enharmonic_spelling"
+   ]
+  },
+  "note_count": 18,
+  "notes": [
+   {
+    "channel": 1,
+    "duration_seconds": 0.45,
+    "index": 0,
+    "midi": 60,
+    "onset_seconds": 0.0,
+    "velocity": 84
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.4,
+    "index": 1,
+    "midi": 48,
+    "onset_seconds": 0.0,
+    "velocity": 70
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "index": 2,
+    "midi": 62,
+    "onset_seconds": 0.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "index": 3,
+    "midi": 64,
+    "onset_seconds": 1.0,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.44999999999999996,
+    "index": 4,
+    "midi": 65,
+    "onset_seconds": 1.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 5,
+    "midi": 67,
+    "onset_seconds": 2.0,
+    "velocity": 84
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.4,
+    "index": 6,
+    "midi": 43,
+    "onset_seconds": 2.0,
+    "velocity": 70
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 7,
+    "midi": 69,
+    "onset_seconds": 2.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 8,
+    "midi": 71,
+    "onset_seconds": 3.0,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 9,
+    "midi": 72,
+    "onset_seconds": 3.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 10,
+    "midi": 74,
+    "onset_seconds": 4.0,
+    "velocity": 84
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.4000000000000004,
+    "index": 11,
+    "midi": 40,
+    "onset_seconds": 4.0,
+    "velocity": 70
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 12,
+    "midi": 76,
+    "onset_seconds": 4.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 13,
+    "midi": 77,
+    "onset_seconds": 5.0,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 14,
+    "midi": 79,
+    "onset_seconds": 5.5,
+    "velocity": 84
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 15,
+    "midi": 81,
+    "onset_seconds": 6.0,
+    "velocity": 84
+   },
+   {
+    "channel": 2,
+    "duration_seconds": 1.4000000000000004,
+    "index": 16,
+    "midi": 36,
+    "onset_seconds": 6.0,
+    "velocity": 70
+   },
+   {
+    "channel": 1,
+    "duration_seconds": 0.4500000000000002,
+    "index": 17,
+    "midi": 84,
+    "onset_seconds": 6.5,
+    "velocity": 84
+   }
+  ],
+  "schema_version": 1,
+  "song_id": "fixture-thumb-under",
+  "source_version": "score-sha256:52ebade234b82bf3203d2819082f8ebe7ad696165a7b3ce0e9de0ff33f58c284",
+  "time_basis": "song_seconds",
+  "title": "Thumb Under Scale"
+ }
+}
