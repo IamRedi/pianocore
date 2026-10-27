@@ -16,7 +16,7 @@ Piano Core ist fertig genug, um täglich am eigenen Piano benutzt zu werden, und
 | Lernkatalog (Pianio + gemeinfreie Stücke) | fertig | reproduzierbarer Bau, Herkunft und Lizenz pro Lektion gespeichert |
 | Übungsmodi und Bewertung | fertig | Warten, Mitspielen im Takt, Hand allein, Schleife, langsam |
 | Fingersatz | fertig | berechnet, nicht aus der Quelle übernommen; im UI als R1–R5 / L1–L5 |
-| 3D-Hände | fertig mit Einschränkung | prozedurale Hand im öffentlichen Repository; realistische Hand privat, Nutzungsrechte offen |
+| 3D-Hände | fertig | realistische Hand (Ausgangsmodell mit fal.ai erzeugt), prozedurale Hand als automatischer Ersatz |
 | LED-Leiste (ESP32, WS2812) | umgesetzt | Protokoll und Integration getestet; Hardware-Abnahme im privaten Repository dokumentiert |
 | Web-Oberfläche (Tablet) | umgesetzt | Abnahme am echten Tablet steht aus |
 | HTTP-API + Server-Sent Events | fertig | keine Anmeldung, nur fürs Heimnetz (siehe [SECURITY.md](../SECURITY.md)) |
@@ -26,7 +26,7 @@ Piano Core ist fertig genug, um täglich am eigenen Piano benutzt zu werden, und
 
 - Abnahme durch den Besitzer am Instrument: selbst spielen, hören, Bedienung am Tablet.
 - Anmeldung und TLS für die API, bevor das Gerät jemals außerhalb eines vertrauenswürdigen Heimnetzes läuft.
-- Klärung der Rechte an der realistischen 3D-Hand oder eigenes Modell.
+- Prüfung der fal.ai-Bedingungen, bevor die realistische 3D-Hand kommerziell oder in Werbung genutzt wird.
 - Einbindung in Home Assistant und den Sprachassistenten des Autors (vorgesehen, nicht begonnen).
 
 ## Vorgehen
