@@ -5,7 +5,9 @@ import {
   TIER_A_BONE_MAP,
   buildTierAHandDefinitions,
   isFiniteAssetPose,
+  smoothSkinWeights,
 } from "../../src/piano_core/web/static/handasset.js";
+import { readFileSync } from "node:fs";
 import {
   HAND_SOURCES,
   HandRenderer,
@@ -271,6 +273,143 @@ test("renderer replacement disposes the old bundle and detach restores fallback"
   assert.equal(renderer.detachAsset("LEFT"), HAND_SOURCES.PROCEDURAL);
   assert.equal(renderer.hands.LEFT, renderer._fallbacks.LEFT);
   renderer.detachAsset("RIGHT");
+});
+
+/* The authored rig (bones only) straight from the shipped GLB, so the
+ * orientation tests run against the real bind pose, not a synthetic one. */
+function authoredRigScene() {
+  const glb = readFileSync(new URL("../../src/piano_core/web/static/assets/piano-hand-tier-a.glb", import.meta.url));
+  const json = JSON.parse(glb.subarray(20, 20 + glb.readUInt32LE(12)).toString("utf8"));
+  const nodes = json.nodes.map((node) => {
+    const object = node.mesh !== undefined || /Armature/.test(node.name) ? new THREE.Group() : new THREE.Bone();
+    object.name = node.name;
+    if (node.translation) object.position.fromArray(node.translation);
+    if (node.rotation) object.quaternion.fromArray(node.rotation);
+    return object;
+  });
+  json.nodes.forEach((node, index) => {
+    for (const child of node.children || []) nodes[index].add(nodes[child]);
+  });
+  const scene = new THREE.Scene();
+  for (const index of json.scenes[json.scene ?? 0].nodes) scene.add(nodes[index]);
+  return scene;
+}
+
+function keyboardPose(hand) {
+  // Solver-space pose: knuckle line 88 mm toward the fallboard from the
+  // wrist, fingertips on the white-key contact band (z = -0.09).
+  const mirror = hand === "LEFT" ? -1 : 1;
+  const fingers = {};
+  for (let finger = 1; finger <= 5; finger += 1) {
+    const x = (finger - 3) * 0.024 * mirror;
+    const base = finger === 1
+      ? { x: -0.048 * mirror, y: 0.021, z: 0.025 }
+      : { x, y: 0.033, z: -0.033 };
+    fingers[finger] = { base, elbow: { x, y: 0.05, z: -0.06 }, tip: { x, y: 0, z: -0.09 }, planeYaw: Math.PI };
+  }
+  return { wrist: { x: 0, y: 0.033, z: 0.055, yaw: 0 }, fingers };
+}
+
+const worldOf = (bone) => bone.getWorldPosition(new THREE.Vector3());
+
+test("authored hand lies palm-down with fingers toward the fallboard", () => {
+  const definitions = buildTierAHandDefinitions(THREE, authoredRigScene());
+  for (const hand of ["LEFT", "RIGHT"]) {
+    const definition = definitions[hand];
+    const pressed = { 1: {}, 2: {}, 3: { press: 1 }, 4: {}, 5: {} };
+    assert.equal(definition.applyPose(keyboardPose(hand), pressed), true);
+    const wrist = worldOf(definition.wrist);
+    const middle = worldOf(definition.fingers[3][0]);
+    assert.ok(middle.z < wrist.z - 0.05, `${hand} knuckles ahead of the wrist`);
+    assert.ok(Math.abs(middle.y - wrist.y) < 0.03, `${hand} palm is level, not hanging`);
+    const thumb = worldOf(definition.fingers[1][0]).x;
+    const little = worldOf(definition.fingers[5][0]).x;
+    assert.ok(hand === "RIGHT" ? thumb < little : thumb > little, `${hand} thumb on the inner side`);
+    for (let finger = 2; finger <= 5; finger += 1) {
+      const knuckle = worldOf(definition.fingers[finger][0]);
+      assert.ok(knuckle.y > 0.03, `${hand} finger ${finger} knuckle above the keys`);
+    }
+  }
+  definitions.dispose();
+});
+
+test("a pressed fingertip reaches its contact without stretching the bones", () => {
+  const definitions = buildTierAHandDefinitions(THREE, authoredRigScene());
+  const definition = definitions.RIGHT;
+  const chain = definition.fingers[3];
+  const lengthsBefore = chain.map((bone) => bone.position.length());
+  const pose = keyboardPose("RIGHT");
+  assert.equal(definition.applyPose(pose, { 3: { press: 1 } }), true);
+  assert.deepEqual(chain.map((bone) => bone.position.length()), lengthsBefore);
+  const end = chain[2].children[0];
+  const tip = worldOf(end);
+  assert.ok(tip.distanceTo(new THREE.Vector3(0, 0, -0.09)) < 0.004, `tip ${tip.toArray()}`);
+  // The middle joint arches above the line from knuckle to tip.
+  const knuckle = worldOf(chain[0]);
+  const pip = worldOf(chain[1]);
+  const along = (pip.z - knuckle.z) / (tip.z - knuckle.z);
+  assert.ok(pip.y > knuckle.y + (tip.y - knuckle.y) * along, "curved, not hyper-extended");
+  definitions.dispose();
+});
+
+test("free fingers stay curled below their knuckle and in their lane", () => {
+  const definitions = buildTierAHandDefinitions(THREE, authoredRigScene());
+  const definition = definitions.RIGHT;
+  const pose = keyboardPose("RIGHT");
+  // Ring finger approaches the index finger's key, lifted high.
+  pose.fingers[4].tip = { x: -0.024, y: 0.06, z: -0.09 };
+  assert.equal(definition.applyPose(pose, {}), true);
+  const knuckle = worldOf(definition.fingers[4][0]);
+  const tip = worldOf(definition.fingers[4][2].children[0]);
+  assert.ok(tip.y < knuckle.y, "lifted finger never bends backwards");
+  assert.ok(Math.abs(tip.x - knuckle.x) <= 0.0101 + 1e-6, "no crossing over a neighbour");
+  definitions.dispose();
+});
+
+test("skin smoothing blends a hard bone boundary and keeps weights normalized", () => {
+  // A strip of quads: left half 100% bone 0, right half 100% bone 1.
+  const columns = 8;
+  const positions = [];
+  const joints = [];
+  const weights = [];
+  for (let row = 0; row < 2; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      positions.push(column * 0.01, row * 0.01, 0);
+      joints.push(column < columns / 2 ? 0 : 1, 0, 0, 0);
+      weights.push(1, 0, 0, 0);
+    }
+  }
+  const index = [];
+  for (let column = 0; column + 1 < columns; column += 1) {
+    const a = column;
+    const b = column + 1;
+    const c = columns + column;
+    const d = columns + column + 1;
+    index.push(a, b, c, b, d, c);
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute("skinIndex", new THREE.Uint16BufferAttribute(joints, 4));
+  geometry.setAttribute("skinWeight", new THREE.Float32BufferAttribute(weights, 4));
+  geometry.setIndex(index);
+  assert.equal(smoothSkinWeights(geometry, 2), true);
+  const weightOf = (vertex, joint) => {
+    let total = 0;
+    for (let k = 0; k < 4; k += 1) {
+      if (geometry.attributes.skinIndex.getComponent(vertex, k) === joint) {
+        total += geometry.attributes.skinWeight.getComponent(vertex, k);
+      }
+    }
+    return total;
+  };
+  for (let vertex = 0; vertex < columns * 2; vertex += 1) {
+    let sum = 0;
+    for (let k = 0; k < 4; k += 1) sum += geometry.attributes.skinWeight.getComponent(vertex, k);
+    assert.ok(Math.abs(sum - 1) < 1e-5, `vertex ${vertex} normalized`);
+  }
+  const boundary = columns / 2 - 1;
+  assert.ok(weightOf(boundary, 1) > 0.1, "boundary vertex now shares the neighbour bone");
+  assert.ok(weightOf(0, 0) > 0.9, "far vertex keeps its own bone");
 });
 
 console.log(`${passes} Tier-A rig adapter tests passed`);

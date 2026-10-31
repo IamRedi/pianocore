@@ -108,12 +108,12 @@ export class FallingNotesRenderer {
     const strikeY = Math.max(1, height - keyboardHeight);
     const range = frame.range || { left: 0, right: 1 };
     const fullWidth = width / (range.right - range.left);
-    ctx.fillStyle = "#122023"; ctx.fillRect(0, 0, width, strikeY);
+    ctx.fillStyle = "#0d0e17"; ctx.fillRect(0, 0, width, strikeY);
     for (const key of this.mappers.PIANO_KEYS) {
       if (!key.black) continue;
       const center = this.mappers.noteCenterFraction(key.midi);
       const w = this.mappers.noteWidthFraction(key.midi) * fullWidth;
-      ctx.fillStyle = "#0c161a";
+      ctx.fillStyle = "#090a11";
       ctx.fillRect((center - range.left) * fullWidth - w / 2, 0, w, strikeY);
     }
     this._drawKeyboard(ctx, width, strikeY, height, frame);
@@ -187,15 +187,16 @@ export class FallingNotesRenderer {
     let fill;
     const advice = frame.fingeringByIndex?.get(note.index);
     const left = advice?.hand === "LEFT";
-    if (state === "active") fill = left ? "#f1c3a0" : "#c3e5d1";
-    else fill = advice ? (left ? "#b98b70" : "#7dbba4") : "#9ebac6";
+    if (state === "active") fill = left ? "#b8e6ff" : "#cdc4ff";
+    else fill = advice ? (left ? "#5ab8ee" : "#8b7bff") : "#a4a8c8";
     ctx.globalAlpha = !inSection ? 0.3 : state === "upcoming" ? 0.55 + note.velocity / 320 : 1;
     ctx.fillStyle = fill;
-    ctx.fillRect(x, top, w, h);
+    if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x + 0.5, top, Math.max(1, w - 1), h, Math.min(4, w / 3, h / 2)); ctx.fill(); }
+    else ctx.fillRect(x, top, w, h);
     const fingering = frame.fingeringByIndex?.get(note.index);
     if (fingering && w >= 10 && h >= 11) {
       ctx.globalAlpha = 1;
-      ctx.fillStyle = "#101725";
+      ctx.fillStyle = "#0d0e17";
       ctx.font = "bold 9px system-ui, sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(`${fingering.hand === "LEFT" ? "L" : "R"}${fingering.finger}`, x + w / 2, top + 10);
@@ -204,7 +205,7 @@ export class FallingNotesRenderer {
     if (isTarget) {
       ctx.globalAlpha = 1;
       ctx.lineWidth = 2;
-      ctx.strokeStyle = "#ffc857";
+      ctx.strokeStyle = "#ffd27a";
       ctx.strokeRect(x - 1, top - 1, w + 2, h + 2);
     }
     ctx.globalAlpha = 1;
@@ -292,7 +293,7 @@ export class FallingNotesRenderer {
     }
     // Expected-target outline is drawn last so it is never covered.
     if (frame.learning.active && frame.learning.targetNotes.length > 0) {
-      ctx.strokeStyle = "#ffc857";
+      ctx.strokeStyle = "#ffd27a";
       ctx.lineWidth = 2;
       for (const midi of frame.learning.targetNotes) {
         const key = m.PIANO_KEYS[midi - m.PIANO_NOTE_MIN];
@@ -314,12 +315,12 @@ export class FallingNotesRenderer {
   }
 
   _keyFill(source, black, frame, midi) {
-    if (source === "physical" && frame.learningFeedback?.outcome === "INCORRECT" && frame.learningFeedback.note === midi) return black ? "#a44e47" : "#e6a49a";
-    if (source === "physical" && frame.learningFeedback?.accepted?.includes(midi)) return black ? "#3f9275" : "#b4dfc4";
-    if (source === "physical") return black ? "#3d6ea5" : "#9ec9ff";
-    if (source === "playback") return black ? "#3fa57a" : "#a7efcd";
-    if (source === "both") return black ? "#4a7fae" : "#cfe3d2";
-    return black ? "#161b26" : "#dfe5f0";
+    if (source === "physical" && frame.learningFeedback?.outcome === "INCORRECT" && frame.learningFeedback.note === midi) return black ? "#b0525e" : "#ff9fa8";
+    if (source === "physical" && frame.learningFeedback?.accepted?.includes(midi)) return black ? "#3e9a7a" : "#9fe8c8";
+    if (source === "physical") return black ? "#2f8fc4" : "#a6dcff";
+    if (source === "playback") return black ? "#6a5cf0" : "#c4bbff";
+    if (source === "both") return black ? "#5a74e0" : "#d6e2ff";
+    return black ? "#15161f" : "#eceef4";
   }
 }
 
@@ -440,14 +441,14 @@ export class SheetRenderer {
     ctx.globalAlpha = 1;
     const fingering = frame.fingeringByIndex?.get(note.index);
     if (fingering && w >= 12 && h >= 8) {
-      ctx.fillStyle = "#101725";
+      ctx.fillStyle = "#0d0e17";
       ctx.font = "bold 8px system-ui, sans-serif";
       ctx.textAlign = "left";
       ctx.fillText(`${fingering.hand === "LEFT" ? "L" : "R"}${fingering.finger}`, x + 2, y + 3);
     }
     if (isTarget) {
       ctx.lineWidth = 2;
-      ctx.strokeStyle = "#ffc857";
+      ctx.strokeStyle = "#ffd27a";
       ctx.strokeRect(x - 1, y - h / 2 - 1, w + 2, h + 2);
     }
     return true;
@@ -484,7 +485,7 @@ export class SheetRenderer {
     if (!learning.active || learning.targetOnset === null) return;
     const x = ((learning.targetOnset - viewStart) / viewportSeconds) * width;
     if (x < 0 || x > width) return;
-    ctx.fillStyle = "#ffc857";
+    ctx.fillStyle = "#ffd27a";
     ctx.beginPath();
     ctx.moveTo(x - 5, top - 0);
     ctx.lineTo(x + 5, top - 0);

@@ -31,6 +31,7 @@ import { initializePremiumShell } from "./ui008/shell.js";
 import { createLayerController } from "./ui008/layers.js";
 import { createLibraryController } from "./ui008/library.js";
 import { createHomeController, createRecentsStore } from "./ui008/home.js";
+import { createMusicController } from "./ui008/music.js";
 import {
   createPerformanceController,
   createSecondaryPlacement,
@@ -54,6 +55,7 @@ import {
   pianoTechRows,
 } from "./ui008/piano.js";
 import { settingsModel } from "./ui008/settings.js";
+import { applyTheme, loadThemePreference, resolveTheme, saveThemePreference } from "./ui008/theme.js";
 
 const API_BASE = "/api/v1";
 
@@ -3251,7 +3253,7 @@ function initApp(shell) {
       globalThis.localStorage,
       HANDS_STORAGE_KEYS.camera,
       HANDS_CAMERA_MODES,
-      "FULL"
+      "FOLLOW"
     ),
     quality: loadHandsPreference(
       globalThis.localStorage,
@@ -3580,6 +3582,26 @@ function initApp(shell) {
   dom.settingsHandsEnabled.addEventListener("change", () => {
     applyHandsEnabled(dom.settingsHandsEnabled.checked);
   });
+  /* Colour theme: browser-local presentation preference (Dark/Light/Auto). */
+  const themeQuery = globalThis.matchMedia?.("(prefers-color-scheme: light)") ?? null;
+  let themePreference = loadThemePreference(globalThis.localStorage);
+  const themeButtons = Array.from(globalThis.document?.querySelectorAll?.("[data-theme-choice]") ?? []);
+  function syncTheme() {
+    applyTheme(globalThis.document, resolveTheme(themePreference, Boolean(themeQuery?.matches)));
+    for (const button of themeButtons) {
+      button.setAttribute("aria-pressed", String(button.dataset.themeChoice === themePreference));
+    }
+  }
+  for (const button of themeButtons) {
+    button.addEventListener("click", () => {
+      themePreference = button.dataset.themeChoice;
+      saveThemePreference(globalThis.localStorage, themePreference);
+      syncTheme();
+    });
+  }
+  themeQuery?.addEventListener?.("change", syncTheme);
+  syncTheme();
+
   dom.settingsHandsCameraFull.addEventListener("click", () => applyHandsCamera("FULL"));
   dom.settingsHandsCameraFollow.addEventListener("click", () => applyHandsCamera("FOLLOW"));
   dom.settingsHandsQuality.addEventListener("change", () => {
@@ -3605,11 +3627,12 @@ function initApp(shell) {
     slots: {
       learn: dom.sceneSlotLearn,
       piano: dom.sceneSlotPiano,
+      player: $("ui008-scene-slot-player"),
     },
     selects: [dom.viewSelectLearn],
     views: { notes: $("visual"), piano: dom.pianoView, hands: $("hands") },
     isHandsEnabled: () => hands.enabled,
-    onPresentChange: ({ view, renderer }) => {
+    onPresentChange: ({ view, route, renderer }) => {
       // The workspace view is authoritative for the notes scene: the Sheet
       // view pins the sheet renderer mode; the Falling view presents the
       // falling mode (or the configured hybrid, which never leaves the
@@ -3623,7 +3646,7 @@ function initApp(shell) {
         keyboardRenderer.render(lastLiveReplica.snapshot, lastLiveReplica.status);
       }
       const studioView = document.getElementById("studio-visual");
-      if (studioView) {
+      if (studioView && route !== "player") {
         studioView.value = renderer === "visual" ? visualMode : view;
         studioView.querySelector('option[value="hands"]').disabled = !hands.enabled;
       }
@@ -3905,11 +3928,23 @@ function initApp(shell) {
     }
   }
 
+  function syncMusicSurface(snapshot) {
+    const fresh = player.fresh && !ui.offline;
+    const sounding = snapshot?.song_id && ["PLAYING", "PAUSED"].includes(snapshot.state);
+    const selected = player.selectedGoldSong();
+    const current = sounding
+      ? (selected?.song_id === snapshot.song_id ? selected : { song_id: snapshot.song_id, title: dom.playerTitle.textContent })
+      : selected;
+    music.setCurrentSong(current && selectionSource(current.song_id).kind === "gold" ? current : null);
+    music.onPlayback(snapshot, fresh);
+  }
+
   function renderPlayback(receivedAtMs = performance.now()) {
     const snapshot = player.snapshot;
     lastPlayback = snapshot;
     library.setPlayback(snapshot, player.fresh && !ui.offline);
     renderPlaybackMetadata(snapshot);
+    syncMusicSurface(snapshot);
     stopVisualClock();
 
     // Authoritative unavailable playback is synced truth, not an error:
@@ -4592,6 +4627,7 @@ function initApp(shell) {
     if (!record || !record.song_id) return;
     recents.record(record);
     homeController.refreshRecents();
+    music.refreshRecent();
   }
 
   function libraryOnSelect(record, intent = null) {
@@ -4625,12 +4661,12 @@ function initApp(shell) {
   }
 
   async function libraryPlay(record) {
-    if (ui.controlsBusy) return;
-    if (!libraryOnSelect(record)) return;
+    if (ui.controlsBusy) return false;
+    if (!libraryOnSelect(record)) return false;
     if (dom.play.disabled) {
       setText(dom.libraryFeedback, "Playback is unavailable right now.");
       show(dom.libraryFeedback, true);
-      return;
+      return false;
     }
     library.setPending(true);
     setText(dom.libraryFeedback, "Starting on your piano…");
@@ -4641,9 +4677,28 @@ function initApp(shell) {
       setText(dom.libraryFeedback, accepted ? "" : dom.playerError.textContent || "Playback is not confirmed. Check the connection and try again.");
       show(dom.libraryFeedback, !accepted);
       if (accepted) shell.router.navigate("player");
+      return accepted;
     } finally {
       library.setPending(false);
     }
+  }
+
+  /** Music surface: tapping a song while another one sounds switches to it
+   * (Stop through the accepted command path, then Play), like a music app. */
+  async function playSong(record) {
+    if (ui.controlsBusy) return false;
+    const sounding = (snapshot) => !!snapshot && ["PLAYING", "PAUSED", "STOPPING"].includes(snapshot.state);
+    if (sounding(lastPlayback)) {
+      if (lastPlayback.state !== "STOPPING") await runControl("stop");
+      for (let wait = 0; wait < 30 && sounding(lastPlayback); wait += 1) {
+        await new Promise((done) => setTimeout(done, 100));
+      }
+      if (sounding(lastPlayback)) {
+        toast("The current song is still stopping. Try again in a moment.");
+        return false;
+      }
+    }
+    return libraryPlay(record);
   }
 
   function libraryLearn(record) {
@@ -4878,11 +4933,19 @@ function initApp(shell) {
 
   const library = createLibraryController({
     fetchSongs: libraryFetchSongs,
-    onPlay: libraryPlay,
+    onPlay: (record) => music.playFromList(library.visibleRecords(), record, "search"),
     onLearn: libraryLearn,
+    onAdd: (record) => music.requestAdd(record),
     onSelect: libraryOnSelect,
     pageSize: PAGE_SIZE,
     debounceMs: SEARCH_DEBOUNCE_MS,
+  });
+
+  const music = createMusicController({
+    recents,
+    onPlay: playSong,
+    onLearn: libraryLearn,
+    toast,
   });
 
   function openRecent(entry) {
@@ -4926,7 +4989,10 @@ function initApp(shell) {
     openRecent(event.detail);
   });
   for (const cta of document.querySelectorAll("[data-ui008-search-cta]")) {
-    cta.addEventListener("click", () => library.requestSearchFocus());
+    cta.addEventListener("click", () => {
+      music.selectTab("search");
+      library.requestSearchFocus();
+    });
   }
 
   /* ---------------- Player workspace presentation (U8-P3) ----------------

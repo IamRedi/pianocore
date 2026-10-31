@@ -4,12 +4,11 @@
  */
 
 import { createLayerController } from "./layers.js";
-import { createHashRouter, UI008_ROUTES } from "./router.js";
+import { createHashRouter, normalizeRoute, UI008_ROUTES } from "./router.js";
 
 const ROUTE_LABELS = Object.freeze({
   home: "Home",
-  library: "Library",
-  player: "Player",
+  player: "Music",
   learn: "Learn",
   piano: "Piano",
   settings: "Settings",
@@ -77,7 +76,7 @@ export function initializePremiumShell({
   for (const link of documentRef.querySelectorAll("[data-ui008-route]")) {
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      const route = link.dataset.ui008Route;
+      const route = normalizeRoute(link.dataset.ui008Route);
       if (!UI008_ROUTES.includes(route)) return;
       if (moreLayer.isOpen()) moreLayer.close(() => router.navigate(route));
       else router.navigate(route);

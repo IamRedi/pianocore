@@ -14,6 +14,7 @@
  */
 
 import { createLayerController } from "./layers.js";
+import { paintCover } from "./music.js";
 
 export const LIBRARY_PAGE_SIZE = 50;
 export const LIBRARY_MAX_ROWS = 100;
@@ -137,6 +138,7 @@ export function createLibraryController({
   fetchSongs,
   onPlay,
   onLearn,
+  onAdd,
   onSelect,
   pageSize = LIBRARY_PAGE_SIZE,
   maxRows = LIBRARY_MAX_ROWS,
@@ -173,6 +175,7 @@ export function createLibraryController({
     offset: 0,
     renderedIds: new Set(),
     renderedCount: 0,
+    records: [],
     lastRecord: null,
     debounce: null,
     focusRequested: false,
@@ -223,10 +226,12 @@ export function createLibraryController({
     const button = documentRef.createElement("button");
     button.type = "button";
     button.className = "btn btn-song";
-    button.dataset.action = "details";
+    // Tapping a song plays it (Music surface); Now Playing opens beside
+    // the list, so there is no detour through a details step.
+    button.dataset.action = "play";
     button.setAttribute(
       "aria-label",
-      `${model.title}${model.meta ? `, ${model.meta}` : ""}. Show details.`
+      `Play ${model.title}${model.meta ? `, ${model.meta}` : ""}`
     );
 
     const name = documentRef.createElement("span");
@@ -240,6 +245,7 @@ export function createLibraryController({
     const cover = documentRef.createElement("span");
     cover.className = "song-cover";
     cover.setAttribute("aria-hidden", "true");
+    paintCover(cover, { song_id: model.id, title: model.title }, documentRef);
     const copy = documentRef.createElement("span");
     copy.className = "song-copy";
     const playing = documentRef.createElement("span");
@@ -258,16 +264,16 @@ export function createLibraryController({
 
     const actions = documentRef.createElement("span");
     actions.className = "song-actions";
-    for (const [action, label] of [
-      ["play", "Play"],
-      ["learn", "Learn"],
+    for (const [action, label, text] of [
+      ["add", "Add to a playlist:", "＋"],
+      ["learn", "Learn", "Learn"],
     ]) {
       const actionButton = documentRef.createElement("button");
       actionButton.type = "button";
-      actionButton.className = `btn song-action-btn${action === "play" ? " song-play" : ""}`;
+      actionButton.className = `btn song-action-btn song-action-btn--${action}`;
       actionButton.dataset.action = action;
       actionButton.setAttribute("aria-label", `${label} ${model.title}`);
-      setText(actionButton, label);
+      setText(actionButton, text);
       actions.append(actionButton);
     }
 
@@ -313,6 +319,9 @@ export function createLibraryController({
         event.preventDefault();
         markSelection(record.song_id);
         onLearn?.(record);
+      } else if (action === "add") {
+        event.preventDefault();
+        onAdd?.(record);
       } else if (action === "details") {
         event.preventDefault();
         // ADR-019 §5.2: direct Play/Learn actions at tablet sizes; phone
@@ -339,11 +348,13 @@ export function createLibraryController({
       const bounded = records.slice(0, plan.rows);
       state.renderedIds = new Set();
       state.renderedCount = 0;
+      state.records = [];
       for (const record of bounded) {
         const { item } = buildRow(record);
         attachRowListeners(item, record);
         fragment.append(item);
         state.renderedIds.add(String(record.song_id));
+        state.records.push(record);
         state.renderedCount += 1;
       }
       dom.results.replaceChildren(fragment);
@@ -358,6 +369,7 @@ export function createLibraryController({
       attachRowListeners(item, record);
       fragment.append(item);
       state.renderedIds.add(String(record.song_id));
+      state.records.push(record);
       added += 1;
     }
     dom.results.append(fragment);
@@ -504,7 +516,7 @@ export function createLibraryController({
   });
 
   windowRef.addEventListener("piano-ui-route-change", (event) => {
-    if (event.detail?.route !== "library") return;
+    if (event.detail?.route !== "player") return;
     if (state.focusRequested) {
       state.focusRequested = false;
       dom.search?.focus({ preventScroll: true });
@@ -567,6 +579,8 @@ export function createLibraryController({
       setText(dom.summary, text);
     },
     renderedCount: () => state.renderedCount,
+    /** The rows on screen, in order: the queue for a song started here. */
+    visibleRecords: () => state.records.slice(),
     currentQuery: () => state.query,
   });
 }

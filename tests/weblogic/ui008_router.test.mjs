@@ -60,10 +60,15 @@ class MockWindow {
   }
 }
 
-test("route inventory is the six approved surfaces", () => {
+test("route inventory is the five approved surfaces", () => {
   assert.deepEqual(UI008_ROUTES, [
-    "home", "library", "player", "learn", "piano", "settings",
+    "home", "player", "learn", "piano", "settings",
   ]);
+});
+
+test("old Library links land on the Music surface", () => {
+  assert.equal(parseRouteHash("#/library"), "player");
+  assert.equal(normalizeRoute("library"), "player");
 });
 
 test("approved route hashes round-trip", () => {

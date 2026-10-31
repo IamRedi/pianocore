@@ -56,10 +56,10 @@ test("PIANO_FEATURES: real capabilities enabled, future tracks absent", () => {
 });
 
 test("SETTINGS_FEATURES: local presentation prefs only; no fake persistence", () => {
-  for (const f of ["visualPreference", "handsPreference", "guidanceStatus", "about", "technicalDisclosure"]) {
+  for (const f of ["visualPreference", "handsPreference", "guidanceStatus", "about", "technicalDisclosure", "themeChoice"]) {
     assert.equal(SETTINGS_FEATURES[f], true, f);
   }
-  for (const f of ["durablePersistence", "audioOptions", "safeReset", "themeChoice", "reducedMotionOverride"]) {
+  for (const f of ["durablePersistence", "audioOptions", "safeReset", "reducedMotionOverride"]) {
     assert.equal(SETTINGS_FEATURES[f], false, f);
   }
 });

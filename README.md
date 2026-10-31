@@ -6,7 +6,7 @@
 
 [English version](README.en.md) · [Projektstand](docs/PROJEKTSTAND.md) · [Prüfprotokoll](EVIDENCE.md) · [Sicherheit](SECURITY.md)
 
-![Lernen: fallende Noten mit Fingersatz über einer 88-Tasten-Klaviatur](docs/assets/learn-falling.png)
+![Musik: Now Playing mit Bibliothek, dunkles Design](docs/assets/music-dark.png)
 
 ## Auf einen Blick
 
@@ -21,18 +21,23 @@
 
 ## Was es kann
 
-- **Player.** Spielt MIDI-Dateien aus der eigenen Bibliothek auf dem echten Piano ab, mit Pause, Stopp und Tempo.
+- **Musik.** Antippen und das Stück läuft auf dem echten Piano, wie bei einem Musik-Player: Suche, Playlists und Zuletzt gespielt in einer Seitenleiste, Weiter/Zurück und automatisch das nächste Stück. Ansicht als Cover, fallende Noten oder 3D-Hände.
 - **Lernen.** 1.557 Lektionen in 80 Kursen aus dem offenen Pianio-Lehrplan (CC0). Modi: Warten auf die richtige Taste, Mitspielen im Takt, rechte oder linke Hand allein, Abschnitte in Schleife, langsames Üben. Der Fortschritt wird pro Lektion gespeichert.
 - **Fingersatz und Hände.** Für jedes Stück wird ein Fingersatz berechnet (R1–R5, L1–L5) und als fallende Noten oder mit animierten 3D-Händen gezeigt.
 - **Live-Klaviatur.** Jede gedrückte Taste und das Pedal erscheinen sofort auf dem Bildschirm, getrennt nach „selbst gespielt“ und „vom Player“.
 - **LED-Leiste.** Wenn ein ESP32 mit LED-Streifen angeschlossen ist, leuchten die nächsten Tasten direkt über der Klaviatur.
+- **Dunkles und helles Design.** Unter Einstellungen › Darstellung: Dunkel, Hell oder Automatisch. Notenbild, Klaviatur und Hände bleiben immer dunkel, damit sie gut lesbar sind.
 - **Ein Gerät, viele Bildschirme.** Der Pi hält den einzigen gültigen Zustand. Tablet, Handy oder später Home Assistant sind nur Clients der API.
 
-| Bibliothek | Player | Lern-Akademie | Live-Klaviatur |
-|---|---|---|---|
-| ![Bibliothek](docs/assets/library.png) | ![Player](docs/assets/player.png) | ![Akademie](docs/assets/academy.png) | ![Klaviatur](docs/assets/piano.png) |
+| Musik, helles Design | Fallende Noten | 3D-Hände |
+|---|---|---|
+| ![Musik hell](docs/assets/music-light.png) | ![Fallende Noten](docs/assets/notes.png) | ![3D-Hände](docs/assets/hands.png) |
 
-Die Bilder stammen aus der lokalen Demo unten (stummes Platzhalter-MIDI statt echtem Piano), nicht vom Gerät.
+| Lern-Akademie | Live-Klaviatur | Handy dunkel | Handy hell |
+|---|---|---|---|
+| ![Akademie](docs/assets/academy.png) | ![Klaviatur](docs/assets/piano.png) | ![Handy dunkel](docs/assets/phone-dark.png) | ![Handy hell](docs/assets/phone-light.png) |
+
+Die Bilder stammen aus einer lokalen Demo (stummes Platzhalter-MIDI statt echtem Piano, nur gemeinfreie Titel, Beispiel-Lernkatalog), nicht vom Gerät.
 
 ## Ausprobieren ohne Piano
 

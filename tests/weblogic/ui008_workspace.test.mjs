@@ -12,6 +12,8 @@ import {
   availableWorkspaceViews,
   resolveWorkspaceView,
   activeRendererFor,
+  loadPlayerView,
+  resolvePlayerView,
   rendererModeForView,
   workspaceViewLabel,
 } from "../../src/piano_core/web/static/ui008/workspace.js";
@@ -74,8 +76,19 @@ test("active renderer: notes for falling/sheet, keyboard on piano route, hands o
   assert.equal(activeRendererFor("piano", "learn"), "piano");
   assert.equal(activeRendererFor("hands", "learn"), "hands");
   assert.equal(activeRendererFor("falling", "piano"), "piano", "piano route pins the keyboard");
-  assert.equal(activeRendererFor("falling", "player"), null);
+  assert.equal(activeRendererFor("cover", "player"), null, "Now Playing cover paints no scene");
+  assert.equal(activeRendererFor("falling", "player"), "visual");
+  assert.equal(activeRendererFor("hands", "player"), "hands");
   assert.equal(activeRendererFor("falling", "home"), null, "no stage route, no renderer");
+});
+
+test("Now Playing view: cover by default, hands falls back to notes when off", () => {
+  assert.equal(loadPlayerView(null), "cover");
+  assert.equal(loadPlayerView({ getItem: () => "hands" }), "hands");
+  assert.equal(loadPlayerView({ getItem: () => "sheet" }), "cover", "unknown values fail closed");
+  assert.equal(resolvePlayerView("hands", { handsEnabled: false }), "falling");
+  assert.equal(resolvePlayerView("hands", { handsEnabled: true }), "hands");
+  assert.equal(resolvePlayerView("bogus"), "cover");
 });
 
 test("renderer-mode contract: only accepted sheet/falling values ever map", () => {

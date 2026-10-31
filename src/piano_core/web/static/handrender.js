@@ -351,7 +351,7 @@ export class HandRenderer {
   _buildScene() {
     const three = this._three;
     const scene = new three.Scene();
-    scene.background = new three.Color(0x101725);
+    scene.background = new three.Color(0x0b0c14);
     this._scene = scene;
 
     this._camera = new three.PerspectiveCamera(40, this._aspect, 0.02, 6);
@@ -673,7 +673,7 @@ export class HandRenderer {
       // Tier-A asset rigs apply the same solved pose through their own
       // bone adapter (validated at attachAsset).
       try {
-        if (rig.applyPose(pose) === false) {
+        if (rig.applyPose(pose, motion.fingers) === false) {
           this.assetError = `non-finite or degenerate ${rig.hand} asset pose`;
           this.assetState = "fallback";
           this.detachAsset(rig.hand);
