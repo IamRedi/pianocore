@@ -7,7 +7,6 @@
 
 export const UI008_ROUTES = Object.freeze([
   "home",
-  "library",
   "player",
   "learn",
   "piano",
@@ -17,7 +16,9 @@ export const UI008_ROUTES = Object.freeze([
 export const UI008_DEFAULT_ROUTE = "home";
 
 const ROUTE_SET = new Set(UI008_ROUTES);
-const ROUTE_ALIASES = Object.freeze({ "": "home", "/": "home", device: "piano" });
+// The song library lives inside the Music (player) surface: old #/library
+// links land there with search ready.
+const ROUTE_ALIASES = Object.freeze({ "": "home", "/": "home", device: "piano", library: "player" });
 
 export function routeHash(route) {
   const normalized = normalizeRoute(route);

@@ -18,7 +18,12 @@
 export const WORKSPACE_VIEWS = Object.freeze(["falling", "piano", "hands", "sheet"]);
 export const DEFAULT_WORKSPACE_VIEW = "falling";
 export const WORKSPACE_STORAGE_KEY = "piano-core.workspace-view";
-export const WORKSPACE_ROUTES = Object.freeze(["learn", "piano"]);
+export const WORKSPACE_ROUTES = Object.freeze(["learn", "piano", "player"]);
+/* Now Playing shows the cover by default; Notes and Hands present the same
+ * shared scene while the song plays. Stored apart from the Learn view. */
+export const PLAYER_VIEWS = Object.freeze(["cover", "falling", "hands"]);
+export const DEFAULT_PLAYER_VIEW = "cover";
+export const PLAYER_VIEW_STORAGE_KEY = "piano-core.player-view";
 
 const VIEW_SET = new Set(WORKSPACE_VIEWS);
 
@@ -38,6 +43,23 @@ export function storeWorkspaceView(storage, view, key = WORKSPACE_STORAGE_KEY) {
   } catch {
     // Preference persistence is optional; presentation continues.
   }
+}
+
+export function loadPlayerView(storage, key = PLAYER_VIEW_STORAGE_KEY) {
+  try {
+    const raw = storage ? storage.getItem(key) : null;
+    return PLAYER_VIEWS.includes(raw) ? raw : DEFAULT_PLAYER_VIEW;
+  } catch {
+    return DEFAULT_PLAYER_VIEW;
+  }
+}
+
+/** The Now Playing view actually presented: Hands falls back to Notes when
+ * the hands preference is off. */
+export function resolvePlayerView(requested, { handsEnabled = true } = {}) {
+  if (!PLAYER_VIEWS.includes(requested)) return DEFAULT_PLAYER_VIEW;
+  if (requested === "hands" && handsEnabled !== true) return "falling";
+  return requested;
 }
 
 /** Hands view requires the hands preference; every route pins the keyboard. */
@@ -61,6 +83,10 @@ export function resolveWorkspaceView(requested, available) {
 export function activeRendererFor(view, route = "learn") {
   if (!WORKSPACE_ROUTES.includes(route)) return null;
   if (route === "piano") return "piano";
+  if (route === "player") {
+    if (view === "hands") return "hands";
+    return view === "falling" ? "visual" : null;
+  }
   if (view === "piano") return "piano";
   if (view === "hands") return "hands";
   return "visual";
@@ -107,6 +133,7 @@ export function createWorkspaceController({
 
   let route = "home";
   let view = loadWorkspaceView(storage);
+  let playerView = loadPlayerView(storage);
 
   function slotFor() {
     return slots[route] ?? slots.learn ?? scene.parentElement;
@@ -117,8 +144,11 @@ export function createWorkspaceController({
     // Piano is a pinned surface; Player and other routes must not overwrite
     // the saved Learn view. Only Learn resolves its own preference.
     if (route === "learn") view = resolveWorkspaceView(view, available);
-    const presentedView = route === "piano" ? "piano" : view;
-    const renderer = activeRendererFor(view, route);
+    const shownPlayerView = resolvePlayerView(playerView, { handsEnabled: isHandsEnabled() });
+    const presentedView = route === "piano" ? "piano" : route === "player" ? shownPlayerView : view;
+    const renderer = route === "player"
+      ? activeRendererFor(shownPlayerView, route)
+      : activeRendererFor(view, route);
 
     const showingKey = renderer === "visual"
       ? "notes"
@@ -134,7 +164,7 @@ export function createWorkspaceController({
     // The ONE scene container is moved, never cloned.
     const slot = slotFor();
     if (present && slot && scene.parentElement !== slot) slot.append(scene);
-    scene.hidden = !present || !WORKSPACE_ROUTES.includes(route);
+    scene.hidden = !present || !WORKSPACE_ROUTES.includes(route) || renderer === null;
 
     for (const select of selects) {
       if (!select) continue;
@@ -146,7 +176,12 @@ export function createWorkspaceController({
       select.value = resolveWorkspaceView(view, available);
     }
     if (scene) scene.dataset.view = WORKSPACE_ROUTES.includes(route) ? presentedView : "none";
-    onPresentChange({ view, route, renderer });
+    for (const button of playerButtons) {
+      button.setAttribute("aria-pressed", String(button.dataset.playerView === shownPlayerView));
+      if (button.dataset.playerView === "hands") button.disabled = !isHandsEnabled();
+    }
+    if (documentRef?.body) documentRef.body.dataset.playerView = shownPlayerView;
+    onPresentChange({ view: route === "player" ? shownPlayerView : view, route, renderer });
     return { view, renderer };
   }
 
@@ -154,6 +189,19 @@ export function createWorkspaceController({
     select?.addEventListener("change", () => {
       view = resolveWorkspaceView(select.value, availableWorkspaceViews({ handsEnabled: isHandsEnabled(), route }));
       storeWorkspaceView(storage, view);
+      apply();
+    });
+  }
+
+  const playerButtons = [...(documentRef?.querySelectorAll?.("[data-player-view]") ?? [])];
+  for (const button of playerButtons) {
+    button.addEventListener("click", () => {
+      playerView = resolvePlayerView(button.dataset.playerView);
+      try {
+        storage?.setItem(PLAYER_VIEW_STORAGE_KEY, playerView);
+      } catch {
+        // Preference persistence is optional; presentation continues.
+      }
       apply();
     });
   }
@@ -171,9 +219,13 @@ export function createWorkspaceController({
       return apply();
     },
     currentView() {
+      if (route === "player") return resolvePlayerView(playerView, { handsEnabled: isHandsEnabled() });
       return route === "piano" ? "piano" : view;
     },
     activeRenderer() {
+      if (route === "player") {
+        return activeRendererFor(resolvePlayerView(playerView, { handsEnabled: isHandsEnabled() }), route);
+      }
       return activeRendererFor(view, route);
     },
     refresh() {

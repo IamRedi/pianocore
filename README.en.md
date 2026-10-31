@@ -6,7 +6,7 @@
 
 [Deutsche Version](README.md) · [Project status (DE)](docs/PROJEKTSTAND.md) · [Verification record](EVIDENCE.md) · [Security](SECURITY.md)
 
-![Learn: falling notes with fingering above an 88-key keyboard](docs/assets/learn-falling.png)
+![Music: Now Playing with the library, dark theme](docs/assets/music-dark.png)
 
 ## At a glance
 
@@ -21,18 +21,23 @@
 
 ## What it does
 
-- **Player.** Plays MIDI files from your library on the real piano, with pause, stop and tempo.
+- **Music.** Tap a song and it plays on the real piano, like a music player: search, playlists and recent in a side drawer, next/previous and auto-advance. View it as a cover, falling notes or 3D hands.
 - **Learn.** 1,557 lessons in 80 courses from the open Pianio curriculum (CC0). Modes: wait for the right key, play along in time, right or left hand alone, loop a section, slow practice. Progress is stored per lesson.
 - **Fingering and hands.** A fingering is computed for every piece (R1–R5, L1–L5) and shown as falling notes or with animated 3D hands.
 - **Live keyboard.** Every key and the pedal show up on screen immediately, split into "played by you" and "played by the player".
 - **LED strip.** With an ESP32 and LED strip attached, the next keys light up right above the keyboard.
+- **Dark and light themes.** Settings › Appearance: Dark, Light or Auto. Notes, keyboard and hands always stay dark so they read clearly.
 - **One device, many screens.** The Pi owns the single source of truth. Tablet, phone or, later, Home Assistant are only API clients.
 
-| Library | Player | Learning academy | Live keyboard |
-|---|---|---|---|
-| ![Library](docs/assets/library.png) | ![Player](docs/assets/player.png) | ![Academy](docs/assets/academy.png) | ![Keyboard](docs/assets/piano.png) |
+| Music, light theme | Falling notes | 3D hands |
+|---|---|---|
+| ![Music light](docs/assets/music-light.png) | ![Falling notes](docs/assets/notes.png) | ![3D hands](docs/assets/hands.png) |
 
-The screenshots come from the local demo below (silent placeholder MIDI instead of a real piano), not from the device.
+| Learning academy | Live keyboard | Phone dark | Phone light |
+|---|---|---|---|
+| ![Academy](docs/assets/academy.png) | ![Keyboard](docs/assets/piano.png) | ![Phone dark](docs/assets/phone-dark.png) | ![Phone light](docs/assets/phone-light.png) |
+
+The screenshots come from a local demo (silent placeholder MIDI instead of a real piano, public-domain titles only, a sample lesson catalog), not from the device.
 
 ## Try it without a piano
 

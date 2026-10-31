@@ -57,8 +57,10 @@ test("hygiene: removed ids no longer referenced by app.js lookups", () => {
 
 /* ---------------- structural cross-surface consistency ---------------- */
 
-test("structure: all six top-level routes have surfaces and navigation", () => {
-  for (const route of ["home", "library", "player", "learn", "piano", "settings"]) {
+test("structure: all five top-level routes have surfaces and navigation", () => {
+  // The song library lives inside Music (player): no separate Library route.
+  assert.equal(HTML.includes('data-ui008-route="library"'), false, "no separate Library navigation");
+  for (const route of ["home", "player", "learn", "piano", "settings"]) {
     assert.ok(
       HTML.includes(`data-ui008-route="${route}"`),
       `navigation missing for ${route}`

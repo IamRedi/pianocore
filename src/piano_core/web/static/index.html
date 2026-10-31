@@ -4,26 +4,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#12141c">
   <title>Piano Core Player</title>
   <link rel="icon" href="/ui/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/ui/manifest.webmanifest">
   <link rel="stylesheet" href="/ui/styles.css">
 </head>
 <body>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <linearGradient id="pc-ice" x1="8" y1="2" x2="58" y2="62" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff9db0"/><stop offset=".38" stop-color="#f0304f"/><stop offset=".78" stop-color="#a3123a"/><stop offset="1" stop-color="#5c0b2b"/></linearGradient>
+      <radialGradient id="pc-frost" cx="14" cy="6" r="46" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#ffe4ea" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="pc-chill" cx="60" cy="62" r="34" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9be7ff" stop-opacity=".3"/><stop offset="1" stop-color="#9be7ff" stop-opacity="0"/></radialGradient>
+      <linearGradient id="pc-rim" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#c9f3ff" stop-opacity=".5"/></linearGradient>
+      <linearGradient id="pc-body" x1="0" y1="10" x2="0" y2="50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffe9ee"/></linearGradient>
+    </defs>
+    <symbol id="pc-logo" viewBox="0 0 64 64">
+      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-ice)"/>
+      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-chill)"/>
+      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-frost)"/>
+      <rect x="2.5" y="2.5" width="59" height="59" rx="14.5" fill="none" stroke="url(#pc-rim)"/>
+      <path d="M18.5 50V20.5C18.5 14 23 9.8 29 9.8c5.6 0 9 3.6 10 9.2.8 4.7 3.2 7.3 6.9 9.4 3.7 2.1 5.6 5.3 5.6 9.8V50z" fill="url(#pc-body)"/>
+      <path d="M23.2 21.6c.2-3.4 2.5-5.9 5.8-6.1" fill="none" stroke="#f0304f" stroke-opacity=".45" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M22.6 42.5V50M26.7 42.5V50M30.8 42.5V50M34.9 42.5V50M39 42.5V50M43.1 42.5V50M47.2 42.5V50" fill="none" stroke="#b3163f" stroke-width="1.15" stroke-linecap="round" opacity=".85"/>
+      <path d="M18.5 42.5h33" fill="none" stroke="#b3163f" stroke-width="1.3" opacity=".7"/>
+    </symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path class="ico-tone" d="M5.5 10.2 12 4.9l6.5 5.3V19a1.5 1.5 0 0 1-1.5 1.5h-3v-5.25h-4V20.5H7A1.5 1.5 0 0 1 5.5 19z"/><path d="M3.75 11.4 12 4.75l8.25 6.65"/><path d="M5.5 10v9A1.5 1.5 0 0 0 7 20.5h3v-5.25h4v5.25h3a1.5 1.5 0 0 0 1.5-1.5v-9"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path class="ico-tone" d="M9 7.6 19 5.25V9L9 11.35z"/><path d="M9 17.25V7.6L19 5.25v9.5"/><path d="M9 11.35 19 9"/><ellipse class="ico-fill" cx="6.6" cy="17.4" rx="2.6" ry="2.1"/><ellipse class="ico-fill" cx="16.6" cy="14.9" rx="2.6" ry="2.1"/></symbol>
+    <symbol id="i-learn" viewBox="0 0 24 24"><path class="ico-tone" d="M12 4.75 22 9.5l-10 4.75L2 9.5z"/><path d="M12 4.75 22 9.5l-10 4.75L2 9.5z"/><path d="M6.25 11.6v4.15c0 1.5 2.6 3.25 5.75 3.25s5.75-1.75 5.75-3.25V11.6"/><path d="M22 9.5v5.25"/></symbol>
+    <symbol id="i-piano" viewBox="0 0 24 24"><rect class="ico-tone" x="3" y="5.25" width="18" height="13.5" rx="3"/><rect x="3" y="5.25" width="18" height="13.5" rx="3"/><path d="M9 13v5.75M15 13v5.75"/><rect class="ico-fill" x="7.4" y="5.25" width="3.2" height="7.75" rx="1"/><rect class="ico-fill" x="13.4" y="5.25" width="3.2" height="7.75" rx="1"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M18.5 7H20M4 17h1.5M11 17h9"/><circle class="ico-tone" cx="15.75" cy="7" r="2.5"/><circle cx="15.75" cy="7" r="2.5"/><circle class="ico-tone" cx="8.25" cy="17" r="2.5"/><circle cx="8.25" cy="17" r="2.5"/><path d="M4 12h3.5M12.5 12H20"/><circle class="ico-fill" cx="10" cy="12" r="1.6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle class="ico-tone" cx="10.75" cy="10.75" r="6.25"/><circle cx="10.75" cy="10.75" r="6.25"/><path d="m15.5 15.5 4.5 4.5"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 6.25h11M4 11h11M4 15.75h6"/><path d="M17.75 17.5V8l3-.9"/><circle class="ico-fill" cx="16" cy="17.6" r="2.1"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path class="ico-fill" d="M8.5 5.6c0-.95 1.04-1.53 1.85-1.03l9.2 5.65c.78.48.78 1.6 0 2.08l-9.2 5.65c-.81.5-1.85-.08-1.85-1.03z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect class="ico-fill" x="6.75" y="5" width="3.5" height="14" rx="1.1"/><rect class="ico-fill" x="13.75" y="5" width="3.5" height="14" rx="1.1"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect class="ico-fill" x="6.75" y="6.75" width="10.5" height="10.5" rx="2"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path class="ico-fill" d="M18.25 6.6c0-.8-.9-1.27-1.56-.82l-7.4 5.08c-.58.4-.58 1.27 0 1.66l7.4 5.08c.66.45 1.56-.02 1.56-.82z"/><rect class="ico-fill" x="5.75" y="5.75" width="2.25" height="12.5" rx="1"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path class="ico-fill" d="M5.75 6.6c0-.8.9-1.27 1.56-.82l7.4 5.08c.58.4.58 1.27 0 1.66l-7.4 5.08c-.66.45-1.56-.02-1.56-.82z"/><rect class="ico-fill" x="16" y="5.75" width="2.25" height="12.5" rx="1"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M14.75 4.75h4.5v4.5M9.25 19.25h-4.5v-4.5M19.25 4.75l-5.5 5.5M4.75 19.25l5.5-5.5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle class="ico-fill" cx="5.75" cy="12" r="1.5"/><circle class="ico-fill" cx="12" cy="12" r="1.5"/><circle class="ico-fill" cx="18.25" cy="12" r="1.5"/></symbol>
+    <symbol id="i-details" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle class="ico-fill" cx="4.75" cy="6.5" r="1.2"/><circle class="ico-fill" cx="4.75" cy="12" r="1.2"/><circle class="ico-fill" cx="4.75" cy="17.5" r="1.2"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4.75 12a7.25 7.25 0 1 0 2.12-5.13"/><path d="M4.75 4.75v4h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.75v12.5M5.75 12h12.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.75 6.75 10.5 10.5M17.25 6.75l-10.5 10.5"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  </svg>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="app-shell">
     <nav class="primary-nav" aria-label="Primary navigation">
       <a class="nav-brand" href="#/home" data-ui008-route="home" aria-label="Piano Core home">
-        <span class="nav-brand-mark" aria-hidden="true">P</span>
+        <span class="nav-brand-mark" aria-hidden="true"><svg class="pc-logo" aria-hidden="true" viewBox="0 0 64 64"><use href="#pc-logo"/></svg></span>
       </a>
       <div class="primary-nav-items">
-        <a class="nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
-        <a class="nav-item" href="#/library" data-ui008-route="library"><span class="nav-icon" aria-hidden="true">▤</span><span>Library</span></a>
-        <a class="nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true">▶</span><span>Player</span></a>
-        <a class="nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true">◇</span><span>Learn</span></a>
-        <a class="nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true">♩</span><span>Piano</span></a>
-        <a class="nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span></a>
+        <a class="nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span><span>Home</span></a>
+        <a class="nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-music"/></svg></span><span>Music</span></a>
+        <a class="nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-learn"/></svg></span><span>Learn</span></a>
+        <a class="nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-piano"/></svg></span><span>Piano</span></a>
+        <a class="nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-settings"/></svg></span><span>Settings</span></a>
       </div>
     </nav>
 
@@ -31,7 +70,7 @@
       <header class="topbar">
         <div class="topbar-row">
           <div class="brand-lockup">
-            <span class="mobile-brand-mark" aria-hidden="true">P</span>
+            <span class="mobile-brand-mark" aria-hidden="true"><svg class="pc-logo" aria-hidden="true" viewBox="0 0 64 64"><use href="#pc-logo"/></svg></span>
             <div>
               <p class="brand-kicker">Piano Core</p>
               <h1 id="ui008-route-title" class="brand">Home</h1>
@@ -55,16 +94,16 @@
     <section id="ui008-home" class="home-surface route-surface" data-ui008-surface="home" aria-labelledby="ui008-home-heading">
       <h2 id="ui008-home-heading" class="visually-hidden">Home</h2>
       <div class="home-quick" role="group" aria-label="Quick actions">
-        <a id="ui008-home-search" class="home-quick-card home-quick-card--wide" href="#/library" data-ui008-route="library" data-ui008-search-cta>
-          <span class="home-quick-icon" aria-hidden="true">⌕</span>
-          <span class="home-quick-copy"><strong>Search Library</strong><small>Songs, A–Z</small></span>
+        <a id="ui008-home-search" class="home-quick-card home-quick-card--wide" href="#/player" data-ui008-route="player" data-ui008-search-cta>
+          <span class="home-quick-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span>
+          <span class="home-quick-copy"><strong>Search music</strong><small>Songs, playlists</small></span>
         </a>
         <a class="home-quick-card" href="#/player" data-ui008-route="player">
-          <span class="home-quick-icon" aria-hidden="true">▶</span>
-          <span class="home-quick-copy"><strong>Play</strong><small>Player</small></span>
+          <span class="home-quick-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg></span>
+          <span class="home-quick-copy"><strong>Play</strong><small>Now playing</small></span>
         </a>
         <a class="home-quick-card" href="#/learn" data-ui008-route="learn">
-          <span class="home-quick-icon" aria-hidden="true">◇</span>
+          <span class="home-quick-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-learn"/></svg></span>
           <span class="home-quick-copy"><strong>Learn</strong><small>Practice</small></span>
         </a>
       </div>
@@ -89,8 +128,8 @@
       <section id="ui008-home-welcome" class="card foundation-state home-welcome" hidden>
         <p class="section-kicker">Welcome</p>
         <h3>Choose your first song</h3>
-        <p>Browse the library to find something to play or learn.</p>
-        <a class="btn foundation-state-action" href="#/library" data-ui008-route="library">Open Library</a>
+        <p>Search your music to find something to play or learn.</p>
+        <a class="btn foundation-state-action" href="#/player" data-ui008-route="player" data-ui008-search-cta>Search music</a>
       </section>
 
       <p id="ui008-home-readiness" class="home-readiness" data-tone="wait" role="status">
@@ -100,56 +139,164 @@
       </p>
     </section>
 
-    <section id="player" class="stage-surface route-surface" data-ui008-surface="player" aria-labelledby="player-heading">
-      <div class="stage-head">
-        <div class="stage-head-copy">
-          <h2 id="player-heading" class="player-surface-title">Player</h2>
-        </div>
-        <div class="stage-head-actions">
-          <a class="btn player-library-link" href="#/library" data-ui008-route="library">Library <span aria-hidden="true">↗</span></a>
-          <button id="ui008-player-options" aria-label="More player options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>More</span></button>
-        </div>
+    <section id="player" class="stage-surface route-surface music-surface" data-ui008-surface="player" aria-labelledby="player-heading">
+      <div class="music-layout">
+      <div class="music-now">
+          <div class="stage-head">
+            <div class="stage-head-copy">
+              <h2 id="player-heading" class="player-surface-title">Now playing</h2>
+            </div>
+            <div class="stage-head-actions">
+              <div id="music-view-switch" class="music-view-switch" role="group" aria-label="What to show while a song plays">
+                <button type="button" class="music-view-btn" data-player-view="cover" aria-pressed="true">Cover</button>
+                <button type="button" class="music-view-btn" data-player-view="falling" aria-pressed="false">Notes</button>
+                <button type="button" class="music-view-btn" data-player-view="hands" aria-pressed="false">Hands</button>
+              </div>
+              <button id="music-browse-toggle" type="button" class="btn music-browse-toggle" aria-expanded="false" aria-controls="music-browse"><svg class="ico" aria-hidden="true"><use href="#i-library"/></svg><span>Library</span></button>
+              <button id="ui008-player-options" aria-label="More player options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><svg class="ico" aria-hidden="true"><use href="#i-more"/></svg><span>More</span></button>
+            </div>
+          </div>
+          <div class="now-playing">
+            <div class="music-stage">
+            <div class="piano-artwork" aria-hidden="true"><span id="music-art" class="song-cover song-cover--hero"></span><div class="piano-artwork-mark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>PIANO CORE</span></div>
+            <div id="ui008-scene-slot-player" class="stage-scene music-scene-slot"></div>
+            </div>
+            <div class="now-playing-copy">
+              <p class="section-kicker">On your piano</p>
+              <h3 id="player-title" class="now-playing-title">No song selected</h3>
+              <p id="player-meta" class="now-playing-meta">Choose a song from your library.</p>
+              <span id="player-state" class="player-state" data-state="unavailable" role="status">Connecting</span>
+              <div class="now-playing-actions">
+                <button id="music-add-current" type="button" class="btn music-chip-btn" disabled><svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg><span>Add to playlist</span></button>
+                <button id="music-learn-current" type="button" class="btn music-chip-btn" disabled>Learn this song</button>
+              </div>
+              <p id="music-up-next" class="music-up-next" hidden></p>
+            </div>
+          </div>
+          <div class="stage-strip player-strip">
+            <div class="timeline" aria-label="Playback timeline">
+              <div class="time-row">
+                <span id="player-position" class="time-value" aria-label="Elapsed time">0:00</span>
+                <span id="player-duration" class="time-value" aria-label="Duration">0:00</span>
+                <span id="player-remaining" hidden class="time-value" aria-label="Remaining time">−0:00</span>
+              </div>
+              <div id="player-progress" class="progress-track" role="progressbar"
+                   aria-label="Song progress, read only" aria-readonly="true"
+                   aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="player-progress-fill" class="progress-fill"></div>
+              </div>
+              <div class="timeline-caption">
+
+                <span id="player-freshness" role="status" aria-live="polite">Waiting for Core</span>
+              </div>
+            </div>
+
+            <div class="controls transport-controls" role="group" aria-label="Playback controls">
+              <button id="music-prev" type="button" class="btn transport-btn transport-btn--skip" aria-label="Previous song" disabled><svg class="ico" aria-hidden="true"><use href="#i-prev"/></svg><span class="transport-label">Previous</span></button>
+              <button id="btn-play" type="button" class="btn transport-btn transport-btn--primary" aria-keyshortcuts="Space" aria-label="Play" disabled><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg><span class="transport-label">Play</span></button>
+              <button id="btn-pause" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Pause" disabled><svg class="ico" aria-hidden="true"><use href="#i-pause"/></svg><span class="transport-label">Pause</span></button>
+              <button id="btn-resume" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Resume" disabled><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg><span class="transport-label">Resume</span></button>
+              <button id="btn-stop" type="button" class="btn transport-btn btn-danger" aria-keyshortcuts="Escape" aria-label="Stop" disabled><svg class="ico" aria-hidden="true"><use href="#i-stop"/></svg><span class="transport-label">Stop</span></button>
+              <button id="music-next" type="button" class="btn transport-btn transport-btn--skip" aria-label="Next song" disabled><svg class="ico" aria-hidden="true"><use href="#i-next"/></svg><span class="transport-label">Next</span></button>
+              <button id="ui008-performance-btn" type="button" class="btn transport-btn transport-btn--aux" aria-pressed="false" aria-label="Performance mode"><svg class="ico" aria-hidden="true"><use href="#i-expand"/></svg><span class="transport-label">Performance</span></button>
+            </div>
+          </div>
+
+          <p id="player-error" class="feedback feedback-error" role="alert" hidden></p>
+          <p class="keyboard-hint">Keyboard: Space plays or toggles pause/resume · Escape stops.</p>
       </div>
 
-      <div class="now-playing">
-        <div class="piano-artwork" aria-hidden="true"><div class="piano-artwork-mark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span>PIANO CORE</span></div>
-        <div class="now-playing-copy">
-          <p class="section-kicker">On your piano</p>
-          <h3 id="player-title" class="now-playing-title">No song selected</h3>
-          <p id="player-meta" class="now-playing-meta">Choose a song from your library.</p>
-          <span id="player-state" class="player-state" data-state="unavailable" role="status">Connecting</span>
+      <aside id="music-browse" class="music-browse" aria-label="Find music">
+        <div class="music-browse-head">
+          <p class="section-kicker">Library</p>
+          <button id="music-browse-close" type="button" class="btn music-browse-close" aria-label="Close library"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
         </div>
+        <div class="music-tabs" role="tablist" aria-label="Music lists">
+          <button id="music-tab-search" type="button" role="tab" class="music-tab" aria-selected="true" aria-controls="music-panel-search" data-music-tab="search">Search</button>
+          <button id="music-tab-playlists" type="button" role="tab" class="music-tab" aria-selected="false" aria-controls="music-panel-playlists" data-music-tab="playlists" tabindex="-1">Playlists</button>
+          <button id="music-tab-recent" type="button" role="tab" class="music-tab" aria-selected="false" aria-controls="music-panel-recent" data-music-tab="recent" tabindex="-1">Recent</button>
+        </div>
+        <div id="music-panel-search" class="music-panel" role="tabpanel" aria-labelledby="music-tab-search">
+                <section id="library" class="library-card music-search" aria-labelledby="library-heading">
+                  <div class="library-head">
+                    <h2 id="library-heading" class="visually-hidden">Search songs</h2>
+                    <p id="library-summary" class="library-summary">Loading library…</p>
+                  </div>
+                  <form id="search-form" role="search" class="search-form">
+                    <label class="visually-hidden" for="search">Search songs</label>
+                    <input id="search" name="q" type="search" placeholder="Search songs…"
+                           autocomplete="off" enterkeyhint="search">
+                    <button id="btn-clear" type="button" class="btn btn-small" hidden>Clear</button>
+                  </form>
+                  <div class="library-toolbar">
+                    <button id="library-filter-ready" type="button" class="library-chip" aria-pressed="false">Ready to play</button>
+                    <p class="library-sort-note">Sorted A–Z</p>
+                  </div>
+                  <div id="library-skeleton" class="library-skeleton" hidden aria-hidden="true">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                  </div>
+                  <p id="library-empty" class="library-empty" hidden>
+                    The catalog is empty right now. Songs appear here once the library has
+                    been scanned on the appliance.
+                  </p>
+                  <ul id="results" class="song-list" aria-label="Song results"></ul>
+                  <p id="library-feedback" class="feedback" role="status" aria-live="polite" hidden></p>
+                  <button id="library-retry" type="button" class="btn" hidden>Retry</button>
+                  <button id="btn-more" type="button" class="btn btn-more" hidden>Load more</button>
+                </section>
+
+                <section id="selected" class="selected-card" aria-labelledby="selected-heading" hidden>
+                  <details class="selected-details"><summary id="selected-heading">Selected song details</summary>
+                  <dl class="song-detail">
+                    <dt>Title</dt><dd id="sel-title"></dd>
+                    <dt>File</dt><dd id="sel-file"></dd>
+                    <dt>Duration</dt><dd id="sel-duration"></dd>
+                    <dt>Format</dt><dd id="sel-format"></dd>
+                    <dt>Tracks</dt><dd id="sel-tracks"></dd>
+                    <dt>State</dt><dd id="sel-status"></dd>
+                  </dl>
+                  <div class="selected-actions">
+                    <p class="hint">Open the Learn surface to start a guided session —
+                    Piano Core checks your playing and decides when a target is
+                    complete.</p>
+                  </div>
+                  </details>
+                </section>
+        </div>
+        <div id="music-panel-playlists" class="music-panel" role="tabpanel" aria-labelledby="music-tab-playlists" hidden>
+          <p id="music-add-banner" class="music-add-banner" role="status" hidden>
+            <span id="music-add-label"></span>
+            <button id="music-add-cancel" type="button" class="btn btn-small">Cancel</button>
+          </p>
+          <div id="music-playlists-home">
+            <form id="music-new-playlist" class="music-new-playlist">
+              <label class="visually-hidden" for="music-new-playlist-name">New playlist name</label>
+              <input id="music-new-playlist-name" type="text" maxlength="60" placeholder="New playlist…" autocomplete="off" enterkeyhint="done">
+              <button type="submit" class="btn">Create</button>
+            </form>
+            <ul id="music-playlist-list" class="music-playlist-list" aria-label="Your playlists"></ul>
+            <p id="music-playlists-empty" class="music-empty">No playlists yet. Create one, then add songs with +.</p>
+          </div>
+          <div id="music-playlist-detail" hidden>
+            <div class="music-playlist-head">
+              <button id="music-playlist-back" type="button" class="btn btn-small" aria-label="All playlists"><svg class="ico" aria-hidden="true"><use href="#i-back"/></svg></button>
+              <h3 id="music-playlist-title"></h3>
+              <button id="music-playlist-play" type="button" class="btn song-play">Play</button>
+              <button id="music-playlist-delete" type="button" class="btn btn-small">Delete</button>
+            </div>
+            <ul id="music-playlist-songs" class="song-list" aria-label="Playlist songs"></ul>
+            <p id="music-playlist-empty" class="music-empty" hidden>This playlist is empty. Add songs with + in Search or Now playing.</p>
+          </div>
+        </div>
+        <div id="music-panel-recent" class="music-panel" role="tabpanel" aria-labelledby="music-tab-recent" hidden>
+          <ul id="music-recent-list" class="song-list" aria-label="Recently played"></ul>
+          <p id="music-recent-empty" class="music-empty">Songs you play show up here.</p>
+        </div>
+        <p class="music-note">Playlists are saved on this device.</p>
+      </aside>
       </div>
-
-      <div class="stage-strip player-strip">
-        <div class="timeline" aria-label="Playback timeline">
-          <div class="time-row">
-            <span id="player-position" class="time-value" aria-label="Elapsed time">0:00</span>
-            <span id="player-duration" class="time-value" aria-label="Duration">0:00</span>
-            <span id="player-remaining" hidden class="time-value" aria-label="Remaining time">−0:00</span>
-          </div>
-          <div id="player-progress" class="progress-track" role="progressbar"
-               aria-label="Song progress, read only" aria-readonly="true"
-               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div id="player-progress-fill" class="progress-fill"></div>
-          </div>
-          <div class="timeline-caption">
-
-            <span id="player-freshness" role="status" aria-live="polite">Waiting for Core</span>
-          </div>
-        </div>
-
-        <div class="controls transport-controls" role="group" aria-label="Playback controls">
-          <button id="btn-play" type="button" class="btn transport-btn transport-btn--primary" aria-keyshortcuts="Space" aria-label="Play" disabled><span aria-hidden="true">▶</span><span class="transport-label">Play</span></button>
-          <button id="btn-pause" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Pause" disabled><span aria-hidden="true">Ⅱ</span><span class="transport-label">Pause</span></button>
-          <button id="btn-resume" type="button" class="btn transport-btn" aria-keyshortcuts="Space" aria-label="Resume" disabled><span aria-hidden="true">▶</span><span class="transport-label">Resume</span></button>
-          <button id="btn-stop" type="button" class="btn transport-btn btn-danger" aria-keyshortcuts="Escape" aria-label="Stop" disabled><span aria-hidden="true">■</span><span class="transport-label">Stop</span></button>
-          <button id="ui008-performance-btn" type="button" class="btn transport-btn transport-btn--aux" aria-pressed="false" aria-label="Performance mode"><span aria-hidden="true">⛶</span><span class="transport-label">Performance</span></button>
-        </div>
-      </div>
-
-      <p id="player-error" class="feedback feedback-error" role="alert" hidden></p>
-      <p class="keyboard-hint">Keyboard: Space plays or toggles pause/resume · Escape stops.</p>
     </section>
 
     <!-- PIANO-LEARN-001: Learn Library catalog (educational namespace).
@@ -165,7 +312,7 @@
         <button id="academy-refresh" class="btn" type="button" aria-label="Refresh learning catalog and progress">Refresh</button>
       </div>
       <p id="academy-selection-error" class="feedback feedback-error" role="alert" hidden></p>
-      <div class="academy-welcome"><div><p class="section-kicker">PIANO CORE ACADEMY</p><h3>A little practice.<br>A new possibility.</h3><p>Find your next lesson. Make it your own.</p></div><button id="academy-begin" class="btn transport-btn--primary" type="button">Start with first notes <span aria-hidden="true">↗</span></button></div>
+      <div class="academy-welcome"><div><p class="section-kicker">PIANO CORE ACADEMY</p><h3>A little practice.<br>A new possibility.</h3><p>Find your next lesson. Make it your own.</p></div><button id="academy-begin" class="btn transport-btn--primary" type="button">Start with first notes <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
       <section id="academy-continue" class="academy-continue" hidden aria-labelledby="academy-continue-heading"><div><p class="section-kicker">CONTINUE LEARNING</p><h3 id="academy-continue-heading"></h3><p id="academy-continue-meta"></p></div><button id="academy-resume" class="btn" type="button">Resume lesson →</button></section>
       <section aria-labelledby="academy-journey-heading"><div class="academy-section-head"><h3 id="academy-journey-heading">My learning journey</h3><span id="academy-progress-total"></span></div><div id="academy-journey" class="academy-journey"></div></section>
       <section aria-labelledby="academy-courses-heading"><div class="academy-section-head"><h3 id="academy-courses-heading">Courses</h3><label for="academy-course-level" class="visually-hidden">Course level</label><select id="academy-course-level" class="view-select"><option value="-1">All levels</option><option value="0">First notes</option><option value="1">Beginner</option><option value="2">Elementary</option><option value="3">Intermediate</option><option value="4">Advanced</option></select></div><div id="academy-courses" class="academy-courses"></div></section>
@@ -220,8 +367,8 @@
             <option value="hands">Hands</option>
             <option value="sheet">Sheet</option>
           </select>
-          <button id="studio-fullscreen" class="btn studio-only" type="button" aria-label="Enter browser fullscreen">⛶</button><button id="studio-exit" class="btn studio-only" type="button">Exit Studio</button>
-          <button id="ui008-learn-options" aria-label="Lesson options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>More</span></button>
+          <button id="studio-fullscreen" class="btn studio-only" type="button" aria-label="Enter browser fullscreen"><svg class="ico" aria-hidden="true"><use href="#i-expand"/></svg></button><button id="studio-exit" class="btn studio-only" type="button">Exit Studio</button>
+          <button id="ui008-learn-options" aria-label="Lesson options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><svg class="ico" aria-hidden="true"><use href="#i-more"/></svg><span>More</span></button>
         </div>
       </div>
 
@@ -264,14 +411,14 @@
       <h2 id="ui008-learn-empty-heading">Choose a song to begin</h2>
       <p id="ui008-learn-empty-note">Pick a song and Piano Core will guide you,
       one note or chord at a time — you play, Core guides.</p>
-      <a class="btn foundation-state-action" href="#/library" data-ui008-route="library">Open Library</a>
+      <a class="btn foundation-state-action" href="#/player" data-ui008-route="player" data-ui008-search-cta>Search music</a>
     </section>
 
     <!-- ONE shared scene: single renderer instances (visual stage, 88-key
          keyboard, 3D hands). The container is moved between the per-route
          stage slots by ui008/workspace.js — never cloned. Exactly one view
          is presented at a time; inactive views stop painting. -->
-    <div id="ui008-workspace-scene" class="workspace-scene route-surface" data-ui008-surface="piano learn" aria-label="Music scene">
+    <div id="ui008-workspace-scene" class="workspace-scene route-surface" data-ui008-surface="piano learn player" aria-label="Music scene">
 
       <div id="visual" class="scene-view scene-view--notes">
         <div id="visual-stage" class="visual-stage" data-mode="falling" data-status="no-song">
@@ -320,58 +467,6 @@
     </div>
 
 
-    <section id="library" class="card library-card route-surface" data-ui008-surface="library" aria-labelledby="library-heading">
-      <div class="library-head">
-        <div>
-          <p class="section-kicker">Your music</p>
-          <h2 id="library-heading">Library</h2>
-          <p class="library-intro">Find a piece. Let your piano play.</p>
-          <p id="library-summary" class="library-summary">Loading library…</p>
-        </div>
-      </div>
-      <form id="search-form" role="search" class="search-form">
-        <label class="visually-hidden" for="search">Search songs</label>
-        <input id="search" name="q" type="search" placeholder="Search songs…"
-               autocomplete="off" enterkeyhint="search">
-        <button id="btn-clear" type="button" class="btn btn-small" hidden>Clear</button>
-      </form>
-      <div class="library-toolbar">
-        <button id="library-filter-ready" type="button" class="library-chip" aria-pressed="false">Ready to play</button>
-        <p class="library-sort-note">Sorted A–Z</p>
-      </div>
-      <div id="library-skeleton" class="library-skeleton" hidden aria-hidden="true">
-        <div class="skeleton-row"></div>
-        <div class="skeleton-row"></div>
-        <div class="skeleton-row"></div>
-      </div>
-      <p id="library-empty" class="library-empty" hidden>
-        The catalog is empty right now. Songs appear here once the library has
-        been scanned on the appliance.
-      </p>
-      <ul id="results" class="song-list" aria-label="Song results"></ul>
-      <p id="library-feedback" class="feedback" role="status" aria-live="polite" hidden></p>
-      <button id="library-retry" type="button" class="btn" hidden>Retry</button>
-      <button id="btn-more" type="button" class="btn btn-more" hidden>Load more</button>
-    </section>
-
-    <section id="selected" class="card selected-card route-surface" data-ui008-surface="library" aria-labelledby="selected-heading" hidden>
-      <details class="selected-details"><summary id="selected-heading">Selected song details</summary>
-      <dl class="song-detail">
-        <dt>Title</dt><dd id="sel-title"></dd>
-        <dt>File</dt><dd id="sel-file"></dd>
-        <dt>Duration</dt><dd id="sel-duration"></dd>
-        <dt>Format</dt><dd id="sel-format"></dd>
-        <dt>Tracks</dt><dd id="sel-tracks"></dd>
-        <dt>State</dt><dd id="sel-status"></dd>
-      </dl>
-      <div class="selected-actions">
-        <p class="hint">Open the Learn surface to start a guided session —
-        Piano Core checks your playing and decides when a target is
-        complete.</p>
-      </div>
-      </details>
-    </section>
-
     <section id="piano-status" class="stage-surface route-surface" data-ui008-surface="piano" aria-labelledby="piano-heading">
       <div class="stage-head">
         <div class="stage-head-copy">
@@ -382,7 +477,7 @@
         </div>
         <div class="stage-head-actions">
           <span id="piano-state" class="learn-state" data-state="idle">Checking…</span>
-          <button id="ui008-piano-options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><span aria-hidden="true">≡</span><span>Lights &amp; details</span></button>
+          <button id="ui008-piano-options" type="button" class="btn stage-more-btn" aria-haspopup="dialog"><svg class="ico" aria-hidden="true"><use href="#i-more"/></svg><span>Lights &amp; details</span></button>
         </div>
       </div>
 
@@ -407,6 +502,18 @@
         </div>
       </div>
 
+      <div class="settings-group" aria-labelledby="settings-appearance-heading">
+        <h3 id="settings-appearance-heading">Appearance</h3>
+        <p class="settings-group-note">Song screens stay dark so the notes and keys read clearly.</p>
+        <div class="settings-row">
+          <span class="settings-label" id="settings-theme-label">Theme</span>
+          <div id="settings-theme" class="visual-mode-switch" role="group" aria-labelledby="settings-theme-label">
+            <button id="settings-theme-dark" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="dark" aria-pressed="true">Dark</button>
+            <button id="settings-theme-light" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="light" aria-pressed="false">Light</button>
+            <button id="settings-theme-auto" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="auto" aria-pressed="false">Auto</button>
+          </div>
+        </div>
+      </div>
       <div class="settings-group" aria-labelledby="settings-visuals-heading">
         <h3 id="settings-visuals-heading">Visuals</h3>
         <p class="settings-group-note">How songs look on this device — saved in this browser only.</p>
@@ -491,11 +598,10 @@
     </div>
 
     <nav class="bottom-nav" aria-label="Primary navigation">
-      <a class="bottom-nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true">⌂</span><span>Home</span></a>
-      <a class="bottom-nav-item" href="#/library" data-ui008-route="library"><span class="nav-icon" aria-hidden="true">▤</span><span>Library</span></a>
-      <a class="bottom-nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true">▶</span><span>Player</span></a>
-      <a class="bottom-nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true">◇</span><span>Learn</span></a>
-      <button class="bottom-nav-item" type="button" data-ui008-open-more aria-haspopup="dialog"><span class="nav-icon" aria-hidden="true">•••</span><span>More</span></button>
+      <a class="bottom-nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span><span>Home</span></a>
+      <a class="bottom-nav-item" href="#/player" data-ui008-route="player"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-music"/></svg></span><span>Music</span></a>
+      <a class="bottom-nav-item" href="#/learn" data-ui008-route="learn"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-learn"/></svg></span><span>Learn</span></a>
+      <button class="bottom-nav-item" type="button" data-ui008-open-more aria-haspopup="dialog"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-more"/></svg></span><span>More</span></button>
     </nav>
   </div>
 
@@ -506,11 +612,11 @@
           <p class="section-kicker">Piano Core</p>
           <h2 id="ui008-more-title">More</h2>
         </div>
-        <button id="ui008-more-close" class="icon-button" type="button" aria-label="Close menu">×</button>
+        <button id="ui008-more-close" class="icon-button" type="button" aria-label="Close menu"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <nav class="sheet-nav" aria-label="More destinations">
-        <a class="sheet-nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true">♩</span><span><strong>Piano</strong><small>Keys, connection and lights</small></span></a>
-        <a class="sheet-nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true">⚙</span><span><strong>Settings</strong><small>Preferences and system status</small></span></a>
+        <a class="sheet-nav-item" href="#/piano" data-ui008-route="piano"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-piano"/></svg></span><span><strong>Piano</strong><small>Keys, connection and lights</small></span></a>
+        <a class="sheet-nav-item" href="#/settings" data-ui008-route="settings"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-settings"/></svg></span><span><strong>Settings</strong><small>Preferences and system status</small></span></a>
       </nav>
     </section>
   </div>
@@ -523,12 +629,12 @@
           <h2 id="ui008-song-sheet-title"></h2>
           <p id="ui008-song-sheet-meta" class="home-continue-meta"></p>
         </div>
-        <button id="ui008-song-sheet-close" class="icon-button" type="button" aria-label="Close song actions">×</button>
+        <button id="ui008-song-sheet-close" class="icon-button" type="button" aria-label="Close song actions"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <div class="sheet-nav" role="group" aria-label="Song actions">
-        <button id="ui008-song-sheet-play" type="button" class="btn sheet-action"><span aria-hidden="true">▶</span><span>Play</span></button>
-        <button id="ui008-song-sheet-learn" type="button" class="btn sheet-action"><span aria-hidden="true">◇</span><span>Learn</span></button>
-        <button id="ui008-song-sheet-details" type="button" class="btn sheet-action"><span aria-hidden="true">▤</span><span>View details</span></button>
+        <button id="ui008-song-sheet-play" type="button" class="btn sheet-action"><svg class="ico" aria-hidden="true"><use href="#i-play"/></svg><span>Play</span></button>
+        <button id="ui008-song-sheet-learn" type="button" class="btn sheet-action"><svg class="ico" aria-hidden="true"><use href="#i-learn"/></svg><span>Learn</span></button>
+        <button id="ui008-song-sheet-details" type="button" class="btn sheet-action"><svg class="ico" aria-hidden="true"><use href="#i-details"/></svg><span>View details</span></button>
       </div>
     </section>
   </div>
@@ -540,7 +646,7 @@
           <p class="section-kicker">Player</p>
           <h2 id="ui008-player-sheet-title">More</h2>
         </div>
-        <button id="ui008-player-sheet-close" class="icon-button" type="button" aria-label="Close player options">×</button>
+        <button id="ui008-player-sheet-close" class="icon-button" type="button" aria-label="Close player options"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <div id="ui008-player-secondary-sheet" class="player-secondary-sheet">
         <div id="ui008-player-secondary" class="player-secondary">
@@ -576,7 +682,7 @@
           <p class="section-kicker">Learn</p>
           <h2 id="ui008-learn-sheet-title">Lesson options</h2>
         </div>
-        <button id="ui008-learn-sheet-close" class="icon-button" type="button" aria-label="Close lesson options">×</button>
+        <button id="ui008-learn-sheet-close" class="icon-button" type="button" aria-label="Close lesson options"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <div id="ui008-learn-sheet-content" class="player-secondary-sheet">
           <div class="player-option">
@@ -593,8 +699,8 @@
         <span id="ui008-learn-state" class="learn-state" data-state="idle">Ready</span>
         <p id="practice-status" class="stage-meta"></p>
         <div class="learn-session-actions">
-          <button id="btn-learning-restart-target" type="button" class="btn btn-small" aria-label="Restart target" disabled><span aria-hidden="true">↺</span><span class="transport-label">Restart target</span></button>
-          <button id="btn-learning-restart-section" type="button" class="btn btn-small" aria-label="Restart section" disabled><span aria-hidden="true">⟲</span><span class="transport-label">Restart section</span></button>
+          <button id="btn-learning-restart-target" type="button" class="btn btn-small" aria-label="Restart target" disabled><svg class="ico" aria-hidden="true"><use href="#i-restart"/></svg><span class="transport-label">Restart target</span></button>
+          <button id="btn-learning-restart-section" type="button" class="btn btn-small" aria-label="Restart section" disabled><svg class="ico" aria-hidden="true"><use href="#i-restart"/></svg><span class="transport-label">Restart section</span></button>
         </div>
         <div id="ui008-learn-start-region" class="learn-start-region" hidden>
           <div class="learning-config">
@@ -635,7 +741,7 @@
           <p class="section-kicker">Piano</p>
           <h2 id="ui008-piano-sheet-title">Lights &amp; details</h2>
         </div>
-        <button id="ui008-piano-sheet-close" class="icon-button" type="button" aria-label="Close lights and details">×</button>
+        <button id="ui008-piano-sheet-close" class="icon-button" type="button" aria-label="Close lights and details"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
       </div>
       <div id="ui008-piano-sheet-content" class="player-secondary-sheet">
         <div class="led-card">

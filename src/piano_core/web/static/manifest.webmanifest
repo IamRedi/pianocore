@@ -4,8 +4,8 @@
   "description": "Local appliance UI for Piano Core (trusted LAN only).",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f4f5",
-  "theme_color": "#1d4ed8",
+  "background_color": "#12141c",
+  "theme_color": "#12141c",
   "icons": [
     {
       "src": "/ui/favicon.svg",

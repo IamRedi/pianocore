@@ -16,7 +16,7 @@ export const SETTINGS_FEATURES = Object.freeze({
   durablePersistence: false, // NO server-side preferences contract exists
   audioOptions: false, // no audio settings contract exists
   safeReset: false, // no reset/recovery command contract exists
-  themeChoice: false, // single accepted dark instrument theme only
+  themeChoice: true, // local: Dark / Light / Auto (song screens stay dark)
   reducedMotionOverride: false, // OS-level preference honored; no override
 });
 
