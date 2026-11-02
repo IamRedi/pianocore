@@ -8,6 +8,8 @@
 
 ![Musik: Now Playing mit Bibliothek, dunkles Design](docs/assets/music-dark.png)
 
+> **Nachweisstand und Grenzen:** Bereinigter Snapshot eines persönlichen Raspberry-Pi- und USB-MIDI-Projekts. Der Betrieb am eigenen Instrument wird vom Autor dokumentiert; die für diese öffentliche Fassung ausgewiesenen automatisierten Prüfungen liefen in einer Linux-Testumgebung. Kein kommerzielles Produkt. [Prüfprotokoll](EVIDENCE.md).
+
 ## Auf einen Blick
 
 | | |

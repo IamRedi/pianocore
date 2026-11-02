@@ -8,6 +8,8 @@
 
 ![Music: Now Playing with the library, dark theme](docs/assets/music-dark.png)
 
+> **Evidence and limitations:** Sanitised snapshot of a personal Raspberry Pi and USB-MIDI project. Operation with the author's instrument is documented in the author's records; automated checks reported for this public snapshot ran in a Linux test environment. This is not a commercial product. [Verification record (German)](EVIDENCE.md).
+
 ## At a glance
 
 | | |
