@@ -100,3 +100,14 @@ Final revised presentation: 88 allowlisted assets match the wheel; SHA-256 f3b50
 ### Clear glass over the piano studio · 16 November 2026
 
 Owner requested the piano background behind the glass. The opening now uses the approved matching Day/Night studio photographs, with responsive portrait delivery. Text and Crystal Stage sit on translucent local glass; no full-photo veil or tint. Warm daylight and teal/red evening accents remain. Header controls have local glass for photo contrast. SQ desktop Day/Night, phone390 and SQ/EN320 checked without horizontal overflow. Current local site guard: 22 used assets, four locales. Asset/manifest tests24 PASS and exact display-asset sync PASS; full portfolio gates PASS. The 88 packaged UI assets match the final wheel; SHA-256 424ac96f51bf2cbe2a56751b1cffb9e7d53f8a7c962550925f06e90534abbc24. Native/public/portfolio presentation mirrors remain exact. Existing PRs carry this owner revision; Production unchanged.
+
+
+### Owner-approved publication · 16 November 2026
+
+Owner approved the clear glass/piano-background presentation and explicitly requested publication of the website, portfolio and GitHub. Added keyboard LED guidance, MIDI player playback, searchable MIDI library/playlists and smart-home scenes/commands in SQ/EN/DE/IT. The MIDI preview uses four actual public-domain demo titles, without invented library counts. Public README copy now presents these product capabilities directly.
+
+Authorized targets: public PR6 into main and portfolio PR98 into main with its existing Production deployment. The earlier PR9 dependency is merged. Owner presentation approval is recorded; executor verification is not independent review. No Pi device deployment is part of website publication.
+
+Current verification: portfolio lint/types/tests/build/GitHub sync PASS; four-language site guard PASS, six feature articles and four MIDI entries; phone390 has no horizontal overflow. Asset/manifest tests24 PASS, native display sync PASS and source secret scan PASS. Final wheel and deployed exact-commit receipts follow below. Production rollback reference: portfolio main37a28e2742d3e74de2bff9da7c9c8a54baa44b7f / deployment dpl_6DxhrBurKAh3THoSggwpwqp74PFj.
+
+Final publication package: 165 source files and native/public/portfolio presentation mirrors exact; 88 allowlisted UI assets match the built wheel. Wheel SHA-256 086aea19bf425e39e535bf9d8631243bc39df11fcf822fbd1734adabad67bec1.

@@ -45,3 +45,19 @@ html[data-theme=light] .stage-viewport{background:rgb(61 43 22/.19)}
 @media(max-width:360px){.hero-copy{padding:23px 18px}.hero h1{font-size:2.18rem}.hero .actions{align-items:flex-start;flex-direction:column;gap:3px}.hero .intro{font-size:.85rem}.stage-viewport{height:245px}.hero{min-height:1100px}}
 
 .header-right{padding:5px 9px;gap:30px;border:1px solid var(--glass-line);border-radius:16px;background:var(--copy-glass);backdrop-filter:blur(3px)}.stage-shell{backdrop-filter:blur(1px)}@media(max-width:760px){.header-right{gap:8px}.stage-shell{backdrop-filter:blur(1px)}}
+
+/* Music library and keyboard guidance in the same product glass. */
+.features article:nth-child(3n+1){border-left:0;padding-left:0}
+.library-section{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:35px 0 90px}
+.library-copy>p:not(.eyebrow){margin-top:25px;max-width:47ch;color:var(--muted);font-size:.95rem}
+.library-copy>ul{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:11px;font-size:.82rem;color:var(--muted)}
+.library-copy>ul li{display:flex;gap:13px;align-items:baseline}.library-copy>ul li>span{color:var(--accent)}
+.library-preview{border:1px solid var(--rim);border-radius:22px;padding:24px;background:linear-gradient(135deg,var(--glass),transparent);box-shadow:inset 0 1px 0 rgb(255 255 255/.2),0 25px 60px -40px var(--shadow)}
+.library-preview-heading{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:0 0 18px;border-bottom:1px solid var(--rim);font-size:.8rem;font-weight:650}
+.library-preview-heading>span:first-child{display:flex;gap:12px;align-items:center}.library-preview-heading svg{color:var(--accent)}.library-brand{font-size:.65rem;color:var(--muted);font-weight:500}
+.midi-list{list-style:none;margin:0;padding:0}.midi-list li{display:flex;align-items:center;gap:14px;padding:19px 0;border-bottom:1px solid var(--rim)}
+.song-mark{width:34px;height:38px;display:grid;place-items:center;border:1px solid var(--rim);border-radius:9px;color:var(--accent);background:var(--glass);font-size:20px;flex-shrink:0}
+.song-copy{display:block;min-width:0;flex:1}.song-copy strong{display:block;font-size:.83rem;font-weight:600;line-height:1.5}.song-copy small{display:block;color:var(--muted);font-size:.65rem;margin-top:3px}.midi-tag{font-size:.55rem;letter-spacing:.09em;color:var(--muted)}
+.keyboard-light-caption{display:flex;align-items:center;gap:14px;margin-top:25px;font-size:.6rem;color:var(--muted)}.keyboard-light-strip{display:flex;gap:3px;flex:1;height:7px}.keyboard-light-strip i{display:block;flex:1;border-radius:3px;background:var(--rim)}.keyboard-light-strip i:nth-child(3n+1){background:#8ae6f6;box-shadow:0 0 8px rgb(138 230 246/.35)}.keyboard-light-strip i:nth-child(5n+1){background:#eecaa0;box-shadow:0 0 8px rgb(238 202 160/.35)}
+.library-preview figcaption{margin-top:20px;font-size:.65rem;color:var(--accent)}
+@media(max-width:760px){.library-section{grid-template-columns:1fr;gap:32px;padding:15px 0 55px}.library-preview{padding:20px 18px}.library-copy h2{font-size:2.3rem}.library-copy>p:not(.eyebrow){font-size:.9rem}.library-copy>ul{font-size:.8rem}.midi-list li{gap:11px}.song-copy strong{font-size:.8rem}.library-preview-heading{gap:10px;font-size:.72rem}.keyboard-light-caption{gap:10px}}

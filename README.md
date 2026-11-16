@@ -1,54 +1,47 @@
 # PianoCore
 
-<img src="src/piano_core/web/static/brand/pc-logo-crystal.png" alt="PianoCore crystal grand piano" width="180">
+<img src="src/piano_core/web/static/brand/pc-logo-crystal.png" alt="PianoCore Kristallflügel" width="180">
 
-**Dein Klavier. Eine Welt zum Spielen.** Ein lokales Klavierstudio auf deinem Raspberry Pi: USB-MIDI-Wiedergabe, durchsuchbare Bibliothek, geführtes Üben und Crystal-Stage-Notenansicht.
+**Sieh die Musik. Spüre jede Note.** PianoCore verbindet MIDI-Player, Musikbibliothek, geführtes Üben, Tastatur-LEDs, Crystal Stage und Smart-Home-Steuerung mit deinem Digitalpiano.
 
-[Website](https://www.redioncekrezi.de/app-sites/pianocore/de.html) · [English](README.en.md) · [Prüfprotokoll](EVIDENCE.md) · [Sicherheit](SECURITY.md) · [Lizenz](LICENSE)
+[Website](https://www.redioncekrezi.de/app-sites/pianocore/de.html) · [English](README.en.md) · [Technische Dokumentation](EVIDENCE.md) · [Sicherheit](SECURITY.md) · [Lizenz](LICENSE)
 
-![Aktuelle Crystal-Studio-App](docs/assets/crystal-studio.webp)
+![PianoCore Crystal Studio](docs/assets/crystal-studio.webp)
 
-Die aktuelle Oberfläche verbindet Studiofotos mit klarem Glas, dem Kristallflügel-Logo und Cyan/Lavendel-Handführung. Tag und Nacht zeigen dasselbe Studio; Auto folgt der Gerätedarstellung. Der Screenshot zeigt die echte App lokal mit synthetischer Demonstrationsmusik, ohne physisches Piano.
+## Ein vollständiges Klavierstudio
 
-## Verbinden und installieren
+- **MIDI-Player.** Wähle ein Stück und höre es auf deinem Digitalpiano. Start, Pause, Stopp, Tempo und das nächste Stück steuerst du direkt.
+- **MIDI-Bibliothek.** Durchsuche deine Titelliste, finde Stücke, organisiere Playlists und kehre zur zuletzt gehörten Musik zurück.
+- **Tastatur-LEDs.** Lichter über den Tasten folgen der Musik und zeigen die nächsten Übungsziele.
+- **Geführtes Üben.** Auf die richtigen Noten warten, eine Hand einzeln üben, Passagen wiederholen, Tempo reduzieren und Lernfortschritt verfolgen.
+- **Crystal Stage.** Fallende Noten, Kristalltastatur, Links-/Rechts-Farbführung und Fingersatz im Lernmodus. Notenblatt, fallende Noten oder Hybridansicht wählen.
+- **Smart Home.** Steuere das Klavier über seine Befehlsschnittstelle und binde es in Szenen und Automationen ein.
+- **Deine Bildschirme.** Handy, Tablet oder Computer. Tag, Nacht und Auto verbinden denselben Studioraum mit dem Kristallflügel-Logo und klaren Glasflächen.
 
-Verbinde dein USB-MIDI-Piano mit einem Raspberry Pi, auf dem PianoCore läuft. Öffne die Pi-Adresse am Handy, Tablet oder Computer im selben vertrauenswürdigen Netzwerk. Die Website präsentiert Musik, geführtes Üben und Crystal Stage mit stillen Illustrationen aus dem eigenen App-Renderer.
+## Lokale Architektur
 
-Zur Installation öffnest du die **App unter der HTTPS-Adresse des Pi** und wählst die Browser-Funktion App installieren, sobald verfügbar. Auf iPhone/iPad: Safari → Teilen → Zum Home-Bildschirm. Der installierte Client benötigt weiterhin den erreichbaren Pi. Die Präsentationswebsite installiert keine Klavier-Engine.
+PianoCore läuft auf Raspberry Pi und verbindet das Digitalpiano über USB-MIDI. Python, SQLite und mido/python-rtmidi bilden die musikalische Laufzeit; der Browser nutzt die gleichnamige HTTP/SSE-Schnittstelle. Der Pi verwaltet den musikalischen Zustand, die Anzeigen folgen ihm.
 
-Das Manifest enthält eine stabile Identität, Scope sowie 192/512-px- und maskierbare Kristall-Icons. Nur ein echtes Browser-Installationsereignis aktiviert den App-Button. Kein Service Worker, kein Offline-API-Cache und keine automatische Installation. HTTPS-Einrichtung und Gerätebereitstellung sind separate Freigabeschritte; eine physische Abnahme wird nicht behauptet.
+Der Webclient enthält ein Installationsmanifest und Kristall-App-Icons. Öffne die HTTPS-Adresse deines Geräts für die Browser-Installation; Safari bietet Teilen → Zum Home-Bildschirm. Die native Produktwebsite liegt unter `/ui/about/` in SQ/EN/DE/IT.
 
-## Umgesetzt
-
-- MIDI-Suche, Playlists, zuletzt gespielte Musik und Wiedergabesteuerung.
-- Geführtes Üben mit Warten auf die richtigen Noten, Fortschritt und Abschnittswiederholung.
-- Notenblatt, fallende Noten, Hybridansicht und Crystal-Stage-Tastatur auf der Core-Zeitachse.
-- Live-Tasten-/Pedalanzeige und optionale ESP32-LED-Führung.
-- Eine lokale musikalische Instanz mit Handy-, Tablet- und Desktop-Clients.
-
-3D-Hände bleiben experimentell. Der Lernkatalog wird separat importiert und ist nicht enthalten. Dies ist ein MVP, kein kommerziell abgenommenes Gerät.
-
-## Local development
+## Entwicklung
 
 ```bash
 git clone https://github.com/IamRedi/pianocore && cd pianocore
 python3 -m venv .venv && . .venv/bin/activate
-pip install -e .  # Linux: python-rtmidi requires libasound2-dev
+pip install -e .  # Linux-Build-Abhängigkeit: libasound2-dev
 python tools/demo_local.py
 ```
 
-Open `http://127.0.0.1:8788/ui/`. The disposable local demo uses the real Application with silent synthetic MIDI boundaries and four public-domain melodies. It does not connect to your appliance. The native presentation is at `/ui/about/en.html` (also SQ/DE/IT).
+Öffne `http://127.0.0.1:8788/ui/`. Der lokale Entwicklungsplayer enthält vier gemeinfreie Melodien und stille MIDI-Adapter. Der Lernkatalog kann separat importiert werden.
 
 ```bash
 PYTHONPATH=src:tests python -m unittest discover -s tests -t .
 npm install --no-save --no-package-lock ws@8.18.0
 node --test tests/weblogic/*.test.mjs
+python tools/sync_presentation_assets.py --check
 ```
 
-Routine verification runs locally. GitHub Actions is manual only; no cloud run was requested for this update. Historical checks and current limits are recorded in [EVIDENCE.md](EVIDENCE.md).
+Entwicklungsprüfungen laufen lokal; GitHub Actions kann manuell gestartet werden. [EVIDENCE.md](EVIDENCE.md) enthält die technische Historie und Prüfergebnisse.
 
-## Architecture and rights
-
-Python 3.11+, SQLite, mido/python-rtmidi, same-origin HTTP/SSE and browser-native HTML/CSS/JavaScript. The Pi owns musical truth; views do not advance practice independently. The unauthenticated control API is intended for trusted networks only; never expose it to the public internet. See [SECURITY.md](SECURITY.md).
-
-This public source mirror excludes private task records, device logs, personal paths and the appliance address. Crystal identity and studio assets belong to Redion Cekrezi; Three.js and Manrope retain their bundled licenses. Experimental 3D-hand commercial licensing remains unverified. See [LICENSE](LICENSE) and [EVIDENCE.md](EVIDENCE.md).
+Code, Produktgrafiken und Studio-Assets: Redion Cekrezi. Three.js und Manrope behalten ihre beigefügten Lizenzen. Siehe [LICENSE](LICENSE) und [SECURITY.md](SECURITY.md).
