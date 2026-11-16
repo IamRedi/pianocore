@@ -45,7 +45,7 @@ where = ["src"]
 # PIANO-UI-007: the vendored, pinned Three.js build ships with them
 # (subdirectory allowlist entries; provenance in ADR-018).
 [tool.setuptools.package-data]
-"piano_core.web" = ["static/*", "static/assets/*", "static/ui008/*", "static/vendor/*", "static/vendor/loaders/*", "static/vendor/utils/*"]
+"piano_core.web" = ["static/*", "static/about/*", "static/about/assets/*", "static/assets/*", "static/backgrounds/*", "static/crystal/*", "static/brand/*", "static/ui008/*", "static/vendor/*", "static/vendor/loaders/*", "static/vendor/utils/*"]
 
 # Single canonical version source: src/piano_core/__init__.py (__version__).
 [tool.setuptools.dynamic]

@@ -2661,6 +2661,8 @@ export class ApiClient {
   pause() { return this._request("POST", `${API_BASE}/playback/pause`, {}); }
   resume() { return this._request("POST", `${API_BASE}/playback/resume`, {}); }
   stop() { return this._request("POST", `${API_BASE}/playback/stop`, {}); }
+  volume() { return this._request("GET", `${API_BASE}/playback/volume`); }
+  setVolume(volume) { return this._request("PUT", `${API_BASE}/playback/volume`, { volume }); }
   led() { return this._request("GET", `${API_BASE}/led`); }
   device() { return this._request("GET", `${API_BASE}/device`); }
   ledUpdate(fields) {
@@ -3032,6 +3034,8 @@ function initApp(shell) {
   let studio = null;
   let studioRange = "focus";
   let studioFocus = null;
+  let phoneFocus = null;
+  let phoneFocusKey = "";
   let studioPassage = null;
   function buildVisualFrame(nowMs) {
     const learningSession = learning.authorized ? learning.snapshot : null;
@@ -3080,8 +3084,18 @@ function initApp(shell) {
         studioPassage = passage;
       }
     }
+    // Phone Player: frame only the song's own keys, so they are big enough.
+    let phoneRange = null;
+    if (!studio?.isOpen() && visual.notes.length && (globalThis.innerWidth || 1024) < 600) {
+      const key = `${source.songId}|${visual.notes.length}`;
+      if (phoneFocusKey !== key) {
+        phoneFocus = focusRange(visual.notes, PIANO_KEYS, PIANO_WHITE_KEY_COUNT);
+        phoneFocusKey = key;
+      }
+      phoneRange = phoneFocus;
+    }
     const frame = {
-      range: studio?.isOpen() && studioRange === "focus" ? studioFocus : null,
+      range: studio?.isOpen() && studioRange === "focus" ? studioFocus : phoneRange,
       mode: visualMode,
       songId: source.songId,
       status,
@@ -3582,12 +3596,13 @@ function initApp(shell) {
   dom.settingsHandsEnabled.addEventListener("change", () => {
     applyHandsEnabled(dom.settingsHandsEnabled.checked);
   });
-  /* Colour theme: browser-local presentation preference (Dark/Light/Auto). */
-  const themeQuery = globalThis.matchMedia?.("(prefers-color-scheme: light)") ?? null;
+  /* Colour theme: browser-local presentation preference (Night/Day/Auto).
+     Auto follows the device appearance and updates when it changes. */
   let themePreference = loadThemePreference(globalThis.localStorage);
   const themeButtons = Array.from(globalThis.document?.querySelectorAll?.("[data-theme-choice]") ?? []);
+  const systemDark = globalThis.matchMedia?.("(prefers-color-scheme: dark)");
   function syncTheme() {
-    applyTheme(globalThis.document, resolveTheme(themePreference, Boolean(themeQuery?.matches)));
+    applyTheme(globalThis.document, resolveTheme(themePreference, !systemDark?.matches));
     for (const button of themeButtons) {
       button.setAttribute("aria-pressed", String(button.dataset.themeChoice === themePreference));
     }
@@ -3599,7 +3614,7 @@ function initApp(shell) {
       syncTheme();
     });
   }
-  themeQuery?.addEventListener?.("change", syncTheme);
+  systemDark?.addEventListener?.("change", () => { if (themePreference === "auto") syncTheme(); });
   syncTheme();
 
   dom.settingsHandsCameraFull.addEventListener("click", () => applyHandsCamera("FULL"));
@@ -5171,6 +5186,32 @@ function initApp(shell) {
   dom.pause.addEventListener("click", () => runControl("pause"));
   dom.resume.addEventListener("click", () => runControl("resume"));
   dom.stop.addEventListener("click", () => runControl("stop"));
+  // Playback volume: one slider, the Core scales the notes it plays.
+  {
+    const slider = document.getElementById("player-volume");
+    const wrap = document.getElementById("player-volume-wrap");
+    if (slider && wrap) {
+      let pending = null;
+      const show = (value) => {
+        slider.value = String(value);
+        slider.style.setProperty("--fill", `${value}%`);
+        slider.setAttribute("aria-valuetext", `${value}%`);
+        wrap.dataset.level = value === 0 ? "mute" : value < 50 ? "low" : "high";
+      };
+      const load = () => api.volume().then(
+        (data) => { slider.disabled = false; show(Number(data.volume)); },
+        () => { slider.disabled = true; }
+      );
+      slider.addEventListener("input", () => {
+        const value = Number(slider.value);
+        show(value);
+        clearTimeout(pending);
+        pending = setTimeout(() => { api.setVolume(value).then((d) => show(Number(d.volume)), load); }, 120);
+      });
+      load();
+      setInterval(() => { if (slider.disabled) load(); }, 15000);
+    }
+  }
   dom.btnPractice.addEventListener("click", () => runPracticeStart());
   dom.btnPracticeStop.addEventListener("click", () => runPracticeStop());
   dom.btnLearningRestartTarget.addEventListener(

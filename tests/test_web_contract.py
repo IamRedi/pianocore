@@ -45,7 +45,7 @@ class AssetInventoryTests(unittest.TestCase):
 
     def test_index_references_only_packaged_assets(self):
         html = _asset_text("index.html")
-        for ref in ("/ui/app.js", "/ui/styles.css", "/ui/favicon.svg",
+        for ref in ("/ui/app.js", "/ui/styles.css", "/ui/brand/pc-favicon-64.png",
                     "/ui/manifest.webmanifest"):
             self.assertIn(ref, html)
 

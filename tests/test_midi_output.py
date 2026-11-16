@@ -499,5 +499,39 @@ class ConcurrencyTests(unittest.TestCase):
         adapter.close()
 
 
+class VolumeTests(unittest.TestCase):
+    """Playback volume scales NOTE_ON velocity only (2026-11-16)."""
+
+    def setUp(self):
+        self.backend = FakeOutputBackend(["Roland OUT"])
+        self.adapter = MidiOutputAdapter(self.backend)
+        self.port = opened(self.adapter, self.backend)
+
+    def test_default_is_full_volume(self):
+        self.assertEqual(self.adapter.volume, 100)
+        self.adapter.apply(note_on(1, 60, 80))
+        self.assertEqual(self.port.sent, [("note_on", 1, 60, 80)])
+
+    def test_half_volume_scales_velocity_with_floor_of_one(self):
+        self.adapter.set_volume(50)
+        self.adapter.apply(note_on(1, 60, 80))
+        self.adapter.apply(note_on(1, 62, 1))
+        self.assertEqual(self.port.sent, [("note_on", 1, 60, 40), ("note_on", 1, 62, 1)])
+
+    def test_zero_volume_neither_sounds_nor_owns(self):
+        self.adapter.set_volume(0)
+        self.adapter.apply(note_on(1, 60, 80))
+        self.assertEqual(self.port.sent, [])
+        self.assertEqual(self.adapter.owned_notes, ())
+        self.adapter.apply(note_off(1, 60, 0))
+        self.assertEqual(self.port.sent[-1][0], "note_off")
+
+    def test_invalid_volume_rejected(self):
+        for bad in (-1, 101, 50.5, True, "80"):
+            with self.assertRaises((TypeError, ValueError)):
+                self.adapter.set_volume(bad)
+        self.assertEqual(self.adapter.volume, 100)
+
+
 if __name__ == "__main__":
     unittest.main()

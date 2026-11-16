@@ -1,3 +1,29 @@
+# Current update · 16 November 2026
+
+Product source synchronized from the current private Crystal Studio/logo revision `429bba8` plus the bounded Pi-connected presentation/install change. Private work records and live device configuration are excluded. Current local verification is recorded below; the October evidence remains historical.
+
+- New crystal logo, all app icon sizes and studio/Crystal Stage assets.
+- Four localized native/public presentation pages, explicit Pi-address navigation, device-following appearance and native installation capability.
+- No service worker, API cache, new listener, authentication change or appliance deployment.
+- Real app capture uses synthetic local MIDI; no physical or audible piano acceptance is claimed.
+- The observed owner-device entry uses HTTP. End-to-end installation on that Pi is unverified pending a secure origin and approved release.
+
+## Local verification · 16 November 2026
+
+- Linux/WSL Python 3.12 with mido 1.3.3 and python-rtmidi 1.5.8: `PYTHONPATH=src:tests python3 -m unittest discover -s tests -t .` — 1,246 tests, OK, 7 skipped. Physical MIDI/LED checks are not claimed. A first run exposed Windows-only dependencies and incomplete temporary test fixtures; corrected the disposable Linux environment, not product code, before the successful complete run.
+- Node 22.19.0: `node --test tests/weblogic/*.test.mjs` — all 26 test files pass, including 7 explicit native-install lifecycle checks. Release harness dependency ws 8.18.0 installed locally. This is event-model verification, not an OS installation claim.
+- Exact product source mirrors: all 153 non-cache files in the private/public `src/` trees byte-identical.
+- Public source gitleaks 8.30.1 directory scan: no leaks. Official release archive SHA-256 checked against its published checksum. Existing public sanitization preserved; no private work records copied.
+- Portfolio: lint, TypeScript, content/native/public site tests, production build and GitHub synchronization PASS. Existing 14 SSR language checks and 98 public host/CSP/isolation checks PASS. Added PianoCore check: four locales, 14 local assets, real production-server HTTP 200, no cookies, scripts/fonts self, connect-src none.
+- Rendered SQ/EN website and portfolio on desktop and 390×844 phone. DE/IT website headings and language transitions checked. Day/Night/Auto, no phone overflow, crystal logo, current app captures and explicit HTTP navigation checked. JavaScript URL and credential-bearing URL rejected. Explicit local website → real demo app navigation passed.
+- Real Application demo uses four synthetic public-domain melodies and silent MIDI. Native appearance was checked against the current reachable Pi read-only. No Core controls were issued to the Pi.
+- No service worker or API cache. Installation on the owner's Pi, secure entry, physical/audible acceptance, independent review and deployment are NOT_VERIFIED/PENDING_RECHECK.
+- Browser verification used temporary IAB tabs and one-shot page screenshots, without native desktop capture. Task tabs closed and temporary viewport reset; no recording or persistent capture session created.
+
+The four About HTML files, site CSS/JS and assets are canonical in `src/piano_core/web/static/about/`; the portfolio mirror is `public/app-sites/pianocore/`. Change both in the same workstream and compare hashes. The public website is informational; only the Pi-origin `/ui/` client is installable. Do not add private device addresses, discovery probes or cached API responses to the public site.
+
+---
+
 # Prüfprotokoll / Verification record
 
 **Stand: 27. Oktober 2026.** Dieses Protokoll trennt, was für diese öffentliche Fassung gemessen wurde, von dem, was nur aus den privaten Entwicklungsunterlagen stammt. Zahlen ohne Quelle gibt es hier nicht.
@@ -17,7 +43,7 @@ Alle Läufe auf einem Linux-Container (x86_64), als normaler Benutzer, am 27.10.
 
 Die README-Bilder stammen aus diesem Durchgang. Dabei gefunden und behoben: Im Player waren Liedtitel und Seitentitel im hellen Farbschema dunkel auf dunklem Hintergrund und kaum lesbar (`styles.css`, eine Regel).
 
-In GitHub Actions laufen bei jedem Push dieselben Python-Tests (3.11 und 3.13), die Oberflächenlogik und gitleaks.
+Routineprüfungen laufen lokal. GitHub Actions ist inzwischen ausschließlich manuell auslösbar; für dieses Update wurde kein Cloud-Lauf gestartet.
 
 ## Aus den privaten Entwicklungsunterlagen (hier nicht nachgeprüft)
 
@@ -49,3 +75,7 @@ Das private Repository führt zu jeder Aufgabe Übergabe, Nachweise und eine una
 - Realistische 3D-Hand (`src/piano_core/web/static/assets/piano-hand-tier-a.glb`, SHA-256 `e9e6b598…6970d3`): das Ausgangsmodell hat der Autor mit fal.ai erzeugt; Skelett, Gewichtung und rechte Hand baut `tools/ui007_build_hand_asset.py`. Die Veröffentlichung hier hat der Autor freigegeben; eine Prüfung der fal.ai-Bedingungen für kommerzielle Nutzung oder Werbung steht aus. Fehlt die Datei, nutzt die Oberfläche automatisch die prozedurale Hand.
 - Three.js liegt unverändert in `src/piano_core/web/static/vendor/` mit seiner MIT-Lizenz.
 - Code, Texte und Bilder: Redion Cekrezi. Nutzung nur im Rahmen der [LICENSE](LICENSE).
+
+Final install checks: legacy implicit root app identity preserved while start/scope use /ui/. Focused manifest/icon/serving suite: 43/43 PASS, including two new identity/icon tests. All 76 packaged UI assets match the built wheel byte-for-byte; wheel SHA-256 a2a68ad41690231e0cb5ca2984b9a6432a567ac95c6b52c0f0d788f0c0074ca9. Native Settings → About → app return verified, no JS warnings/errors and no address form on the native origin.
+
+Latest upstream phone-landscape CSS a728313 was incorporated before delivery. A real 844x390 app render has a visible side rail, all transport controls, body height 390 and no horizontal overflow. After the merge, manifest and static-contract tests pass 24/24; final wheel repackaging matches all 76 allowlisted assets.
