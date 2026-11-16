@@ -95,3 +95,8 @@ Final install checks: legacy implicit root app identity preserved while start/sc
 Latest upstream phone-landscape CSS a728313 was incorporated before delivery. A real 844x390 app render has a visible side rail, all transport controls, body height 390 and no horizontal overflow. After the merge, manifest and static-contract tests pass 24/24; final wheel repackaging matches all 76 allowlisted assets.
 
 Final revised presentation: 88 allowlisted assets match the wheel; SHA-256 f3b5019b088f5d0cf9d28f2f2cc9a4134087a13a66d9aeb9d54237cc6deeedaa. Native/public source and portfolio About mirrors verified identical.
+
+
+### Clear glass over the piano studio · 16 November 2026
+
+Owner requested the piano background behind the glass. The opening now uses the approved matching Day/Night studio photographs, with responsive portrait delivery. Text and Crystal Stage sit on translucent local glass; no full-photo veil or tint. Warm daylight and teal/red evening accents remain. Header controls have local glass for photo contrast. SQ desktop Day/Night, phone390 and SQ/EN320 checked without horizontal overflow. Current local site guard: 22 used assets, four locales. Asset/manifest tests24 PASS and exact display-asset sync PASS; full portfolio gates PASS. The 88 packaged UI assets match the final wheel; SHA-256 424ac96f51bf2cbe2a56751b1cffb9e7d53f8a7c962550925f06e90534abbc24. Native/public/portfolio presentation mirrors remain exact. Existing PRs carry this owner revision; Production unchanged.

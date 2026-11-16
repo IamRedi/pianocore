@@ -13,3 +13,35 @@ html[data-theme=light] .practice-art canvas{background:#65543d}
 .stage-choices button,.motion-toggle{width:44px;height:44px}.features p{font-size:.9rem}.learn-copy li p{font-size:.85rem}.scene-copy p:not(.eyebrow){font-size:.95rem}@media(max-width:760px){.features p{font-size:.88rem}}
 
 .hero:after{max-height:560px}
+
+/* Clear glass over the approved piano studio photography. */
+html{--studio-bg:url("./assets/studio-night-wide.webp");--photo-text:#fff9ed;--photo-muted:#f0e9dc;--photo-accent:#f0d3a8;--copy-glass:linear-gradient(145deg,rgb(14 49 46/.48),rgb(24 59 56/.29));--frame-glass:linear-gradient(135deg,rgb(181 230 217/.16),rgb(15 51 45/.16));--glass-line:rgb(236 255 241/.38)}
+html[data-theme=light]{--studio-bg:url("./assets/studio-day-wide.webp");--photo-text:#342d25;--photo-muted:#51483a;--photo-accent:#71501f;--copy-glass:linear-gradient(145deg,rgb(255 251 235/.58),rgb(252 240 213/.36));--frame-glass:linear-gradient(135deg,rgb(255 251 237/.46),rgb(242 219 174/.16));--glass-line:rgb(255 251 232/.65)}
+body{position:relative;background-image:none}
+.site-header{position:absolute;top:0;left:50%;transform:translateX(-50%);color:var(--photo-text)}
+.section-nav a{color:var(--photo-text)}
+.hero-scene{background-image:var(--studio-bg);background-position:center;background-size:cover;position:relative}
+.hero{min-height:max(860px,100svh);padding:165px 0 85px;gap:35px;align-items:center}
+.hero:after{display:none}
+.hero-copy{padding:30px 28px 27px;border:1px solid var(--glass-line);border-radius:24px;background:var(--copy-glass);box-shadow:inset 0 1px 0 rgb(255 255 255/.24),0 20px 55px rgb(17 32 24/.12);backdrop-filter:blur(5px);color:var(--photo-text)}
+.hero h1{font-size:clamp(2.8rem,4.65vw,4.8rem)}
+.hero em,.hero .eyebrow{color:var(--photo-accent)}
+.hero .intro,.hero-motto{color:var(--photo-muted)}
+.hero .intro{font-size:.95rem;margin-top:24px}
+.hero .actions{gap:12px 22px;margin-top:28px}
+.hero-motto{margin-top:32px}
+.hero-art{align-self:start;margin-top:18px;color:var(--photo-text)}
+.stage-shell{background:var(--frame-glass);border-color:var(--glass-line);backdrop-filter:blur(3px);box-shadow:inset 0 1px 1px rgb(255 255 255/.38),0 28px 60px -25px rgb(14 30 25/.24)}
+.stage-viewport{height:290px;background:rgb(10 30 27/.22);box-shadow:inset 0 0 25px rgb(3 20 15/.08)}
+.stage-viewport:before{background:none}
+html[data-theme=light] .stage-viewport{background:rgb(61 43 22/.19)}
+.hero-art figcaption{color:var(--photo-text);width:fit-content;padding:7px 13px;border:1px solid var(--glass-line);border-radius:30px;background:var(--copy-glass);backdrop-filter:blur(4px)}
+.hero .caption-line{background:#ed9b91}
+.preferences details[open] summary{background:var(--copy-glass);backdrop-filter:blur(8px)}
+.language-menu nav,.theme-menu>div{color:var(--text)}
+@media(min-width:1600px){.hero{gap:65px}.hero-copy{padding:38px}.hero-art{margin-top:20px}.stage-viewport{height:350px}}
+@media(max-width:1050px) and (min-width:761px){.hero{gap:25px}.hero-copy{padding:25px 22px}.hero h1{font-size:3rem}.hero .actions{align-items:flex-start;flex-direction:column;gap:5px}.stage-viewport{height:280px}}
+@media(max-width:760px){html{--studio-bg:url("./assets/studio-night-tall.webp")}html[data-theme=light]{--studio-bg:url("./assets/studio-day-tall.webp")}.hero-scene{background-position:center center}.hero{min-height:1100px;padding:120px 0 90px;gap:30px}.hero-copy{padding:25px 23px;border-radius:22px}.hero h1{font-size:clamp(2.4rem,8.8vw,3.6rem)}.hero .intro{font-size:.88rem;margin-top:20px}.hero .actions{gap:9px 14px;margin-top:23px}.hero .text-link{font-size:.65rem}.hero-motto{margin-top:24px;font-size:.55rem;gap:15px}.hero-motto span+span{padding-left:15px}.hero-art{margin:0;align-self:stretch;padding-left:3px}.stage-viewport{height:270px}.hero-art figcaption{margin-top:18px}.stage-shell{backdrop-filter:blur(2px)}}
+@media(max-width:360px){.hero-copy{padding:23px 18px}.hero h1{font-size:2.18rem}.hero .actions{align-items:flex-start;flex-direction:column;gap:3px}.hero .intro{font-size:.85rem}.stage-viewport{height:245px}.hero{min-height:1100px}}
+
+.header-right{padding:5px 9px;gap:30px;border:1px solid var(--glass-line);border-radius:16px;background:var(--copy-glass);backdrop-filter:blur(3px)}.stage-shell{backdrop-filter:blur(1px)}@media(max-width:760px){.header-right{gap:8px}.stage-shell{backdrop-filter:blur(1px)}}
