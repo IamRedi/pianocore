@@ -415,6 +415,37 @@ def playback_stop(context, request) -> tuple[int, dict]:
 
 
 # ----------------------------------------------------------------------
+# GET + PUT /api/v1/playback/volume
+# ----------------------------------------------------------------------
+def _require_output(context):
+    output = getattr(context, "midi_output", None)
+    if output is None:
+        raise ApiError(
+            503,
+            "playback_unavailable",
+            "playback volume is unavailable (canonical MIDI output is not open)",
+        )
+    return output
+
+
+def playback_volume(context, request) -> tuple[int, dict]:
+    return 200, {"volume": _require_output(context).volume}
+
+
+def playback_volume_update(context, request) -> tuple[int, dict]:
+    body = _parse_json_object(request, required=True, allowed=frozenset({"volume"}))
+    volume = body.get("volume")
+    if (
+        isinstance(volume, bool)
+        or not isinstance(volume, int)
+        or not 0 <= volume <= 100
+    ):
+        raise ApiError(400, "invalid_volume", "volume must be an integer 0..100")
+    output = _require_output(context)
+    return 200, {"volume": output.set_volume(volume)}
+
+
+# ----------------------------------------------------------------------
 # GET /api/v1/led
 # ----------------------------------------------------------------------
 def led_state(context, request) -> tuple[int, dict]:
@@ -1172,6 +1203,8 @@ ROUTES = (
     Route("POST", "/api/v1/playback/pause", playback_pause),
     Route("POST", "/api/v1/playback/resume", playback_resume),
     Route("POST", "/api/v1/playback/stop", playback_stop),
+    Route("GET", "/api/v1/playback/volume", playback_volume),
+    Route("PUT", "/api/v1/playback/volume", playback_volume_update),
     Route("GET", "/api/v1/practice", practice_state),
     Route("POST", "/api/v1/practice/start", practice_start),
     Route("POST", "/api/v1/practice/stop", practice_stop),

@@ -1,97 +1,47 @@
-# Piano Core
+# PianoCore
 
-[![CI](https://github.com/IamRedi/pianocore/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/IamRedi/pianocore/actions/workflows/ci.yml)
+<img src="src/piano_core/web/static/brand/pc-logo-crystal.png" alt="PianoCore crystal grand piano" width="180">
 
-**A Raspberry Pi that turns a digital piano into an instrument that teaches.** Piano Core runs next to the piano, talks to it over USB-MIDI, plays pieces on it, listens while you practise and shows on a tablet which key and which finger come next. No cloud, no account, no internet needed.
+**See the music. Feel every note.** PianoCore brings a MIDI player, a music library, guided practice, keyboard LEDs, Crystal Stage visuals and smart-home control to your digital piano.
 
-[Deutsche Version](README.md) · [Project status (DE)](docs/PROJEKTSTAND.md) · [Verification record](EVIDENCE.md) · [Security](SECURITY.md)
+[Website](https://www.redioncekrezi.de/app-sites/pianocore/en.html) · [Deutsch](README.md) · [Technical record](EVIDENCE.md) · [Security](SECURITY.md) · [License](LICENSE)
 
-![Music: Now Playing with the library, dark theme](docs/assets/music-dark.png)
+![PianoCore Crystal Studio](docs/assets/crystal-studio.webp)
 
-## At a glance
+## A complete piano studio
 
-| | |
-|---|---|
-| **What** | Device software for a digital piano: player, library, learning mode with fingering, live keyboard, optional LED strip above the keys |
-| **Hardware** | Raspberry Pi 4, Roland digital piano over USB-MIDI (both directions), optional ESP32 driving a WS2812 LED strip (196 LEDs for 88 keys) |
-| **Interface** | Web UI on the home network, designed for a tablet, also works on phone and desktop |
-| **Stack** | Python 3.11+ (standard library plus `mido`/`python-rtmidi`), SQLite, HTTP API with Server-Sent Events, plain JavaScript UI with no build step, Three.js for the 3D hands |
-| **Tests** | 1,240 Python tests and 535 UI-logic checks, all passing ([verification record](EVIDENCE.md)) |
-| **Status** | Runs on the author's own Raspberry Pi and piano. Not a commercial product. |
+- **MIDI player.** Choose a piece and hear it played on your digital piano. Start, pause, stop, adjust the tempo and move to the next song.
+- **MIDI library.** Browse your song list, search for a title, organize playlists and return to recent music.
+- **Keyboard LEDs.** Lights above the keys follow the music and highlight practice targets.
+- **Guided practice.** Wait for the right notes, work on one hand, repeat a passage, slow the tempo and follow lesson progress.
+- **Crystal Stage.** Falling notes, a crystal keyboard, left/right colour guidance and finger numbers in learning mode. Choose sheet, falling-note or hybrid views.
+- **Smart home.** Control the piano through its command interface and include it in scenes and automations.
+- **Your screens.** Use a phone, tablet or computer. Day, Night and Auto share one studio identity, with the crystal grand piano mark and clear glass surfaces.
 
-## What it does
+## Local architecture
 
-- **Music.** Tap a song and it plays on the real piano, like a music player: search, playlists and recent in a side drawer, next/previous and auto-advance. View it as a cover, falling notes or 3D hands.
-- **Learn.** 1,557 lessons in 80 courses from the open Pianio curriculum (CC0). Modes: wait for the right key, play along in time, right or left hand alone, loop a section, slow practice. Progress is stored per lesson.
-- **Fingering and hands.** A fingering is computed for every piece (R1–R5, L1–L5) and shown as falling notes or with animated 3D hands.
-- **Live keyboard.** Every key and the pedal show up on screen immediately, split into "played by you" and "played by the player".
-- **LED strip.** With an ESP32 and LED strip attached, the next keys light up right above the keyboard.
-- **Dark and light themes.** Settings › Appearance: Dark, Light or Auto. Notes, keyboard and hands always stay dark so they read clearly.
-- **One device, many screens.** The Pi owns the single source of truth. Tablet, phone or, later, Home Assistant are only API clients.
+PianoCore runs on Raspberry Pi and connects to the digital piano over USB-MIDI. Python, SQLite and mido/python-rtmidi power the local musical runtime; the browser uses the same-origin HTTP/SSE interface. The Pi owns the musical state and the displays follow it.
 
-| Music, light theme | Falling notes | 3D hands |
-|---|---|---|
-| ![Music light](docs/assets/music-light.png) | ![Falling notes](docs/assets/notes.png) | ![3D hands](docs/assets/hands.png) |
+The web client includes an install manifest and crystal app icons. Open your appliance at its HTTPS address to use browser installation; Safari offers Share → Add to Home Screen. The native product website is under `/ui/about/` in SQ/EN/DE/IT.
 
-| Learning academy | Live keyboard | Phone dark | Phone light |
-|---|---|---|---|
-| ![Academy](docs/assets/academy.png) | ![Keyboard](docs/assets/piano.png) | ![Phone dark](docs/assets/phone-dark.png) | ![Phone light](docs/assets/phone-light.png) |
-
-The screenshots come from a local demo (silent placeholder MIDI instead of a real piano, public-domain titles only, a sample lesson catalog), not from the device.
-
-## Try it without a piano
+## Development
 
 ```bash
 git clone https://github.com/IamRedi/pianocore && cd pianocore
 python3 -m venv .venv && . .venv/bin/activate
-pip install -e .            # on Linux, python-rtmidi needs libasound2-dev
-
-# player + library with four public-domain melodies
+pip install -e .  # Linux build dependency: libasound2-dev
 python tools/demo_local.py
-
-# plus the learning catalog from the open Pianio curriculum
-git clone --depth 1 https://github.com/ismaelponce/pianio /tmp/pianio
-python tools/demo_local.py --pianio /tmp/pianio
 ```
 
-Then open `http://127.0.0.1:8788/ui/`. The demo starts the real application; only the piano input and output are silent placeholders. Everything lives in a temporary folder that is removed on exit.
-
-## Tests
+Open `http://127.0.0.1:8788/ui/`. The local development player includes four public-domain melodies and silent MIDI adapters. The lesson catalog can be imported separately.
 
 ```bash
 PYTHONPATH=src:tests python -m unittest discover -s tests -t .
-npm install --no-save ws@8      # only for release_harness.test.mjs
-for f in tests/weblogic/*.test.mjs; do node "$f" || exit 1; done
+npm install --no-save --no-package-lock ws@8.18.0
+node --test tests/weblogic/*.test.mjs
+python tools/sync_presentation_assets.py --check
 ```
 
-The tests need no hardware: MIDI devices, the LED controller and the clock are replaced by controlled test doubles. Run as root, some tests fail because they check file permissions. GitHub Actions runs both suites and a secret scan on every push.
+Development checks run locally; GitHub Actions can be started manually. [EVIDENCE.md](EVIDENCE.md) holds the technical history and verification details.
 
-## Layout
-
-```
-src/piano_core/
-  app.py            composition of all subsystems, startup and orderly shutdown
-  midi/             USB-MIDI input and output, reconnect, safety stop
-  playback/         timeline and playing MIDI on the piano
-  library/          reading and indexing the MIDI library (read-only)
-  learn/            building the learning catalog from open sources
-  packages/         practice packages: import, validation, progress
-  practice/         practice modes and grading
-  fingering/        fingering engine
-  led/              protocol to the LED strip (ESP32)
-  api/              HTTP API and Server-Sent Events
-  web/static/       UI (HTML, CSS, JavaScript, Three.js)
-ops/                systemd units and deploy helper for the Raspberry Pi
-docs/               architecture decisions (ADRs), operations docs, baseline spec
-tools/              local demo, 3D hand build tool
-```
-
-Key decisions are in [`docs/decisions/`](docs/decisions/), running it on the Pi in [`docs/operations/`](docs/operations/).
-
-## Origin
-
-Piano Core is a personal project by Redion Cekrezi, built together with AI coding agents under a working standard of the author's own: every task has acceptance criteria, an independent review and a written record before anything reaches the device. This public repository is a cleaned snapshot of the private development repository (as of 14 October 2026), without history, internal evidence folders or home-network data. What was removed is listed in the [verification record](EVIDENCE.md).
-
-## License
-
-Source-available, not open source: see [LICENSE](LICENSE). Third-party components (Three.js, MIT) keep their own licenses.
+Code, product graphics and studio assets: Redion Cekrezi. Three.js and Manrope retain their bundled licenses. See [LICENSE](LICENSE) and [SECURITY.md](SECURITY.md).

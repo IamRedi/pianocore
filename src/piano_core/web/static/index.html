@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#12141c">
-  <title>Piano Core Player</title>
-  <link rel="icon" href="/ui/favicon.svg" type="image/svg+xml">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="PianoCore">
+  <title>PianoCore</title>
+  <link rel="icon" href="/ui/brand/pc-favicon-64.png" type="image/png" sizes="64x64">
+  <link rel="apple-touch-icon" href="/ui/brand/pc-apple-touch-180.png">
   <link rel="manifest" href="/ui/manifest.webmanifest">
   <link rel="stylesheet" href="/ui/styles.css">
 </head>
@@ -19,16 +22,6 @@
       <linearGradient id="pc-rim" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#c9f3ff" stop-opacity=".5"/></linearGradient>
       <linearGradient id="pc-body" x1="0" y1="10" x2="0" y2="50" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffe9ee"/></linearGradient>
     </defs>
-    <symbol id="pc-logo" viewBox="0 0 64 64">
-      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-ice)"/>
-      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-chill)"/>
-      <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#pc-frost)"/>
-      <rect x="2.5" y="2.5" width="59" height="59" rx="14.5" fill="none" stroke="url(#pc-rim)"/>
-      <path d="M18.5 50V20.5C18.5 14 23 9.8 29 9.8c5.6 0 9 3.6 10 9.2.8 4.7 3.2 7.3 6.9 9.4 3.7 2.1 5.6 5.3 5.6 9.8V50z" fill="url(#pc-body)"/>
-      <path d="M23.2 21.6c.2-3.4 2.5-5.9 5.8-6.1" fill="none" stroke="#f0304f" stroke-opacity=".45" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M22.6 42.5V50M26.7 42.5V50M30.8 42.5V50M34.9 42.5V50M39 42.5V50M43.1 42.5V50M47.2 42.5V50" fill="none" stroke="#b3163f" stroke-width="1.15" stroke-linecap="round" opacity=".85"/>
-      <path d="M18.5 42.5h33" fill="none" stroke="#b3163f" stroke-width="1.3" opacity=".7"/>
-    </symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path class="ico-tone" d="M5.5 10.2 12 4.9l6.5 5.3V19a1.5 1.5 0 0 1-1.5 1.5h-3v-5.25h-4V20.5H7A1.5 1.5 0 0 1 5.5 19z"/><path d="M3.75 11.4 12 4.75l8.25 6.65"/><path d="M5.5 10v9A1.5 1.5 0 0 0 7 20.5h3v-5.25h4v5.25h3a1.5 1.5 0 0 0 1.5-1.5v-9"/></symbol>
     <symbol id="i-music" viewBox="0 0 24 24"><path class="ico-tone" d="M9 7.6 19 5.25V9L9 11.35z"/><path d="M9 17.25V7.6L19 5.25v9.5"/><path d="M9 11.35 19 9"/><ellipse class="ico-fill" cx="6.6" cy="17.4" rx="2.6" ry="2.1"/><ellipse class="ico-fill" cx="16.6" cy="14.9" rx="2.6" ry="2.1"/></symbol>
     <symbol id="i-learn" viewBox="0 0 24 24"><path class="ico-tone" d="M12 4.75 22 9.5l-10 4.75L2 9.5z"/><path d="M12 4.75 22 9.5l-10 4.75L2 9.5z"/><path d="M6.25 11.6v4.15c0 1.5 2.6 3.25 5.75 3.25s5.75-1.75 5.75-3.25V11.6"/><path d="M22 9.5v5.25"/></symbol>
@@ -41,6 +34,7 @@
     <symbol id="i-stop" viewBox="0 0 24 24"><rect class="ico-fill" x="6.75" y="6.75" width="10.5" height="10.5" rx="2"/></symbol>
     <symbol id="i-prev" viewBox="0 0 24 24"><path class="ico-fill" d="M18.25 6.6c0-.8-.9-1.27-1.56-.82l-7.4 5.08c-.58.4-.58 1.27 0 1.66l7.4 5.08c.66.45 1.56-.02 1.56-.82z"/><rect class="ico-fill" x="5.75" y="5.75" width="2.25" height="12.5" rx="1"/></symbol>
     <symbol id="i-next" viewBox="0 0 24 24"><path class="ico-fill" d="M5.75 6.6c0-.8.9-1.27 1.56-.82l7.4 5.08c.58.4.58 1.27 0 1.66l-7.4 5.08c-.66.45-1.56-.02-1.56-.82z"/><rect class="ico-fill" x="16" y="5.75" width="2.25" height="12.5" rx="1"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path class="ico-fill" d="M4.75 9.5h3l4.4-3.6c.5-.4 1.1 0 1.1.6v11c0 .6-.6 1-1.1.6l-4.4-3.6h-3a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1z"/><path class="vol-wave vol-wave-1" d="M16 9.5a3.5 3.5 0 0 1 0 5"/><path class="vol-wave vol-wave-2" d="M18.5 7a7 7 0 0 1 0 10"/></symbol>
     <symbol id="i-expand" viewBox="0 0 24 24"><path d="M14.75 4.75h4.5v4.5M9.25 19.25h-4.5v-4.5M19.25 4.75l-5.5 5.5M4.75 19.25l5.5-5.5"/></symbol>
     <symbol id="i-more" viewBox="0 0 24 24"><circle class="ico-fill" cx="5.75" cy="12" r="1.5"/><circle class="ico-fill" cx="12" cy="12" r="1.5"/><circle class="ico-fill" cx="18.25" cy="12" r="1.5"/></symbol>
     <symbol id="i-details" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle class="ico-fill" cx="4.75" cy="6.5" r="1.2"/><circle class="ico-fill" cx="4.75" cy="12" r="1.2"/><circle class="ico-fill" cx="4.75" cy="17.5" r="1.2"/></symbol>
@@ -55,7 +49,7 @@
   <div class="app-shell">
     <nav class="primary-nav" aria-label="Primary navigation">
       <a class="nav-brand" href="#/home" data-ui008-route="home" aria-label="Piano Core home">
-        <span class="nav-brand-mark" aria-hidden="true"><svg class="pc-logo" aria-hidden="true" viewBox="0 0 64 64"><use href="#pc-logo"/></svg></span>
+        <span class="nav-brand-mark" aria-hidden="true"><img class="pc-logo" src="/ui/brand/pc-logo-crystal.png" alt="" width="360" height="238" decoding="async"></span>
       </a>
       <div class="primary-nav-items">
         <a class="nav-item" href="#/home" data-ui008-route="home"><span class="nav-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-home"/></svg></span><span>Home</span></a>
@@ -70,12 +64,13 @@
       <header class="topbar">
         <div class="topbar-row">
           <div class="brand-lockup">
-            <span class="mobile-brand-mark" aria-hidden="true"><svg class="pc-logo" aria-hidden="true" viewBox="0 0 64 64"><use href="#pc-logo"/></svg></span>
+            <span class="mobile-brand-mark" aria-hidden="true"><img class="pc-logo" src="/ui/brand/pc-logo-crystal.png" alt="" width="360" height="238" decoding="async"></span>
             <div>
               <p class="brand-kicker">Piano Core</p>
               <h1 id="ui008-route-title" class="brand">Home</h1>
             </div>
           </div>
+          <button type="button" class="install-app-button" data-install-app hidden>Install app</button>
           <p id="connection-note" class="connection-note" role="status" aria-live="polite">Connecting…</p>
         </div>
         <details class="shell-connection-details">
@@ -199,6 +194,10 @@
               <button id="btn-stop" type="button" class="btn transport-btn btn-danger" aria-keyshortcuts="Escape" aria-label="Stop" disabled><svg class="ico" aria-hidden="true"><use href="#i-stop"/></svg><span class="transport-label">Stop</span></button>
               <button id="music-next" type="button" class="btn transport-btn transport-btn--skip" aria-label="Next song" disabled><svg class="ico" aria-hidden="true"><use href="#i-next"/></svg><span class="transport-label">Next</span></button>
               <button id="ui008-performance-btn" type="button" class="btn transport-btn transport-btn--aux" aria-pressed="false" aria-label="Performance mode"><svg class="ico" aria-hidden="true"><use href="#i-expand"/></svg><span class="transport-label">Performance</span></button>
+            </div>
+            <div id="player-volume-wrap" class="volume-control" data-level="high">
+              <svg class="ico" aria-hidden="true"><use href="#i-volume"/></svg>
+              <input id="player-volume" class="volume-slider" type="range" min="0" max="100" step="5" value="100" aria-label="Playback volume" disabled>
             </div>
           </div>
 
@@ -504,13 +503,13 @@
 
       <div class="settings-group" aria-labelledby="settings-appearance-heading">
         <h3 id="settings-appearance-heading">Appearance</h3>
-        <p class="settings-group-note">Song screens stay dark so the notes and keys read clearly.</p>
+        <p class="settings-group-note">Day and Night show the same studio in daylight or evening light. Auto follows your device appearance.</p>
         <div class="settings-row">
           <span class="settings-label" id="settings-theme-label">Theme</span>
           <div id="settings-theme" class="visual-mode-switch" role="group" aria-labelledby="settings-theme-label">
-            <button id="settings-theme-dark" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="dark" aria-pressed="true">Dark</button>
-            <button id="settings-theme-light" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="light" aria-pressed="false">Light</button>
-            <button id="settings-theme-auto" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="auto" aria-pressed="false">Auto</button>
+            <button id="settings-theme-dark" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="dark" aria-pressed="false">Night</button>
+            <button id="settings-theme-light" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="light" aria-pressed="false">Day</button>
+            <button id="settings-theme-auto" type="button" class="btn btn-small visual-mode-btn" data-theme-choice="auto" aria-pressed="true">Auto</button>
           </div>
         </div>
       </div>
@@ -563,7 +562,9 @@
 
       <div class="settings-group" aria-labelledby="settings-about-heading">
         <h3 id="settings-about-heading">About</h3>
-        <dl id="settings-about-rows" class="song-detail settings-about">
+        <p><a href="/ui/about/en.html">About PianoCore · Connect &amp; install</a></p>
+          <p class="hint" data-install-status role="status">To install, open your Pi’s HTTPS address and choose Install app or Add to Home Screen in your browser. The Pi must remain reachable.</p>
+          <dl id="settings-about-rows" class="song-detail settings-about">
         </dl>
         <p id="settings-persistence-note" class="hint">Preferences marked “saved in this
         browser” live only on this device. Piano Core keeps no other
@@ -799,6 +800,7 @@
       }
     }
   </script>
+  <script type="module" src="/ui/ui008/install.js"></script>
   <script type="module" src="/ui/app.js"></script>
 </body>
 </html>

@@ -432,5 +432,24 @@ class PlaybackEndpointTests(ApiEndpointTestCase):
                 self.assertNotIn(entry[2], (120, 123))
 
 
+class PlaybackVolumeEndpointTests(ApiEndpointTestCase):
+    def test_volume_unavailable_without_output(self):
+        status, payload = self.request("GET", "/api/v1/playback/volume")
+        self.assertEqual(status, 503)
+
+    def test_volume_roundtrip_and_validation(self):
+        self.context.midi_output = self.adapter
+        self.assertEqual(self.request("GET", "/api/v1/playback/volume"), (200, {"volume": 100}))
+        self.assertEqual(
+            self.request("PUT", "/api/v1/playback/volume", body={"volume": 35}),
+            (200, {"volume": 35}),
+        )
+        self.assertEqual(self.adapter.volume, 35)
+        for bad in ({"volume": 101}, {"volume": "x"}, {"volume": True}, {"level": 3}):
+            status, _ = self.request("PUT", "/api/v1/playback/volume", body=bad)
+            self.assertEqual(status, 400)
+        self.assertEqual(self.adapter.volume, 35)
+
+
 if __name__ == "__main__":
     unittest.main()

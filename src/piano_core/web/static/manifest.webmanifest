@@ -1,16 +1,35 @@
 {
-  "name": "Piano Core",
-  "short_name": "Piano Core",
-  "description": "Local appliance UI for Piano Core (trusted LAN only).",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#12141c",
-  "theme_color": "#12141c",
+  "name": "PianoCore",
+  "short_name": "PianoCore",
+  "description": "Your local piano studio. Connect to your PianoCore Raspberry Pi.",
+  "start_url": "/ui/#/home",
+  "display": "fullscreen",
+  "background_color": "#141018",
+  "theme_color": "#141018",
   "icons": [
     {
-      "src": "/ui/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "src": "/ui/brand/pc-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/ui/brand/pc-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/ui/brand/pc-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "id": "/",
+  "scope": "/ui/"
 }

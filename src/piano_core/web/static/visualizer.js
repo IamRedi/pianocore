@@ -81,6 +81,110 @@ class CanvasPane {
   }
 }
 
+
+/* ------------------------------------------------------------------------
+ * Crystal Stage (2026-11-16): light-capsule notes, star sparks on impact,
+ * crystal keys. Presentation only. Every effect is a pure function of the
+ * song position, so it freezes with the Core truth and survives seeking.
+ * Sprites are white alpha PNGs (ChatGPT, Drive PianoCore_CrystalStage),
+ * tinted here per hand. Without them (tests, old browsers) the stage still
+ * draws, just without sprite sparkle.
+ * ---------------------------------------------------------------------- */
+const CRYSTAL_SPRITES = Object.freeze({
+  star: "ck-spark-star-a.png",
+  star6: "ck-spark-star-b.png",
+  dust: "ck-spark-dust.png",
+  flare: "ck-impact-flare.png",
+  glow: "ck-key-glow.png",
+});
+const CRYSTAL = Object.freeze({
+  left: "138 230 246",   // ice cyan
+  right: "179 168 255",  // lavender violet
+  neutral: "214 222 240",
+  physical: "255 214 150", // champagne gold: the player's own hands
+  hitSeconds: 0.55,
+});
+const crystalImages = {};
+const crystalTint = new Map();
+let crystalLoading = false;
+
+function loadCrystalSprites() {
+  if (crystalLoading || typeof Image === "undefined") return;
+  crystalLoading = true;
+  for (const [name, file] of Object.entries(CRYSTAL_SPRITES)) {
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => { crystalImages[name] = img; crystalTint.clear(); };
+    try { img.src = new URL(`./crystal/${file}`, import.meta.url).href; } catch { /* no sprite */ }
+  }
+}
+
+function makeCanvas(w, h) {
+  if (typeof OffscreenCanvas !== "undefined") return new OffscreenCanvas(w, h);
+  if (typeof document !== "undefined") {
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    return c;
+  }
+  return null;
+}
+
+/** The sprite tinted to one colour (cached); null until it has loaded. */
+function crystalSprite(name, rgb) {
+  const img = crystalImages[name];
+  if (!img) return null;
+  const key = `${name}|${rgb}`;
+  let out = crystalTint.get(key);
+  if (out) return out;
+  out = makeCanvas(img.naturalWidth, img.naturalHeight);
+  if (!out) return null;
+  const c = out.getContext("2d");
+  c.drawImage(img, 0, 0);
+  if (rgb) {
+    c.globalCompositeOperation = "source-in";
+    c.fillStyle = `rgb(${rgb.split(" ").join(",")})`;
+    c.fillRect(0, 0, out.width, out.height);
+  }
+  crystalTint.set(key, out);
+  return out;
+}
+
+/** Deterministic 0..1 noise from integers (no state, stable across frames). */
+function hash01(a, b) {
+  let h = (a * 374761393 + b * 668265263) | 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177);
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+}
+
+function rgba(rgb, alpha) {
+  return `rgba(${rgb.split(" ").join(",")},${alpha})`;
+}
+
+let crystalTierCache = { at: -1e9, tier: "PREMIUM" };
+/** PREMIUM / BALANCED / BATTERY / OFF, from the existing "Hands detail" choice. */
+function crystalTier() {
+  const now = Date.now();
+  if (now - crystalTierCache.at < 1500) return crystalTierCache.tier;
+  let tier = "PREMIUM";
+  try {
+    if (globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches) tier = "OFF";
+    else {
+      const saved = globalThis.localStorage?.getItem("piano-core.hands-quality");
+      if (saved === "BALANCED") tier = "BALANCED";
+      else if (saved === "BATTERY" || saved === "COMPATIBILITY") tier = "BATTERY";
+      else if ((globalThis.navigator?.hardwareConcurrency || 8) <= 4) tier = "BALANCED";
+    }
+  } catch { /* storage blocked: keep PREMIUM */ }
+  crystalTierCache = { at: now, tier };
+  return tier;
+}
+
+function capsulePath(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, r);
+  else ctx.rect(x, y, w, h);
+}
+
 /**
  * Falling-notes renderer: vertical time axis, strike line at the top edge
  * of the drawn 88-key strip, exact shared key geometry.
@@ -90,6 +194,7 @@ export class FallingNotesRenderer {
     this.mappers = mappers;
     this.quality = quality;
     this.pane = new CanvasPane(canvas, quality, mappers.visualCanvasSize);
+    loadCrystalSprites();
   }
 
   render(frame) {
@@ -108,15 +213,16 @@ export class FallingNotesRenderer {
     const strikeY = Math.max(1, height - keyboardHeight);
     const range = frame.range || { left: 0, right: 1 };
     const fullWidth = width / (range.right - range.left);
-    ctx.fillStyle = "#0d0e17"; ctx.fillRect(0, 0, width, strikeY);
+    // No black box: the stage is smoked glass (CSS). Only a hair line per C.
+    this.tier = crystalTier();
+    this.hits = [];
+    this.activeKeys = new Map();
+    ctx.fillStyle = "rgba(255,255,255,0.06)";
     for (const key of this.mappers.PIANO_KEYS) {
-      if (!key.black) continue;
-      const center = this.mappers.noteCenterFraction(key.midi);
-      const w = this.mappers.noteWidthFraction(key.midi) * fullWidth;
-      ctx.fillStyle = "#090a11";
-      ctx.fillRect((center - range.left) * fullWidth - w / 2, 0, w, strikeY);
+      if (key.black || key.pitchClass !== "C") continue;
+      const x = Math.round((key.whiteIndex / this.mappers.PIANO_WHITE_KEY_COUNT - range.left) * fullWidth);
+      if (x > 0 && x < width) ctx.fillRect(x, 0, 1, strikeY);
     }
-    this._drawKeyboard(ctx, width, strikeY, height, frame);
 
     const position = frame.position;
     const pxPerSecond = this.mappers.fallingPixelsPerSecond(strikeY);
@@ -151,10 +257,76 @@ export class FallingNotesRenderer {
     }
     ctx.restore();
 
-    // Strike line on top of the (clipped) stream.
-    ctx.fillStyle = "rgba(230, 240, 255, 0.9)";
-    ctx.fillRect(0, strikeY - 1, width, 2);
+    this._drawKeyboard(ctx, width, strikeY, height, frame);
+    this._drawStrikeLine(ctx, width, strikeY);
+    this._drawImpacts(ctx, strikeY, height);
     return visible;
+  }
+
+  /** A thin ice-cyan light line; brighter for a moment on every hit. */
+  _drawStrikeLine(ctx, width, strikeY) {
+    let pulse = 0;
+    for (const hit of this.hits) pulse = Math.max(pulse, 1 - hit.t / 0.18);
+    const glow = 0.35 + 0.35 * clamp(pulse, 0, 1);
+    const g = ctx.createLinearGradient(0, strikeY - 10, 0, strikeY + 4);
+    g.addColorStop(0, rgba(CRYSTAL.left, 0));
+    g.addColorStop(0.7, rgba(CRYSTAL.left, glow * 0.55));
+    g.addColorStop(1, rgba(CRYSTAL.left, 0));
+    ctx.fillStyle = g;
+    ctx.fillRect(0, strikeY - 10, width, 14);
+    ctx.fillStyle = `rgba(225,250,255,${0.75 + 0.25 * clamp(pulse, 0, 1)})`;
+    ctx.fillRect(0, strikeY - 1, width, 1.5);
+  }
+
+  /** Star sparks + flare where a note meets its key (pure function of t). */
+  _drawImpacts(ctx, strikeY, height) {
+    if (this.tier === "OFF" || this.tier === "BATTERY" || this.hits.length === 0) return;
+    const sparks = this.tier === "PREMIUM" ? 12 : 7;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    const hits = this.hits.slice(-24);
+    for (const hit of hits) {
+      const { x, w, rgb, t, seed } = hit;
+      const life = t / CRYSTAL.hitSeconds;
+      if (life < 0 || life > 1) continue;
+      const fade = 1 - life;
+      const flare = crystalSprite("flare", rgb);
+      if (flare && t < 0.35) {
+        const k = 1 - t / 0.35;
+        const fw = Math.max(240, w * 14) * (0.75 + 0.35 * k);
+        ctx.globalAlpha = 0.9 * k;
+        ctx.drawImage(flare, x - fw / 2, strikeY - fw / 8, fw, fw / 4);
+        ctx.drawImage(flare, x - fw / 4, strikeY - fw / 16, fw / 2, fw / 8);
+      }
+      // The sparkle that sits on the key at the moment of impact.
+      const crown = crystalSprite("star", "255 255 255");
+      if (crown && t < 0.3) {
+        const k = 1 - t / 0.3;
+        const size = Math.max(48, w * 4) * (0.6 + 0.6 * k);
+        ctx.globalAlpha = k;
+        ctx.drawImage(crown, x - size / 2, strikeY - size / 2 - 2, size, size);
+      }
+      const spark = crystalSprite(seed % 2 ? "star" : "star6", rgb);
+      const dust = crystalSprite("dust", "255 255 255");
+      for (let i = 0; i < sparks; i += 1) {
+        const a = -Math.PI / 2 + (hash01(seed, i) - 0.5) * 2.0;
+        const v = 90 + 170 * hash01(seed, i + 31);
+        const px = x + Math.cos(a) * v * t;
+        const py = strikeY - 2 + Math.sin(a) * v * t + 300 * t * t;
+        if (py > strikeY + 4) continue;
+        const size = (22 + 30 * hash01(seed, i + 77)) * (0.55 + 0.45 * fade);
+        ctx.globalAlpha = fade * (0.65 + 0.35 * hash01(seed, i + 5));
+        if (spark) ctx.drawImage(spark, px - size / 2, py - size / 2, size, size);
+        if (dust) {
+          const d = size * 0.35;
+          ctx.drawImage(dust, px - d / 2, py - d / 2, d, d);
+        } else if (!spark) {
+          ctx.fillStyle = rgba(rgb, 1);
+          ctx.fillRect(px - 1, py - 1, 2, 2);
+        }
+      }
+    }
+    ctx.restore();
   }
 
   _drawNote(ctx, note, width, position, pxPerSecond, minH, frame, strikeY) {
@@ -175,7 +347,6 @@ export class FallingNotesRenderer {
     const h = Math.max(minH, duration * pxPerSecond);
     if (top > strikeY || top + h < 0) return false;
     const state = this.mappers.notePlayState(note.onset_seconds, duration, position);
-    const black = this.mappers.isVisualBlackKey(note.midi);
     const isTarget =
       frame.learning.active &&
       frame.learning.targetOnset === note.onset_seconds &&
@@ -184,22 +355,80 @@ export class FallingNotesRenderer {
       note.onset_seconds,
       frame.clippedSection
     );
-    let fill;
     const advice = frame.fingeringByIndex?.get(note.index);
-    const left = advice?.hand === "LEFT";
-    if (state === "active") fill = left ? "#b8e6ff" : "#cdc4ff";
-    else fill = advice ? (left ? "#5ab8ee" : "#8b7bff") : "#a4a8c8";
-    ctx.globalAlpha = !inSection ? 0.3 : state === "upcoming" ? 0.55 + note.velocity / 320 : 1;
-    ctx.fillStyle = fill;
-    if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x + 0.5, top, Math.max(1, w - 1), h, Math.min(4, w / 3, h / 2)); ctx.fill(); }
-    else ctx.fillRect(x, top, w, h);
-    const fingering = frame.fingeringByIndex?.get(note.index);
-    if (fingering && w >= 10 && h >= 11) {
+    // Hand colour: fingering when known, otherwise the keyboard side.
+    const left = advice ? advice.hand === "LEFT" : note.midi < 60;
+    const rgb = left ? CRYSTAL.left : CRYSTAL.right;
+    const alpha = !inSection ? 0.3 : state === "upcoming" ? 0.72 + note.velocity / 460 : 1;
+    const active = state === "active";
+    const gap = Math.max(1, Math.min(3, w * 0.12));
+    const cx = x + gap / 2;
+    const cw = Math.max(2, w - gap);
+    const radius = Math.min(cw / 2, h / 2, 9);
+    const tier = this.tier;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    // Glass body with its own light: a neon bloom on the better tiers.
+    if (tier === "PREMIUM" || tier === "BALANCED") {
+      ctx.shadowColor = rgba(rgb, 0.95);
+      ctx.shadowBlur = (tier === "PREMIUM" ? 16 : 9) * (active ? 1.5 : 1);
+    }
+    const body = ctx.createLinearGradient(cx, 0, cx + cw, 0);
+    body.addColorStop(0, rgba(rgb, 1));
+    body.addColorStop(0.5, rgba(rgb, active ? 0.8 : 0.6));
+    body.addColorStop(1, rgba(rgb, 1));
+    ctx.fillStyle = body;
+    capsulePath(ctx, cx, top, cw, h, radius);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = "transparent";
+    // Rim light and a thin white core.
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.55)";
+    ctx.stroke();
+    const coreW = Math.max(1, Math.min(2.2, cw * 0.14));
+    if (h > radius * 2 + 2) {
+      ctx.fillStyle = `rgba(255,255,255,${active ? 0.95 : 0.75})`;
+      ctx.fillRect(cx + cw / 2 - coreW / 2, top + radius, coreW, h - radius * 2);
+    } else {
+      ctx.fillStyle = `rgba(255,255,255,${active ? 0.9 : 0.6})`;
+      ctx.fillRect(cx + cw * 0.25, top + h / 2 - 0.75, cw * 0.5, 1.5);
+    }
+    // Stardust drifting above the note's tail.
+    if (tier === "PREMIUM" && inSection) {
+      const dust = crystalSprite("dust", rgb);
+      if (dust) {
+        ctx.globalCompositeOperation = "lighter";
+        const seed = (note.index ?? note.midi) | 0;
+        for (let i = 0; i < 3; i += 1) {
+          const rise = (position * (18 + 10 * hash01(seed, i)) + 40 * hash01(seed, i + 9)) % 46;
+          const dx = (hash01(seed, i + 3) - 0.5) * cw;
+          const size = 3 + 4 * hash01(seed, i + 11);
+          ctx.globalAlpha = alpha * 0.8 * (1 - rise / 46);
+          ctx.drawImage(dust, cx + cw / 2 + dx - size / 2, top - 4 - rise - size / 2, size, size);
+        }
+        ctx.globalCompositeOperation = "source-over";
+      }
+    }
+    ctx.restore();
+    // Impact: remember hits that are fresh; the sparks draw after the keys.
+    const sinceOnset = position - note.onset_seconds;
+    if (inSection && sinceOnset >= 0 && sinceOnset <= CRYSTAL.hitSeconds) {
+      this.hits.push({ x: cx + cw / 2, w: cw, rgb, t: sinceOnset, seed: ((note.index ?? 0) * 131 + note.midi) | 0 });
+    }
+    if (active) {
+      if (!this.activeKeys) this.activeKeys = new Map();
+      this.activeKeys.set(note.midi, rgb);
+    }
+    // Finger numbers only while learning; the Player shows pure light.
+    const fingering = frame.learning?.active ? advice : null;
+    if (fingering && w >= 10 && h >= 14) {
       ctx.globalAlpha = 1;
-      ctx.fillStyle = "#0d0e17";
-      ctx.font = "bold 9px system-ui, sans-serif";
+      ctx.fillStyle = "rgba(10,12,22,0.85)";
+      ctx.font = "600 9px system-ui, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(`${fingering.hand === "LEFT" ? "L" : "R"}${fingering.finger}`, x + w / 2, top + 10);
+      ctx.fillText(`${fingering.hand === "LEFT" ? "L" : "R"}${fingering.finger}`, x + w / 2, top + 11);
       ctx.textAlign = "left";
     }
     if (isTarget) {
@@ -260,34 +489,98 @@ export class FallingNotesRenderer {
     ctx.translate(-range.left * width, 0);
     const keyboardHeight = height - top;
     const whiteWidth = width / m.PIANO_WHITE_KEY_COUNT;
-    // White keys first, then black keys on top (same layering as the DOM
-    // renderer; geometry fractions are the same accepted model).
+    const lip = Math.max(3, keyboardHeight * 0.07);
+    // Keybed shadow: the keys sit in the glass, under the light line.
+    const bed = ctx.createLinearGradient(0, top, 0, top + 10);
+    bed.addColorStop(0, "rgba(0,0,0,0.45)");
+    bed.addColorStop(1, "rgba(0,0,0,0)");
+    // White keys: frosted crystal with a top highlight and a front lip.
     for (const key of m.PIANO_KEYS) {
       if (key.black) continue;
       const source = frame.keyboardSources.get(key.midi) || "idle";
-      ctx.fillStyle = this._keyFill(source, false, frame, key.midi);
-      ctx.fillRect(key.whiteIndex * whiteWidth + 0.5, top, whiteWidth - 1, keyboardHeight - 2);
+      const lit = this._keyLight(source, frame, key.midi);
+      const pressed = source !== "idle" ? 2 : 0;
+      const x = key.whiteIndex * whiteWidth + 0.5;
+      const w = whiteWidth - 1;
+      const h = keyboardHeight - 2;
+      const g = ctx.createLinearGradient(0, top, 0, top + h);
+      g.addColorStop(0, "rgba(232,236,244,0.96)");
+      g.addColorStop(0.55, "rgba(250,251,253,0.98)");
+      g.addColorStop(1, "rgba(214,220,232,0.98)");
+      ctx.fillStyle = g;
+      capsulePath(ctx, x, top + pressed, w, h - pressed, [0, 0, Math.min(4, w / 4), Math.min(4, w / 4)]);
+      ctx.fill();
+      if (lit) {
+        const lg = ctx.createLinearGradient(0, top, 0, top + h);
+        lg.addColorStop(0, rgba(lit, 0.35));
+        lg.addColorStop(0.75, rgba(lit, 0.9));
+        lg.addColorStop(1, rgba(lit, 0.6));
+        ctx.fillStyle = lg;
+        ctx.fill();
+      }
+      // Front lip (2.5D depth) and a hairline between keys.
+      ctx.fillStyle = lit ? rgba(lit, 0.55) : "rgba(150,160,182,0.55)";
+      ctx.fillRect(x, top + h - lip, w, lip);
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      ctx.fillRect(x, top + h - lip, w, 1);
+      ctx.fillStyle = "rgba(60,70,95,0.25)";
+      ctx.fillRect(x + w, top, 1, h);
     }
+    ctx.fillStyle = bed;
+    ctx.fillRect(0, top, width, 10);
     const blackWidth = whiteWidth * 0.62;
     for (const key of m.PIANO_KEYS) {
       if (!key.black) continue;
       const source = frame.keyboardSources.get(key.midi) || "idle";
+      const lit = this._keyLight(source, frame, key.midi);
+      const pressed = source !== "idle" ? 2 : 0;
       // Black keys carry their boundary via leftPercent (whiteIndex is
       // null for black keys in the accepted model).
       const x = (key.leftPercent / 100) * width - blackWidth / 2;
-      ctx.fillStyle = this._keyFill(source, true, frame, key.midi);
-      ctx.fillRect(x, top, blackWidth, keyboardHeight * 0.62);
+      const h = keyboardHeight * 0.62;
+      const g = ctx.createLinearGradient(0, top, 0, top + h);
+      g.addColorStop(0, "#2b2e3a");
+      g.addColorStop(0.7, "#0c0d13");
+      g.addColorStop(1, "#05060a");
+      ctx.fillStyle = g;
+      capsulePath(ctx, x, top + pressed, blackWidth, h - pressed, [0, 0, 3, 3]);
+      ctx.fill();
+      if (lit) {
+        ctx.fillStyle = rgba(lit, 0.85);
+        ctx.fill();
+      }
+      // Gloss stripe and a bright front edge.
+      ctx.fillStyle = "rgba(255,255,255,0.16)";
+      ctx.fillRect(x + blackWidth * 0.2, top + pressed + 3, blackWidth * 0.18, h * 0.62);
+      ctx.fillStyle = lit ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.22)";
+      ctx.fillRect(x + 1, top + h - 4, blackWidth - 2, 1.5);
+    }
+    // Light rising from inside the struck keys.
+    if (this.tier !== "BATTERY" && this.tier !== "OFF" && this.activeKeys?.size) {
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      for (const [midi, rgb] of this.activeKeys) {
+        const key = m.PIANO_KEYS[midi - m.PIANO_NOTE_MIN];
+        const glow = key && crystalSprite("glow", rgb);
+        if (!glow) continue;
+        const cx = key.black ? (key.leftPercent / 100) * width : (key.whiteIndex + 0.5) * whiteWidth;
+        const gw = whiteWidth * 2.2;
+        const gh = Math.min(top, keyboardHeight * 1.6);
+        ctx.globalAlpha = 0.75;
+        ctx.drawImage(glow, cx - gw / 2, top - gh, gw, gh);
+      }
+      ctx.restore();
     }
     // Octave labels on C keys when the strip is tall enough.
     if (keyboardHeight >= 56) {
-      ctx.fillStyle = "rgba(160, 175, 205, 0.9)";
-      ctx.font = "10px system-ui, sans-serif";
+      ctx.fillStyle = "rgba(90, 110, 150, 0.85)";
+      ctx.font = "600 10px system-ui, sans-serif";
       ctx.textAlign = "center";
       for (const key of m.PIANO_KEYS) {
         if (key.black || key.pitchClass !== "C") continue;
         const x = (key.whiteIndex + 0.5) * whiteWidth;
         if (x > 8 && x < width - 8) {
-          ctx.fillText(key.label, x, height - 6);
+          ctx.fillText(key.label, x, height - Math.max(8, keyboardHeight * 0.1));
         }
       }
     }
@@ -312,6 +605,15 @@ export class FallingNotesRenderer {
       }
     }
     ctx.restore();
+  }
+
+  /** The light colour inside a key, or null when the key rests. */
+  _keyLight(source, frame, midi) {
+    if (source === "physical" && frame.learningFeedback?.outcome === "INCORRECT" && frame.learningFeedback.note === midi) return "255 120 132";
+    if (source === "physical" && frame.learningFeedback?.accepted?.includes(midi)) return "120 230 180";
+    if (source === "physical") return CRYSTAL.physical;
+    if (source === "playback" || source === "both") return this.activeKeys?.get(midi) || CRYSTAL.right;
+    return null;
   }
 
   _keyFill(source, black, frame, midi) {

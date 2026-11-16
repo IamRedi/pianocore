@@ -108,6 +108,9 @@ class MidiOutputAdapter:
         self._sustain_pressed_channels: set[int] = set()
         self._commands_sent = 0
         self._generation = 0
+        # Playback volume in percent: scales NOTE_ON velocity only, so the
+        # piano's own sound and the player's touch on the keys are untouched.
+        self._volume = 100
         self._monitor_stop = threading.Event()
         self._monitor_thread: threading.Thread | None = None
         self._monitor_lifecycle = threading.Lock()
@@ -116,6 +119,22 @@ class MidiOutputAdapter:
     # ------------------------------------------------------------------
     # lifecycle
     # ------------------------------------------------------------------
+    @property
+    def volume(self) -> int:
+        """Playback volume in percent (0 = silent, 100 = as written)."""
+        with self._lock:
+            return self._volume
+
+    def set_volume(self, percent: int) -> int:
+        """Set the playback volume (int 0..100) and return it."""
+        if isinstance(percent, bool) or not isinstance(percent, int):
+            raise TypeError("volume must be an integer percent")
+        if not 0 <= percent <= 100:
+            raise ValueError("volume must be between 0 and 100")
+        with self._lock:
+            self._volume = percent
+            return self._volume
+
     @property
     def is_open(self) -> bool:
         with self._lock:
@@ -357,8 +376,14 @@ class MidiOutputAdapter:
                     "midi output port is not open; call open() first"
                 )
             if command.type is OutputCommandType.NOTE_ON:
+                if self._volume == 0:
+                    # Muted: the note is not sounded and therefore not owned.
+                    return
+                velocity = command.velocity
+                if self._volume != 100:
+                    velocity = max(1, min(127, round(velocity * self._volume / 100)))
                 self._backend.send_note_on(
-                    output, command.channel, command.note, command.velocity
+                    output, command.channel, command.note, velocity
                 )
                 # Duplicate NOTE_ON re-sends the command (retrigger) while
                 # ownership stays a single (channel, note) entry.
