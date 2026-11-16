@@ -1,13 +1,19 @@
-# Pi-connected installable client and product presentation
+# Pi-connected client and Crystal Studio product presentation
 
-Status: proposed for review · 16 November 2026.
+Status: proposed for review · 16 November 2026. Owner website revision supersedes the first candidate's presentation copy.
 
-Owner requested the current crystal identity across website, portfolio and GitHub, and clarified that the installed app must connect to their Pi.
+## Presentation website
 
-The manifest preserves the legacy implicit `/` app identity and defines `/ui/` scope and start URL. This avoids creating a duplicate app when the previous manifest is updated. Browser-native installation is offered only after a real `beforeinstallprompt` on a secure origin. Safari/manual installation is explained in Settings → About and in the four-language native presentation. Installation never creates a second musical engine. The Pi must remain reachable. No service worker is introduced: ADR-022's no-interception contract and fresh same-origin API semantics remain intact.
+The website introduces PianoCore through music, guided practice, sheet/falling-note views and Crystal Stage. The owner explicitly removed appliance connection/install instructions and internal release qualifications from visitor copy. The public page has no address form, discovery, login, pricing, availability narrative or installation CTA. Engineering and release evidence belongs in repository records.
 
-The presentation ships under the exact UI asset allowlist and is mirrored to the public showcase and portfolio. It does not probe, proxy or fetch any device. Public users explicitly enter their own Pi address; it is not persisted. Plain HTTP navigation requires an additional explicit link after explaining the installation limit. The website itself is not the installed piano client.
+The requested material pair is luminous teal glass with fine red glass edges for evening, and cream/gold/warm light for day. The approved transparent crystal piano PNG remains the mark. Four locales and the natural legal/author footer remain. Auto follows the device appearance.
 
-Auto appearance follows the operating-system preference. Manual Day/Night choices remain browser-local with the existing preference key.
+The two silent illustrations use the existing FallingNotesRenderer, five crystal sprites and a bounded extraction of pure keyboard/time mappings. They do not import the app client, schedule audio/MIDI or connect to a device. The sample melody and fingering are illustrative. Motion can be paused, follows reduced-motion preference, and stops while hidden or offscreen. The hero is capped at 30 fps / 2× backing scale; the practice illustration is static. `tools/sync_presentation_assets.py --check` prevents renderer/geometry/sprite drift. The portfolio receives the same native website files.
 
-No new authentication, network exposure, HTTPS provisioning, appliance deployment, musical behavior or physical acceptance is authorized by this implementation record. The observed current appliance entry was HTTP. End-to-end installation on the owner's Pi therefore remains unverified until a secure app origin is available and a controlled release is approved.
+The native About context alone reveals a return-to-app arrow. It is hidden on the public site. Assets remain an exact allowlist and ship in the wheel; no directory listing or new listener.
+
+## App installation remains inside the client
+
+The client preserves the legacy implicit `/` manifest identity, with `/ui/` scope/start. Real secure-origin browser capability controls the install button; manual/Safari help stays in app Settings. No service worker or API cache is added. No musical Core, MIDI or LED change is introduced by this presentation revision.
+
+Private client release, HTTPS provisioning and physical acceptance remain separate internal engineering steps. The product website is not gated on those operations and does not present their status to visitors.

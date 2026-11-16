@@ -1,3 +1,17 @@
+# Current presentation revision · 16 November 2026
+
+## Owner presentation revision · 16 November 2026
+
+The owner rejected operational setup/release prose on the product website and requested a premium musical presentation. Replaced the four visitor pages, removed address/connection/install sections, added actual Crystal Stage renderer illustrations and the requested teal/red-glass evening plus warm cream/gold daylight material pair. Portfolio card summaries and visible case-study status now describe the product. Private client manifest/install behavior remains unchanged.
+
+Validation for this revision: 43/43 Python asset/serving/manifest tests pass; all 26 Node test files / 35 runner results pass; exact renderer, pure mapping and five-sprite sync passes. Portfolio lint/typecheck/tests/build/GitHub sync pass. Lint reports two pre-existing unused-parameter warnings in the unchanged copied renderer; no errors. The product-page guard verifies four locales / 20 used local assets, no setup/release/form copy, no device/audio API client and real production-server HTTP/CSP/no-cookie behavior. Narrow 320px SQ/IT, 390×844 phone, desktop and 844×390 landscape checked; a decorative-line overflow at 320px was corrected and rechecked. SQ/EN desktop/phone captures retained. Language/theme menus, live Auto state, silent animation pause/resume, practice illustration, natural footer and no JS errors verified.
+
+No new provider, AI generation, dependency, appliance access or musical behavior change. Current native/public/portfolio presentation files remain byte-identical. New proof screenshots are retained in the authorized chat outputs; earlier captures and tests below are historical. Publication remains through the existing PRs, with a fresh exact-commit Preview; no Production claim.
+
+---
+
+## Earlier candidate evidence — presentation copy superseded
+
 # Current update · 16 November 2026
 
 Product source synchronized from the current private Crystal Studio/logo revision `429bba8` plus the bounded Pi-connected presentation/install change. Private work records and live device configuration are excluded. Current local verification is recorded below; the October evidence remains historical.
@@ -79,3 +93,5 @@ Das private Repository führt zu jeder Aufgabe Übergabe, Nachweise und eine una
 Final install checks: legacy implicit root app identity preserved while start/scope use /ui/. Focused manifest/icon/serving suite: 43/43 PASS, including two new identity/icon tests. All 76 packaged UI assets match the built wheel byte-for-byte; wheel SHA-256 a2a68ad41690231e0cb5ca2984b9a6432a567ac95c6b52c0f0d788f0c0074ca9. Native Settings → About → app return verified, no JS warnings/errors and no address form on the native origin.
 
 Latest upstream phone-landscape CSS a728313 was incorporated before delivery. A real 844x390 app render has a visible side rail, all transport controls, body height 390 and no horizontal overflow. After the merge, manifest and static-contract tests pass 24/24; final wheel repackaging matches all 76 allowlisted assets.
+
+Final revised presentation: 88 allowlisted assets match the wheel; SHA-256 f3b5019b088f5d0cf9d28f2f2cc9a4134087a13a66d9aeb9d54237cc6deeedaa. Native/public source and portfolio About mirrors verified identical.

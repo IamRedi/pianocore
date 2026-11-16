@@ -12,7 +12,7 @@ The current interface uses studio photographs, clear glass, a crystal grand pian
 
 ## Connect and install
 
-Connect your USB-MIDI piano to a Raspberry Pi running PianoCore. Open the Pi’s address from your phone, tablet or computer on the same trusted network. The website lets you open your own appliance address; it does not host a public playable piano or discover devices.
+Connect your USB-MIDI piano to a Raspberry Pi running PianoCore. Open the Pi’s address from your phone, tablet or computer on the same trusted network. The website presents music, guided practice and Crystal Stage through silent illustrations using the app’s own renderer.
 
 For installation, open the **app at the Pi’s HTTPS address** and choose the browser’s Install app command when available. Safari on iPhone/iPad uses Share → Add to Home Screen. The installed client still connects to your Pi, which must remain reachable. Opening the presentation website does not install the piano engine.
 

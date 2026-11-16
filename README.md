@@ -12,7 +12,7 @@ Die aktuelle Oberfläche verbindet Studiofotos mit klarem Glas, dem Kristallflü
 
 ## Verbinden und installieren
 
-Verbinde dein USB-MIDI-Piano mit einem Raspberry Pi, auf dem PianoCore läuft. Öffne die Pi-Adresse am Handy, Tablet oder Computer im selben vertrauenswürdigen Netzwerk. Auf der Website kannst du deine eigene Geräteadresse öffnen; sie enthält kein öffentlich spielbares Piano und sucht keine Geräte.
+Verbinde dein USB-MIDI-Piano mit einem Raspberry Pi, auf dem PianoCore läuft. Öffne die Pi-Adresse am Handy, Tablet oder Computer im selben vertrauenswürdigen Netzwerk. Die Website präsentiert Musik, geführtes Üben und Crystal Stage mit stillen Illustrationen aus dem eigenen App-Renderer.
 
 Zur Installation öffnest du die **App unter der HTTPS-Adresse des Pi** und wählst die Browser-Funktion App installieren, sobald verfügbar. Auf iPhone/iPad: Safari → Teilen → Zum Home-Bildschirm. Der installierte Client benötigt weiterhin den erreichbaren Pi. Die Präsentationswebsite installiert keine Klavier-Engine.
 
